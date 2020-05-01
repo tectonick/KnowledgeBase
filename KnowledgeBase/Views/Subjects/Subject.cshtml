@@ -6,9 +6,11 @@
     <div class="text-center">
         <h1 class="display-4">Subjects</h1>
         <br />
-        <form asp-controller="Subjects" asp-action="EditSubject" asp-route-id="@Model.Id" method="post">
+        
+        <form asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
             <label asp-for="Name"> </label>
             <input type="text" asp-for="Name" />
+
             <h2>Subject @Model.Name</h2>
             <div class="validation" asp-validation-summary="All"></div>
             <button class="btn-primary" type="submit">Submit</button>

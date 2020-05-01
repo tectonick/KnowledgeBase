@@ -40,6 +40,12 @@ namespace KnowledgeBase.Repositories
         {
             return _dbContext.Subjects.FirstOrDefault(sub => sub.Name == name);
         }
+
+        public Subject Update(Subject updatedSubject)
+        {
+            _dbContext.Subjects.Update(updatedSubject);
+            return updatedSubject;
+        }
     }
 
 }

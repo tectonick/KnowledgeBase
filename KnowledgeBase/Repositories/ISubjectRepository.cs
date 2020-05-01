@@ -11,6 +11,7 @@ namespace KnowledgeBase.Repositories
         Subject GetByName(string name);
         Subject GetById(int id);
         Subject Add(Subject newSubject);
+        Subject Update(Subject updatedSubject);
         Subject Delete(Subject subject);
     }
 

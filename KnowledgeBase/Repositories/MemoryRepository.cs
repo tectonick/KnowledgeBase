@@ -54,5 +54,12 @@ namespace KnowledgeBase.Repositories
         {
             return subjects.Find(sub => sub.Name == name);
         }
+
+        public Subject Update(Subject updatedSubject)
+        {
+            var toUpdate=subjects.Find(sub => sub.Id == updatedSubject.Id);
+            toUpdate.Name = updatedSubject.Name;
+            return updatedSubject;
+        }
     }
 }

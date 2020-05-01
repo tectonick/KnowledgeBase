@@ -54,7 +54,8 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Details/5
         public ActionResult Subject(int subjectId)
         {
-            return View(_subjectRepository.GetById(subjectId));
+            var subject = _subjectRepository.GetById(subjectId);
+            return View(subject);
         }
 
         // GET: Subjects/Create
@@ -76,12 +77,13 @@ namespace KnowledgeBase.Controllers
         // POST: Subjects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSubject(int id, string Name)
+        public ActionResult EditSubject(int subjectId, string name)
         {
             if (ModelState.IsValid)
             {
-                var subject = _subjectRepository.GetById(id);
-                subject.Name = Name;
+                var editedSubject=_subjectRepository.GetById(subjectId);
+                editedSubject.Name = name;
+                _subjectRepository.Update(editedSubject);
                 
             }
               return RedirectToAction(nameof(Index));  
