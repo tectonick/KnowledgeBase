@@ -1,0 +1,37 @@
+﻿@model List<Subject>
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Subjects</h1>
+        <br />
+        @foreach (var subject in Model)
+        {
+            <h2>Subject @subject.Name</h2>
+            @if (subject.Themes == null)
+            {
+                <i>No themes</i>
+            }
+            else
+            {
+                @foreach (var theme in subject.Themes)
+                {
+                    <div>
+                        <h6> @theme.Name</h6>
+
+                        <b>DateLearned: </b>@theme.DateLearned
+                        <b>NextRepeat: </b>@theme.NextRepeat
+                        <b>TimesRepeated: </b>@theme.TimesRepeated
+                        <b>Description: </b>@theme.Description<br />
+                    </div>
+                }
+            }
+
+            <a asp-controller="Subjects" asp-action="Details" asp-route-id="@subject.Id">Details</a>
+            <a asp-controller="Subjects" asp-action="Delete" asp-route-id="@subject.Id">Delete subject</a>
+
+        }
+
+
+    </div>
