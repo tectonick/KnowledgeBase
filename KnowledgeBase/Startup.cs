@@ -28,8 +28,8 @@ namespace KnowledgeBase
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
-            services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
-            //services.AddScoped<ISubjectRepository, DbSubjectRepository>();
+            //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
+            services.AddScoped<ISubjectRepository, DbSubjectRepository>();
 
 
         }

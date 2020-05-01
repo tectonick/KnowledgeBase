@@ -5,6 +5,7 @@ namespace KnowledgeBase.Models
 {
     public class Theme
     {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name cannot be empty")]

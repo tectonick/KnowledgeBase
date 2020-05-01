@@ -30,7 +30,8 @@ namespace KnowledgeBase.Controllers
         [Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int subjectId, int themeId)
         {
-            var theme = _subjectRepository.GetById(subjectId).Themes.Find(t => t.Id == themeId);
+            var subject = _subjectRepository.GetById(subjectId);
+            var theme = subject.Themes.Find(t => t.Id == themeId);
             return View(theme);
         }
 
@@ -38,7 +39,8 @@ namespace KnowledgeBase.Controllers
         [Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int subjectId, int themeId,Theme newTheme)
         {
-            var theme = _subjectRepository.GetById(subjectId).Themes.Find(t => t.Id == themeId);
+            var editedSubject = _subjectRepository.GetById(subjectId);
+            var theme = editedSubject.Themes.Find(t => t.Id == themeId);
             if (ModelState.IsValid)
             {
                 theme.Name = newTheme.Name;
@@ -46,6 +48,9 @@ namespace KnowledgeBase.Controllers
                 theme.DateLearned = newTheme.DateLearned;
                 theme.NextRepeat = newTheme.NextRepeat;
                 theme.TimesRepeated = newTheme.TimesRepeated;
+           
+                _subjectRepository.Update(editedSubject);
+
                 return RedirectToAction(nameof(Subject), new { subjectId = subjectId });
             }
             return View(theme);
@@ -70,7 +75,9 @@ namespace KnowledgeBase.Controllers
         public ActionResult CreateTheme(int subjectId)
         {
             Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, NextRepeat=DateTime.Now.AddDays(1) };
-            _subjectRepository.GetById(subjectId).AddTheme(newTheme);
+            var editedSubject=_subjectRepository.GetById(subjectId);
+            editedSubject.AddTheme(newTheme);
+            _subjectRepository.Update(editedSubject);
             return RedirectToAction(nameof(Theme), new { subjectId= subjectId, themeId= newTheme.Id });
         }
 
@@ -100,7 +107,11 @@ namespace KnowledgeBase.Controllers
 
         public ActionResult DeleteTheme(int subjectId, int themeId)
         {
-            _subjectRepository.GetById(subjectId).DeleteTheme(themeId);
+           
+            var editedSubject = _subjectRepository.GetById(subjectId);
+            editedSubject.DeleteTheme(themeId);
+            _subjectRepository.Update(editedSubject);
+
             return RedirectToAction(nameof(Subject), new { subjectId = subjectId }); 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using KnowledgeBase.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,13 @@ namespace KnowledgeBase.Repositories
 
         public List<Subject> GetAll()
         {
-            return _dbContext.Subjects.ToList();
+            return _dbContext.Subjects.Include(x => x.Themes).ToList();
         }
 
         public Subject GetById(int id)
         {
-            return _dbContext.Subjects.Find(id);
+            //return _dbContext.Subjects.Find(id)
+            return _dbContext.Subjects.Include(x => x.Themes).ToList().Find(a => a.Id == id);
         }
 
         public Subject GetByName(string name)
@@ -44,6 +46,7 @@ namespace KnowledgeBase.Repositories
         public Subject Update(Subject updatedSubject)
         {
             _dbContext.Subjects.Update(updatedSubject);
+            _dbContext.SaveChanges();
             return updatedSubject;
         }
     }

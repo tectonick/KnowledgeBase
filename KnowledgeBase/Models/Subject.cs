@@ -5,6 +5,7 @@ namespace KnowledgeBase.Models
 {
     public class Subject
     {
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage ="Name cannot be empty")]
         [StringLength(100, ErrorMessage = "Name is too big")]
@@ -16,7 +17,7 @@ namespace KnowledgeBase.Models
             {
                 Themes = new List<Theme>();
             }
-            newTheme.Id = Themes.Count;
+            newTheme.Id = 0;
             Themes.Add(newTheme);
         }
 
