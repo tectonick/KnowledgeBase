@@ -36,15 +36,20 @@ namespace KnowledgeBase.Controllers
 
         [HttpPost]
         [Route("{controller}/Details/{subjectId}/{themeId}")]
-        public ActionResult Theme(int subjectId, int themeId, string name, string description ,DateTime dateLearned, DateTime nextRepeat, int timesRepeated)
+        public ActionResult Theme(int subjectId, int themeId,Theme newTheme)
         {
             var theme = _subjectRepository.GetById(subjectId).Themes.Find(t => t.Id == themeId);
-            theme.Name = name;
-            theme.Description = description;
-            theme.DateLearned = dateLearned;
-            theme.NextRepeat = nextRepeat;
-            theme.TimesRepeated = timesRepeated;
+            if (ModelState.IsValid)
+            {
+                theme.Name = newTheme.Name;
+                theme.Description = newTheme.Description;
+                theme.DateLearned = newTheme.DateLearned;
+                theme.NextRepeat = newTheme.NextRepeat;
+                theme.TimesRepeated = newTheme.TimesRepeated;
+                return RedirectToAction(nameof(Details), new { subjectId = subjectId });
+            }
             return View(theme);
+
         }
 
         // GET: Subjects/Details/5
@@ -64,16 +69,13 @@ namespace KnowledgeBase.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, string Name)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var subject = _subjectRepository.GetById(id);
                 subject.Name = Name;
-                return RedirectToAction(nameof(Details), new { subjectId=id});
+                
             }
-            catch
-            {
-                return View();
-            }
+              return RedirectToAction(nameof(Details), new { subjectId = id });  
         }
 
         // GET: Subjects/Delete/5
