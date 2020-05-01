@@ -1,0 +1,22 @@
+﻿@model Theme
+@{
+    ViewData["Title"] = "Theme";
+}
+    <div>
+        <h6> @Model.Name</h6>
+        <form method="post">
+            <label asp-for="Name"> </label>
+            <input type="text" asp-for="Name" />
+            <label asp-for="Description"> </label>
+            <input type="text" asp-for="Description" />
+
+            <label asp-for="DateLearned"> </label>
+            <input type="datetime-local" asp-for="DateLearned" />
+            <label asp-for="NextRepeat"> </label>
+            <input type="datetime-local" asp-for="NextRepeat" />
+            <label asp-for="TimesRepeated"> </label>
+            <input type="number" asp-for="TimesRepeated" />
+            <button class="btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+

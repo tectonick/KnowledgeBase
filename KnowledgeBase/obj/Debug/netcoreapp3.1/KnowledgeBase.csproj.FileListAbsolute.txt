@@ -141,3 +141,4 @@ C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\bin\Debug\netcoreapp3.1\Mic
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.1\KnowledgeBase.csproj.CoreCompileInputs.cache
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.1\KnowledgeBase.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.1\Razor\Views\Subjects\Details.cshtml.g.cs
+C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.1\Razor\Views\Subjects\Theme.cshtml.g.cs

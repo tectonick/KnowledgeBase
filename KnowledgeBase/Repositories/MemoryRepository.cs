@@ -14,17 +14,17 @@ namespace KnowledgeBase.Repositories
         {
             subjects = new List<Subject>();
             List<Theme> mathThemes = new List<Theme> {
-                new Theme { Name = "Trigonometry", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=1},
-                new Theme { Name = "Calculus", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=1}
+                new Theme { Id=0, Name = "Trigonometry", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=1},
+                new Theme { Id=1, Name = "Calculus", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=1}
                 };
-            subjects.Add(new Subject { Name = "Math", Themes = mathThemes });
+            subjects.Add(new Subject {Id=0, Name = "Math", Themes = mathThemes });
 
             List<Theme> physicsThemes = new List<Theme> {
-                new Theme { Name = "Magnetism", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0},
-                new Theme { Name = "Light", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0},
-                new Theme { Name = "Quantum", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0}
+                new Theme {Id=2, Name = "Magnetism", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0},
+                new Theme {Id=3, Name = "Light", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0},
+                new Theme {Id=4, Name = "Quantum", DateLearned = DateTime.Today, NextRepeat=DateTime.Today.AddDays(1), TimesRepeated=0}
                 };
-            subjects.Add(new Subject { Name = "Physics", Themes = physicsThemes });
+            subjects.Add(new Subject {Id=1, Name = "Physics", Themes = physicsThemes });
         }
 
         public Subject Add(Subject newSubject)

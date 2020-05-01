@@ -25,10 +25,32 @@ namespace KnowledgeBase.Controllers
             return View(subjects);
         }
 
-        // GET: Subjects/Details/5
-        public ActionResult Details(int id)
+
+        [HttpGet]
+        [Route("{controller}/Details/{subjectId}/{themeId}")]
+        public ActionResult Theme(int subjectId, int themeId)
         {
-            return View(_subjectRepository.GetById(id));
+            var theme = _subjectRepository.GetById(subjectId).Themes.Find(t => t.Id == themeId);
+            return View(theme);
+        }
+
+        [HttpPost]
+        [Route("{controller}/Details/{subjectId}/{themeId}")]
+        public ActionResult Theme(int subjectId, int themeId, string name, string description ,DateTime dateLearned, DateTime nextRepeat, int timesRepeated)
+        {
+            var theme = _subjectRepository.GetById(subjectId).Themes.Find(t => t.Id == themeId);
+            theme.Name = name;
+            theme.Description = description;
+            theme.DateLearned = dateLearned;
+            theme.NextRepeat = nextRepeat;
+            theme.TimesRepeated = timesRepeated;
+            return View(theme);
+        }
+
+        // GET: Subjects/Details/5
+        public ActionResult Details(int subjectId)
+        {
+            return View(_subjectRepository.GetById(subjectId));
         }
 
         // GET: Subjects/Create
@@ -46,7 +68,7 @@ namespace KnowledgeBase.Controllers
             {
                 var subject = _subjectRepository.GetById(id);
                 subject.Name = Name;
-                return RedirectToAction(nameof(Details), new { Id=id});
+                return RedirectToAction(nameof(Details), new { subjectId=id});
             }
             catch
             {
@@ -55,9 +77,9 @@ namespace KnowledgeBase.Controllers
         }
 
         // GET: Subjects/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int subjectId)
         {
-            var toDelete = _subjectRepository.GetById(id);
+            var toDelete = _subjectRepository.GetById(subjectId);
             _subjectRepository.Delete(toDelete);
 
             return RedirectToAction(nameof(Index));

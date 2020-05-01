@@ -3,38 +3,39 @@
     ViewData["Title"] = "Details";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Subjects</h1>
-        <br />
-        <form asp-controller="Subjects" asp-action="Edit" asp-route-id="Id" method="post">
-            <label asp-for="Name"> </label>
-            <input type="text" asp-for="Name" />
-            <h2>Subject @Model.Name</h2>
-            @if (Model.Themes == null)
+<div class="text-center">
+    <h1 class="display-4">Subjects</h1>
+    <br />
+    <form asp-controller="Subjects" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+        <label asp-for="Name"> </label>
+        <input type="text" asp-for="Name" />
+        <h2>Subject @Model.Name</h2>
+        @if (Model.Themes == null)
+        {
+            <i>No themes</i>
+        }
+        else
+        {
+            @foreach (var theme in Model.Themes)
             {
-                <i>No themes</i>
-            }
-            else
-            {
-                @foreach (var theme in Model.Themes)
-                {
-                    <div>
-                        <h6> @theme.Name</h6>
+                <div>
+                    <h6> @theme.Name</h6>
 
-                        <b>DateLearned: </b>@theme.DateLearned
-                        <b>NextRepeat: </b>@theme.NextRepeat
-                        <b>TimesRepeated: </b>@theme.TimesRepeated
-                        <b>Description: </b>@theme.Description<br />
-                    </div>
-                }
+                    <b>DateLearned: </b>@theme.DateLearned
+                    <b>NextRepeat: </b>@theme.NextRepeat
+                    <b>TimesRepeated: </b>@theme.TimesRepeated
+                    <b>Description: </b>@theme.Description<br />
+                    <a asp-controller="Subjects" asp-action="Theme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Detail</a>
+                </div>
             }
-            <button class="btn-primary" type="submit">Submit</button>
-</form>
-            
+        }
+        <button class="btn-primary" type="submit">Submit</button>
+    </form>
 
-            <a asp-controller="Subjects" asp-action="Index">Back</a>
-            <a asp-controller="Subjects" asp-action="Delete" asp-route-id="@Model.Id">Delete subject</a>
-    </div>
+
+    <a asp-controller="Subjects" asp-action="Index">Back</a>
+    <a asp-controller="Subjects" asp-action="Delete" asp-route-subjectId="@Model.Id">Delete subject</a>
+</div>
 
 
 
