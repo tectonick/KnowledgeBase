@@ -27,7 +27,7 @@
                     <h6> @theme.Name</h6>
 
                     <b>DateLearned: </b>@theme.DateLearned
-                    <b>NextRepeat: </b>@theme.NextRepeat
+                    @if (theme.NextRepeat != DateTime.MinValue) {<b>NextRepeat: </b>@theme.NextRepeat}
                     <b>TimesRepeated: </b>@theme.TimesRepeated
                     <b>Description: </b>@theme.Description<br />
                     <a asp-controller="Subjects" asp-action="Theme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Detail</a>

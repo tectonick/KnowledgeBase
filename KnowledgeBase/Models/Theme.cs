@@ -6,8 +6,14 @@ namespace KnowledgeBase.Models
 {
     public class Theme
     {
-        public List<DateTime> RepeatDates;
+        //Sorted list
+        //The first date is the date of learning, other dates are scheduled repeats
+        public List<DateTime> RepeatDates { get; set; }
 
+        public Theme()
+        {
+            RepeatDates = new List<DateTime>();
+        }
 
         [Key]
         public int Id { get; set; }
@@ -20,25 +26,7 @@ namespace KnowledgeBase.Models
         [Required]
         [Display(Name = "First time learned")]
 
-
-        public DateTime DateLearned
-        {
-            get => RepeatDates[0];
-            set
-            {
-                if (RepeatDates==null)
-                {
-                    RepeatDates = new List<DateTime>();
-                }
-                if (RepeatDates.Count==0)
-                {
-                    RepeatDates.Add(value);
-                }
-            }
-                
-                
-                
-        }
+        public DateTime DateLearned { get; set; }
 
         public DateTime NextRepeat
         {

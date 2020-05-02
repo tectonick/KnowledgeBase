@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,12 @@ namespace KnowledgeBase.Controllers
     {
 
         private readonly ISubjectRepository _subjectRepository;
+        private readonly IScheduler _scheduler;
 
-        public SubjectsController(ISubjectRepository subjectRepository)
+        public SubjectsController(ISubjectRepository subjectRepository, IScheduler scheduler)
         {
             _subjectRepository = subjectRepository;
+            _scheduler = scheduler;
         }
         // GET: Subjects
         public ActionResult Index()
@@ -46,6 +49,8 @@ namespace KnowledgeBase.Controllers
                 theme.Name = newTheme.Name;
                 theme.Description = newTheme.Description;
                 theme.DateLearned = newTheme.DateLearned;
+                theme.RepeatDates = newTheme.RepeatDates;
+                theme.RepeatDates.Sort();
            
                 _subjectRepository.Update(editedSubject);
 
@@ -74,7 +79,8 @@ namespace KnowledgeBase.Controllers
         {
             Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now };
             var editedSubject=_subjectRepository.GetById(subjectId);
-            editedSubject.AddTheme(newTheme);
+            _scheduler.Schedule(newTheme);
+            editedSubject.AddTheme(newTheme);            
             _subjectRepository.Update(editedSubject);
             return RedirectToAction(nameof(Theme), new { subjectId= subjectId, themeId= newTheme.Id });
         }

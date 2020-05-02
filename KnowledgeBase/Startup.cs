@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KnowledgeBase.Logic;
 using KnowledgeBase.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace KnowledgeBase
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
+            services.AddSingleton<IScheduler, Scheduler>();
             //services.AddScoped<ISubjectRepository, DbSubjectRepository>();
 
 

@@ -2,26 +2,42 @@
 @{
     ViewData["Title"] = "Theme";
 }
-    <div>
-        <h6> @Model.Name</h6>
-        <form method="post">
-            <div class="validation" asp-validation-summary="All"></div>
-            <label asp-for="Name"> </label>
-            <input type="text" asp-for="Name" />
+<div>
+    <h6> @Model.Name</h6>
+    <form method="post">
+        <div class="validation" asp-validation-summary="All"></div>
 
-            <label asp-for="Description"> </label>
-            <input type="text" asp-for="Description" />
 
-            <label asp-for="DateLearned"> </label>
-            <input type="datetime-local" asp-for="DateLearned" />
 
-            <label asp-for="TimesRepeated"> </label>
-            @Model.TimesRepeated
-            <button class="btn-primary" type="submit">Submit</button>
-        </form>
-    </div>
+        <label asp-for="Name"> </label>
+        <input type="text" asp-for="Name" />
+        <label asp-for="TimesRepeated"> </label>
+        @Model.TimesRepeated
+        <label asp-for="DateLearned"> </label>
+        <input type="datetime-local" asp-for="DateLearned" />
+        <br />
+
+        @if (Model.RepeatDates.Count > 0)
+        {
+            @for (int i = 0; i < Model.RepeatDates.Count; i++)
+            {
+                <label asp-for="RepeatDates[i]"> </label> <input type="datetime-local" asp-for="RepeatDates[i]" /> <br />
+
+            }
+
+        }
+
+
+        <br /><br />
+        <label asp-for="Description"> </label>
+        <input type="text" asp-for="Description" />
+
+
+        <button class="btn-primary" type="submit">Submit</button>
+    </form>
+</div>
 @section Scripts
 {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
 

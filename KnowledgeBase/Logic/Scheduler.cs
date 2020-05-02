@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KnowledgeBase.Logic
 {
-    public class Scheduler
+    public class Scheduler : IScheduler
     {
         List<int> dayIntervals;
         public Scheduler()
@@ -19,7 +19,7 @@ namespace KnowledgeBase.Logic
         }
         public void Schedule(Theme theme)
         {
-            DateTime learned = theme.RepeatDates[0];
+            DateTime learned = theme.DateLearned;
             foreach (var dayInterval in dayIntervals)
             {
                 theme.RepeatDates.Add(learned.AddDays(dayInterval));
@@ -29,12 +29,12 @@ namespace KnowledgeBase.Logic
         {
             DateTime learned = DateTime.Now;
             theme.RepeatDates.Clear();
-            theme.RepeatDates.Add(learned);
             Schedule(theme);
         }
 
         public void AddRepeat(Theme theme, DateTime dateToRepeat)
         {
+            //inserting date in sorted list
             int indexToInsert = theme.RepeatDates.FindIndex(date => DateTime.Compare(date, dateToRepeat) >= 0);
             theme.RepeatDates.Insert(indexToInsert, dateToRepeat);
         }

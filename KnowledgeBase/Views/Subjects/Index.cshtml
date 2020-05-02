@@ -3,35 +3,36 @@
     ViewData["Title"] = "Subjects";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Subjects</h1>
-        <br />
-        @foreach (var subject in Model)
+<div class="text-center">
+    <h1 class="display-4">Subjects</h1>
+    <br />
+    @foreach (var subject in Model)
+    {
+        <h2>Subject @subject.Name</h2>
+        @if (subject.Themes == null)
         {
-            <h2>Subject @subject.Name</h2>
-            @if (subject.Themes == null)
-            {
-                <i>No themes</i>
-            }
-            else
-            {
-                @foreach (var theme in subject.Themes)
-                {
-                    <div>
-                        <h6> @theme.Name</h6>
-
-                        <b>DateLearned: </b>@theme.DateLearned
-                        <b>NextRepeat: </b>@theme.NextRepeat
-                        <b>TimesRepeated: </b>@theme.TimesRepeated
-                        <b>Description: </b>@theme.Description<br />
-                    </div>
-                }
-            }
-            <a asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@subject.Id">Details</a>
-            <a asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@subject.Id">Delete subject</a>
-
+            <i>No themes</i>
         }
-        <br /><br />
-        <a asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+        else
+        {
+            @foreach (var theme in subject.Themes)
+            {
+                <div>
+                    <h6> @theme.Name</h6>
 
-    </div>
+                    <b>DateLearned: </b>@theme.DateLearned
+                    @if (theme.NextRepeat != DateTime.MinValue)
+                    {<b>NextRepeat: </b>@theme.NextRepeat}
+                    <b>TimesRepeated: </b>@theme.TimesRepeated
+                    <b>Description: </b>@theme.Description<br />
+                </div>
+            }
+        }
+        <a asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@subject.Id">Details</a>
+        <a asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@subject.Id">Delete subject</a>
+
+    }
+    <br /><br />
+    <a asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+
+</div>
