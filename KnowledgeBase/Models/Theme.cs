@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KnowledgeBase.Models
 {
     public class Theme
     {
+        public List<DateTime> RepeatDates;
+
+
         [Key]
         public int Id { get; set; }
 
@@ -15,14 +19,35 @@ namespace KnowledgeBase.Models
         public string Description { get; set; }
         [Required]
         [Display(Name = "First time learned")]
-        public DateTime DateLearned { get; set; }
 
-        [Display(Name = "Next repeat")]
-        public DateTime NextRepeat { get; set; }
-        [Display(Name = "Times repeated")]
 
-        [Range(0, 10000, ErrorMessage = "Invalid number for times repeated")]
-        public int TimesRepeated { get; set; }
+        public DateTime DateLearned
+        {
+            get => RepeatDates[0];
+            set
+            {
+                if (RepeatDates==null)
+                {
+                    RepeatDates = new List<DateTime>();
+                }
+                if (RepeatDates.Count==0)
+                {
+                    RepeatDates.Add(value);
+                }
+            }
+                
+                
+                
+        }
+
+        public DateTime NextRepeat
+        {
+            get => RepeatDates.Find(date => DateTime.Compare(date, DateTime.Now) >= 0);
+        }
+
+        public int TimesRepeated {
+            get => RepeatDates.FindLastIndex(date => DateTime.Compare(date, DateTime.Now) < 0);                
+        }
 
     }
 }

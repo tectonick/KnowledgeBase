@@ -14,10 +14,9 @@
 
             <label asp-for="DateLearned"> </label>
             <input type="datetime-local" asp-for="DateLearned" />
-            <label asp-for="NextRepeat"> </label>
-            <input type="datetime-local" asp-for="NextRepeat" />
+
             <label asp-for="TimesRepeated"> </label>
-            <input type="number" asp-for="TimesRepeated" />
+            @Model.TimesRepeated
             <button class="btn-primary" type="submit">Submit</button>
         </form>
     </div>

@@ -46,8 +46,6 @@ namespace KnowledgeBase.Controllers
                 theme.Name = newTheme.Name;
                 theme.Description = newTheme.Description;
                 theme.DateLearned = newTheme.DateLearned;
-                theme.NextRepeat = newTheme.NextRepeat;
-                theme.TimesRepeated = newTheme.TimesRepeated;
            
                 _subjectRepository.Update(editedSubject);
 
@@ -74,7 +72,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Create
         public ActionResult CreateTheme(int subjectId)
         {
-            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, NextRepeat=DateTime.Now.AddDays(1) };
+            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now };
             var editedSubject=_subjectRepository.GetById(subjectId);
             editedSubject.AddTheme(newTheme);
             _subjectRepository.Update(editedSubject);
