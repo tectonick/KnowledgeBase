@@ -8,6 +8,7 @@ namespace KnowledgeBase.Models
     {
         //Sorted list
         //The first date is the date of learning, other dates are scheduled repeats
+        [Required(AllowEmptyStrings =true)]
         public List<DateTime> RepeatDates { get; set; }
 
         public Theme()

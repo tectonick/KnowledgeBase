@@ -2,42 +2,114 @@
 @{
     ViewData["Title"] = "Theme";
 }
-<div>
-    <h6> @Model.Name</h6>
+<div class="text-center">
+    <h1 class="display-4">Theme @Model.Name</h1>
+    <hr />
     <form method="post">
-        <div class="validation" asp-validation-summary="All"></div>
+        <div class="row">
+            <div class="col-sm-8">
+                @*<label asp-for="Description"> </label>*@
+                @*<input type="text" asp-for="Description" />*@
+                <textarea id="mytextarea">Here you can type some notes</textarea>
+            </div>
+            <div class="col-sm-4">
+                <div class="card p-3  bg-light">
+                    <h6 class="card-title">Properties</h6>
+                    <div class="card-body">
+                        <div class="validation" asp-validation-summary="All"></div>
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
+                            <div class="input-group-append">
+                                <label class="input-group-text" asp-for="Name"></label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="datetime-local" asp-for="DateLearned" class="form-control">
+                            <div class="input-group-append">
+                                <label class="input-group-text" asp-for="DateLearned"></label>
+                            </div>
+                        </div>
+                        @if (Model.RepeatDates.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                            {
+                                <div class="input-group mb-3">
+                                    <input type="datetime-local" asp-for="RepeatDates[i]" class="form-control">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" asp-for="RepeatDates[i]"></label>
+                                    </div>
+                                </div>
+
+                                @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
+                            }
+                        }
+                    </div>
+                    <button class="btn-primary" type="submit">Save changes</button>
+                    <button class="btn-danger" type="submit">Back</button>
+                </div>
+            </div>
 
 
-
-        <label asp-for="Name"> </label>
-        <input type="text" asp-for="Name" />
-        <label asp-for="TimesRepeated"> </label>
-        @Model.TimesRepeated
-        <label asp-for="DateLearned"> </label>
-        <input type="datetime-local" asp-for="DateLearned" />
-        <br />
-
-        @if (Model.RepeatDates.Count > 0)
-        {
-            @for (int i = 0; i < Model.RepeatDates.Count; i++)
-            {
-                <label asp-for="RepeatDates[i]"> </label> <input type="datetime-local" asp-for="RepeatDates[i]" /> <br />
-
-            }
-
-        }
-
-
-        <br /><br />
-        <label asp-for="Description"> </label>
-        <input type="text" asp-for="Description" />
-
-
-        <button class="btn-primary" type="submit">Submit</button>
+        </div>
     </form>
-</div>
-@section Scripts
+    </div>
+
+    @section Scripts
 {
-    <partial name="_ValidationScriptsPartial" />
-}
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    @section HeadScripts
+{
+        <script src="https://cdn.tiny.cloud/1/1sb38u376a8ulm88ac0aab6gulkw3lx4avevpvcg3dglkqn0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: '#mytextarea',
+                plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+                imagetools_cors_hosts: ['picsum.photos'],
+                //menubar: 'file edit view insert format tools table help',
+                menubar: false,
+                toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+                toolbar_sticky: true,
+                autosave_ask_before_unload: true,
+                autosave_interval: "30s",
+                autosave_prefix: "{path}{query}-{id}-",
+                autosave_restore_when_empty: false,
+                autosave_retention: "2m",
+                image_advtab: true,
+                content_css: '//www.tiny.cloud/css/codepen.min.css',
+                importcss_append: true,
+                height: 100,
+                file_picker_callback: function (callback, value, meta) {
+                    /* Provide file and text for the link dialog */
+                    if (meta.filetype === 'file') {
+                        callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                    }
+
+                    /* Provide image and alt text for the image dialog */
+                    if (meta.filetype === 'image') {
+                        callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                    }
+
+                    /* Provide alternative source and posted for the media dialog */
+                    if (meta.filetype === 'media') {
+                        callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                    }
+                },
+                templates: [
+                    { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                    { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                    { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+                ],
+                template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+                template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+                height: 600,
+                image_caption: true,
+                quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+                noneditable_noneditable_class: "mceNonEditable",
+                toolbar_mode: 'sliding',
+                contextmenu: "link image imagetools table",
+            });
+        </script>
+    }
 

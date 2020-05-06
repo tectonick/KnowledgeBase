@@ -38,6 +38,15 @@ namespace KnowledgeBase.Controllers
             return View(theme);
         }
 
+        //[HttpGet]
+        ////[Route("{controller}/Subject/{subjectId}/{themeId}/Delete/{timeIndex}")]
+        //public ActionResult DeleteRepeatTime(Theme mytheme, int timeIndex)
+        //{
+        //    mytheme.RepeatDates.RemoveAt(timeIndex);
+        //    return RedirectToAction(nameof(Theme), new { themeId = mytheme.Id });
+        //}
+
+
         [HttpPost]
         [Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int subjectId, int themeId,Theme newTheme)
