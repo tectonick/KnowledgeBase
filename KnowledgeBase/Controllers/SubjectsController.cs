@@ -57,6 +57,7 @@ namespace KnowledgeBase.Controllers
             {
                 theme.Name = newTheme.Name;
                 theme.Description = newTheme.Description;
+                theme.Notes = newTheme.Notes;
                 theme.DateLearned = newTheme.DateLearned;
                 theme.RepeatDates = newTheme.RepeatDates;
                 theme.RepeatDates.Sort();

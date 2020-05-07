@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
+using System.Globalization;
 
 namespace KnowledgeBase.Controllers
 {
@@ -23,7 +24,7 @@ namespace KnowledgeBase.Controllers
 
         public IActionResult Index()
         {
-
+            
             return View();
         }
 

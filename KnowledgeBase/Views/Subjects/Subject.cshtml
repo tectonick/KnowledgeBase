@@ -32,7 +32,10 @@
                             @if (theme.NextRepeat != DateTime.MinValue)
                             {<b>NextRepeat: </b>@theme.NextRepeat}
                             <b>TimesRepeated: </b>@theme.TimesRepeated
-                            <b>Description: </b>@theme.Description<br />
+                            @if (@theme.Description!=null)
+                            {
+                                <b>Description: </b>@theme.Description<br />
+                            }
                             <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Theme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Detail</a>
                             <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Delete</a>
 

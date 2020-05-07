@@ -10,7 +10,7 @@
             <div class="col-sm-8">
                 @*<label asp-for="Description"> </label>*@
                 @*<input type="text" asp-for="Description" />*@
-                <textarea id="mytextarea">Here you can type some notes</textarea>
+                <textarea id="mytextarea" asp-for="Notes">Here you can type some notes</textarea>
             </div>
             <div class="col-sm-4">
                 <div class="card p-3  bg-light">
@@ -21,6 +21,12 @@
                             <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
                             <div class="input-group-append">
                                 <label class="input-group-text" asp-for="Name"></label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
+                            <div class="input-group-append">
+                                <label class="input-group-text" asp-for="Description"></label>
                             </div>
                         </div>
                         <div class="input-group mb-3">

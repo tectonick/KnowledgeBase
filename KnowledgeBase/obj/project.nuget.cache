@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nJImwx5dtChYxmsapy107PH2dahsCI08IrajuepN0SLjBoGCmXZ+9G8pKPBAJ5BLm28+X9rNXLUSGi+yls2XFw==",
+  "dgSpecHash": "2em9jDXZWjpZfuZJvLTFUtiBeyqY+fICJnTdP1impGe1Y2bYlIgn7dQDph3vMkLjL5RwJMK4TFdJ6NEYSpPS4Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\source\\repos\\KnowledgeBase\\KnowledgeBase\\KnowledgeBase.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,7 @@
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.identity.client\\3.0.8\\microsoft.identity.client.3.0.8.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\microsoft.typescript.msbuild\\3.8.3\\microsoft.typescript.msbuild.3.8.3.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.design\\3.1.2\\microsoft.visualstudio.web.codegeneration.design.3.1.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",

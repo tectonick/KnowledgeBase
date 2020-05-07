@@ -46,8 +46,6 @@ C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\bin\Debug\netcoreapp3.0\run
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.csprojAssemblyReference.cache
-C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.csproj.CoreCompileInputs.cache
-C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.RazorAssemblyInfo.cache
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.RazorAssemblyInfo.cs
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.AssemblyInfoInputs.cache
@@ -74,3 +72,5 @@ C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\sta
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.dll
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.pdb
 C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.genruntimeconfig.cache
+C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\KnowledgeBase\KnowledgeBase\obj\Debug\netcoreapp3.0\KnowledgeBase.MvcApplicationPartsAssemblyInfo.cache
