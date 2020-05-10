@@ -15,15 +15,15 @@ namespace KnowledgeBase.Repositories
         {
             subjects = new List<Subject>();
             List<Theme> mathThemes = new List<Theme> {
-                new Theme { Id=0, Name = "Trigonometry", DateLearned = DateTime.Today},
-                new Theme { Id=1, Name = "Calculus", DateLearned = DateTime.Today}
+                new Theme { Id=0, Name = "Trigonometry", DateLearned = DateTime.Today, SubjectId=0},
+                new Theme { Id=1, Name = "Calculus", DateLearned = DateTime.Today,SubjectId=0}
                 };
             subjects.Add(new Subject {Id=0, Name = "Math", Themes = mathThemes });
 
             List<Theme> physicsThemes = new List<Theme> {
-                new Theme {Id=2, Name = "Magnetism", DateLearned = DateTime.Today},
-                new Theme {Id=3, Name = "Light", DateLearned = DateTime.Today},
-                new Theme {Id=4, Name = "Quantum", DateLearned = DateTime.Today}
+                new Theme {Id=2, Name = "Magnetism", DateLearned = DateTime.Today, SubjectId=1},
+                new Theme {Id=3, Name = "Light", DateLearned = DateTime.Today, SubjectId=1},
+                new Theme {Id=4, Name = "Quantum", DateLearned = DateTime.Today, SubjectId=1}
                 };
             subjects.Add(new Subject {Id=1, Name = "Physics", Themes = physicsThemes });
             _lastAddedThemeId = 4;

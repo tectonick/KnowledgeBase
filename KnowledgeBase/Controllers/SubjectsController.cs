@@ -46,6 +46,13 @@ namespace KnowledgeBase.Controllers
         //    return RedirectToAction(nameof(Theme), new { themeId = mytheme.Id });
         //}
 
+        public  ActionResult AddRepeat(int subjectId, int themeId)
+        {
+            var theme=_subjectRepository.GetById(subjectId).Themes.Find(th => th.Id == themeId);
+            _scheduler.AddRepeat(theme, DateTime.Now.AddDays(1));
+            return RedirectToAction(nameof(Theme), new { themeId = themeId, subjectId= subjectId });
+        }
+
 
         [HttpPost]
         [Route("{controller}/Subject/{subjectId}/{themeId}")]
@@ -87,7 +94,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Create
         public ActionResult CreateTheme(int subjectId)
         {
-            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now };
+            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId };
             var editedSubject=_subjectRepository.GetById(subjectId);
             _scheduler.Schedule(newTheme);
             editedSubject.AddTheme(newTheme);            

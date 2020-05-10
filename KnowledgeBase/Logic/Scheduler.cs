@@ -36,6 +36,11 @@ namespace KnowledgeBase.Logic
         {
             //inserting date in sorted list
             int indexToInsert = theme.RepeatDates.FindIndex(date => DateTime.Compare(date, dateToRepeat) >= 0);
+            if (indexToInsert==-1)
+            {
+                theme.RepeatDates = new List<DateTime>();
+                indexToInsert = 0;
+            }
             theme.RepeatDates.Insert(indexToInsert, dateToRepeat);
         }
 

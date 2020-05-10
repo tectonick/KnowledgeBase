@@ -18,6 +18,7 @@ namespace KnowledgeBase.Models
 
         [Key]
         public int Id { get; set; }
+        public int SubjectId { get; set; }
 
         [Required(ErrorMessage = "Name cannot be empty")]
         [StringLength(100, ErrorMessage ="Name is too big")]
@@ -43,7 +44,7 @@ namespace KnowledgeBase.Models
             get
             {
                 var lastIndex=RepeatDates.FindLastIndex(date => DateTime.Compare(date, DateTime.Now) < 0);
-                return (lastIndex == -1) ? 0 : lastIndex;
+                return (lastIndex == -1) ? 0 : (lastIndex+1);
             }
         }
 
