@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
+using KnowledgeBase.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,31 @@ namespace KnowledgeBase.Controllers
             _subjectRepository = subjectRepository;
             _scheduler = scheduler;
         }
+
+
+        [HttpGet]
+        [Route("/api/GetThemes")]
+        public ActionResult GetThemes()
+        {
+            List<ThemeLight> themes = new List<ThemeLight>();
+            var subjects = _subjectRepository.GetAll();
+            foreach (var subject in subjects)
+            {
+                foreach (var theme in subject.Themes)
+                {
+                    var themeLight = new ThemeLight();
+                    themeLight.Name = theme.Name;
+                    themeLight.Id = theme.Id;
+                    themeLight.SubjectId = theme.SubjectId;
+                    themeLight.Description = theme.Description;
+                    themeLight.RepeatDates = theme.RepeatDates;
+                    themes.Add(themeLight);
+                }
+            }
+            return Json(themes);
+        }
+
+
         // GET: Subjects
         public ActionResult Index()
         {
