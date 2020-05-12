@@ -22,7 +22,7 @@ namespace KnowledgeBase.Logic
             DateTime learned = theme.DateLearned;
             foreach (var dayInterval in dayIntervals)
             {
-                theme.RepeatDates.Add(learned.AddDays(dayInterval));
+                theme.RepeatDates.Add(new DateModel() { Date = learned.AddDays(dayInterval) });
             }
         }
         public void Relearn(Theme theme)
@@ -35,13 +35,13 @@ namespace KnowledgeBase.Logic
         public void AddRepeat(Theme theme, DateTime dateToRepeat)
         {
             //inserting date in sorted list
-            int indexToInsert = theme.RepeatDates.FindIndex(date => DateTime.Compare(date, dateToRepeat) >= 0);
+            int indexToInsert = theme.RepeatDates.FindIndex(date => DateTime.Compare(date.Date, dateToRepeat) >= 0);
             if (indexToInsert==-1)
             {
-                theme.RepeatDates = new List<DateTime>();
+                theme.RepeatDates = new List<DateModel>();
                 indexToInsert = 0;
             }
-            theme.RepeatDates.Insert(indexToInsert, dateToRepeat);
+            theme.RepeatDates.Insert(indexToInsert, new DateModel() { Date = dateToRepeat });
         }
 
     }

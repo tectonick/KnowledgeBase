@@ -4,40 +4,22 @@ using KnowledgeBase.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KnowledgeBase.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200512094720_Dates")]
+    partial class Dates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ThemeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ThemeId");
-
-                    b.ToTable("DateModel");
-                });
 
             modelBuilder.Entity("KnowledgeBase.Models.Subject", b =>
                 {
@@ -86,13 +68,6 @@ namespace KnowledgeBase.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Theme");
-                });
-
-            modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
-                {
-                    b.HasOne("KnowledgeBase.Models.Theme", null)
-                        .WithMany("RepeatDates")
-                        .HasForeignKey("ThemeId");
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>

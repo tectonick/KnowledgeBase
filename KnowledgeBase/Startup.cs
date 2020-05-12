@@ -30,9 +30,9 @@ namespace KnowledgeBase
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
-            services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
+            //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
             services.AddSingleton<IScheduler, Scheduler>();
-            //services.AddScoped<ISubjectRepository, DbSubjectRepository>();
+            services.AddScoped<ISubjectRepository, DbSubjectRepository>();
 
 
         }

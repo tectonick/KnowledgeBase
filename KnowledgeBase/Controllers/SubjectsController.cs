@@ -39,7 +39,7 @@ namespace KnowledgeBase.Controllers
                     themeLight.Id = theme.Id;
                     themeLight.SubjectId = theme.SubjectId;
                     themeLight.Description = theme.Description;
-                    themeLight.RepeatDates = theme.RepeatDates;
+                    themeLight.RepeatDates = theme.RepeatDates.Select(el=>el.Date).ToList();
                     themes.Add(themeLight);
                 }
             }

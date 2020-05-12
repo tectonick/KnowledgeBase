@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace KnowledgeBase.Models
@@ -8,12 +10,13 @@ namespace KnowledgeBase.Models
     public class Theme
     {
         //Sorted list
-        [Required(AllowEmptyStrings =true)]
-        public List<DateTime> RepeatDates { get; set; }
+        [Required(AllowEmptyStrings = true)]
+
+        public List<DateModel> RepeatDates { get; set; }
 
         public Theme()
         {
-            RepeatDates = new List<DateTime>();
+            RepeatDates = new List<DateModel>();
         }
 
         [Key]
@@ -37,13 +40,23 @@ namespace KnowledgeBase.Models
 
         public DateTime NextRepeat
         {
-            get => RepeatDates.Find(date => DateTime.Compare(date, DateTime.Now) >= 0);
+            get{
+                var dm = RepeatDates.Find(date => DateTime.Compare(date.Date, DateTime.Now) >= 0);
+                if (dm!=null)
+                {
+                    return dm.Date;
+                }
+                else
+                {
+                    return DateTime.MinValue;
+                }
+               }
         }
 
         public int TimesRepeated {
             get
             {
-                var lastIndex=RepeatDates.FindLastIndex(date => DateTime.Compare(date, DateTime.Now) < 0);
+                var lastIndex=RepeatDates.FindLastIndex(date => DateTime.Compare(date.Date, DateTime.Now) < 0);
                 return (lastIndex == -1) ? 0 : (lastIndex+1);
             }
         }

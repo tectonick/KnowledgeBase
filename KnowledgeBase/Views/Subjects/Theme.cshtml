@@ -46,9 +46,9 @@
                                 {
                                     <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" asp-for="RepeatDates[i]"></label>
+                                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
                                         </div>
-                                        <input type="datetime-local" asp-for="RepeatDates[i]" class="form-control">
+                                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
 
                                         <div class="input-group-append delete-date-button">
                                             <span class="input-group-text"><i class="fas fa-trash"></i></span>
