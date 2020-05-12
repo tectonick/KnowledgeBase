@@ -39,12 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
             calendar.addEvent({
                 title: themes[i].name,
                 start: themes[i].repeatDates[j],
-                url: './Subjects/Subject/' + themes[i].subjectId + '/' + themes[i].id + '/'
+                url: './Subjects/Theme?themeId=' + themes[i].id
             });
         }
 
     }
-
 
     calendar.render();
 });
