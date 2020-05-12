@@ -24,26 +24,32 @@ document.addEventListener('DOMContentLoaded', function () {
             right: 'listWeek,listMonth,listYear'
         }
     });
-
+    calendar.render();
 
 
 
     var request = new XMLHttpRequest();
-    request.open('GET', '/api/GetThemes', false);
-    request.send(null);
-    var themes = JSON.parse(request.responseText);
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            
+            var themes = JSON.parse(this.responseText);
 
-    for (var i = 0; i < themes.length; i++) {
-        console.log(themes[i]);
-        for (var j = 0; j < themes[i].repeatDates.length; j++) {
-            calendar.addEvent({
-                title: themes[i].name,
-                start: themes[i].repeatDates[j],
-                url: './Subjects/Theme?themeId=' + themes[i].id
-            });
+            for (var i = 0; i < themes.length; i++) {
+                console.log(themes[i]);
+                for (var j = 0; j < themes[i].repeatDates.length; j++) {
+                    calendar.addEvent({
+                        title: themes[i].name,
+                        start: themes[i].repeatDates[j],
+                        url: './Subjects/Theme?themeId=' + themes[i].id
+                    });
+                }
+
+            }
+            calendar.render();
         }
+    };
 
-    }
-
-    calendar.render();
+    request.open('GET', '/api/GetThemes', true);
+    request.send(null);
+    
 });
