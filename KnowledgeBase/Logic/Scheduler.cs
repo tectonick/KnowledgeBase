@@ -28,6 +28,8 @@ namespace KnowledgeBase.Logic
         public void Relearn(Theme theme)
         {
             DateTime learned = DateTime.Now;
+            learned=learned.AddMilliseconds(-learned.Millisecond);
+            learned = learned.AddSeconds(-learned.Second);
             theme.RepeatDates.Clear();
             Schedule(theme);
         }

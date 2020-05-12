@@ -2,92 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <div id='calendar'></div>
+<div class="text-center">
+
+    <div class="row">
+        <div class="col-md-7 col-sm-12">
+            <h1 class="display-4">Welcome</h1>
+        </div>
+        <div class="col-md-5 col-sm-12">
+            <div id='calendar'></div>
+        </div>
     </div>
+
+</div>
 @section HeadScripts{
-    <link href='fullcalendar/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-
-    <script src='fullcalendar/core/main.js'></script>
-    <script src='fullcalendar/daygrid/main.js'></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['interaction', 'dayGrid', 'timeGrid'],
-                defaultView: 'dayGridMonth',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }
-                //,
-                //events: [
-                //    {
-                //        title: 'All Day Event',
-                //        start: '2020-04-01'
-                //    },
-                //    {
-                //        title: 'Long Event',
-                //        start: '2020-04-07',
-                //        end: '2020-04-10'
-                //    },
-                //    {
-                //        groupId: '999',
-                //        title: 'Repeating Event',
-                //        start: '2020-04-09T16:00:00'
-                //    },
-                //    {
-                //        groupId: '999',
-                //        title: 'Repeating Event',
-                //        start: '2020-04-16T16:00:00'
-                //    },
-                //    {
-                //        title: 'Conference',
-                //        start: '2020-04-11',
-                //        end: '2020-04-13'
-                //    },
-                //    {
-                //        title: 'Meeting',
-                //        start: '2020-04-12T10:30:00',
-                //        end: '2020-04-12T12:30:00'
-                //    },
-                //    {
-                //        title: 'Click for Google',
-                //        url: 'http://google.com/',
-                //        start: '2020-05-15T18:05:44.944'
-                //    }
-                //]
-            });
-
-            
-
-            
-
-            var request = new XMLHttpRequest();
-            request.open('GET', '/api/GetThemes', false); 
-            request.send(null);
-            var themes = JSON.parse(request.responseText);
-
-            for (var i = 0; i < themes.length; i++) {
-                console.log(themes[i]);
-                for (var j = 0; j < themes[i].repeatDates.length; j++) {
-                    calendar.addEvent({
-                        title: themes[i].name,
-                        start: themes[i].repeatDates[j],
-                        url: './SubjectS/Subject/' + themes[i].subjectId + '/' + themes[i].id+'/'
-                    });
-                }
-       
-            }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js" integrity="sha256-GBryZPfVv8G3K1Lu2QwcqQXAO4Szv4xlY4B/ftvyoMI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css" integrity="sha256-Lfe6+s5LEek8iiZ31nXhcSez0nmOxP+3ssquHMR3Alo=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/list/main.min.js" integrity="sha256-q57s73NpMCTQ4ZXqb1X5bIywrICySeB6WvYxFGfz/PA=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/list/main.min.css" integrity="sha256-saO3mkZVAcyqsfgsGMrmE7Cs/TLN1RgVykZ5dnnJKug=" crossorigin="anonymous" />
 
 
-            calendar.render();
-        });
-
-    </script>
+    <script src="~/js/CalendarList.js"></script>
 }

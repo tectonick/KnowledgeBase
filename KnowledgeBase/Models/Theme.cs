@@ -19,6 +19,20 @@ namespace KnowledgeBase.Models
             RepeatDates = new List<DateModel>();
         }
 
+        public void CopyFrom(Theme theme)
+        {
+            if (theme!=null)
+            {
+                this.Id = theme.Id;
+                this.Name = theme.Name;
+                this.Description = theme.Description;
+                this.Notes = theme.Notes;
+                this.DateLearned = theme.DateLearned;
+                this.RepeatDates = theme.RepeatDates;
+                this.RepeatDates.Sort();
+            }            
+        }
+
         [Key]
         public int Id { get; set; }
         public int SubjectId { get; set; }

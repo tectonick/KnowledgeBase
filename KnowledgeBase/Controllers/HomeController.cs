@@ -13,7 +13,6 @@ namespace KnowledgeBase.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISubjectRepository _subjectRepository;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -23,18 +22,6 @@ namespace KnowledgeBase.Controllers
 
         public IActionResult Index()
         {
-            //List<DateTime> RepeatDates=new List<DateTime>();
-            //var subjects=_subjectRepository.GetAll();
-            //foreach (var subject in subjects)
-            //{
-            //    foreach (var theme in subject.Themes)
-            //    {
-            //        if (theme.RepeatDates!=null)
-            //        {
-            //            RepeatDates.AddRange(theme.RepeatDates);
-            //        }
-            //    }
-            //}
             return View();
         }
 

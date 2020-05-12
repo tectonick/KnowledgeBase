@@ -34,12 +34,7 @@ namespace KnowledgeBase.Controllers
             {
                 foreach (var theme in subject.Themes)
                 {
-                    var themeLight = new ThemeLight();
-                    themeLight.Name = theme.Name;
-                    themeLight.Id = theme.Id;
-                    themeLight.SubjectId = theme.SubjectId;
-                    themeLight.Description = theme.Description;
-                    themeLight.RepeatDates = theme.RepeatDates.Select(el=>el.Date).ToList();
+                    var themeLight = new ThemeLight(theme);
                     themes.Add(themeLight);
                 }
             }
@@ -64,18 +59,13 @@ namespace KnowledgeBase.Controllers
             return View(theme);
         }
 
-        //[HttpGet]
-        ////[Route("{controller}/Subject/{subjectId}/{themeId}/Delete/{timeIndex}")]
-        //public ActionResult DeleteRepeatTime(Theme mytheme, int timeIndex)
-        //{
-        //    mytheme.RepeatDates.RemoveAt(timeIndex);
-        //    return RedirectToAction(nameof(Theme), new { themeId = mytheme.Id });
-        //}
-
         public  ActionResult AddRepeat(int subjectId, int themeId)
         {
-            var theme=_subjectRepository.GetById(subjectId).Themes.Find(th => th.Id == themeId);
+            var subject = _subjectRepository.GetById(subjectId);
+            var theme=subject.Themes.Find(th => th.Id == themeId);
+
             _scheduler.AddRepeat(theme, DateTime.Now.AddDays(1));
+            _subjectRepository.Update(subject);
             return RedirectToAction(nameof(Theme), new { themeId = themeId, subjectId= subjectId });
         }
 
@@ -88,15 +78,8 @@ namespace KnowledgeBase.Controllers
             var theme = editedSubject.Themes.Find(t => t.Id == themeId);
             if (ModelState.IsValid)
             {
-                theme.Name = newTheme.Name;
-                theme.Description = newTheme.Description;
-                theme.Notes = newTheme.Notes;
-                theme.DateLearned = newTheme.DateLearned;
-                theme.RepeatDates = newTheme.RepeatDates;
-                theme.RepeatDates.Sort();
-           
+                theme.CopyFrom(newTheme);           
                 _subjectRepository.Update(editedSubject);
-
                 return RedirectToAction(nameof(Subject), new { subjectId = subjectId });
             }
             return View(theme);
@@ -121,6 +104,10 @@ namespace KnowledgeBase.Controllers
         public ActionResult CreateTheme(int subjectId)
         {
             Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId };
+            newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
+            newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
+
+
             var editedSubject=_subjectRepository.GetById(subjectId);
             _scheduler.Schedule(newTheme);
             editedSubject.AddTheme(newTheme);            

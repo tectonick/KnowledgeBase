@@ -2,83 +2,84 @@
 @{
     ViewData["Title"] = "Theme";
 }
-    <div class="text-center">
-        <h1 class="display-4">Theme @Model.Name</h1>
-        <hr />
-        <form method="post">
-            <div class="row">
-                <div class="col-sm-8">
-                    @*<label asp-for="Description"> </label>*@
-                    @*<input type="text" asp-for="Description" />*@
-                    <textarea id="mytextarea" asp-for="Notes">Here you can type some notes</textarea>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card p-3  bg-light">
-                        <h6 class="card-title">Properties</h6>
-                        <div class="card-body">
-                            <div class="validation" asp-validation-summary="All"></div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="Name"></label>
-                                </div>
-                                <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
-
+<div class="text-center">
+    <h1 class="display-4">Theme @Model.Name</h1>
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-8">
+                @*<label asp-for="Description"> </label>*@
+                @*<input type="text" asp-for="Description" />*@
+                <textarea id="mytextarea" asp-for="Notes">Here you can type some notes</textarea>
+            </div>
+            <div class="col-sm-4">
+                <div class="card p-3  bg-light">
+                    <h6 class="card-title">Properties</h6>
+                    <div class="card-body">
+                        <div class="validation" asp-validation-summary="All"></div>
+                        <input type="hidden" asp-for="Id" class="form-control" placeholder="Theme name">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="Name"></label>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="Description"></label>
-                                </div>
-                                <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
-
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="DateLearned"></label>
-                                </div>
-                                <input type="datetime-local" asp-for="DateLearned" class="form-control">
-
-                            </div>
-
-
-                            @if (Model.RepeatDates.Count > 0)
-                            {
-                                @for (int i = 0; i < Model.RepeatDates.Count; i++)
-                                {
-                                    <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
-                                        </div>
-                                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
-
-                                        <div class="input-group-append delete-date-button">
-                                            <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                                        </div>
-                                    </div>
-
-
-                                    @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
-                                }
-                                <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
-                            }
-                            else
-                            {
-                                <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
-                            }
-
-
-
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
 
                         </div>
-                        <button class="btn-primary" type="submit">Save changes</button>
-                        <button class="btn-danger" type="submit">Back</button>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="Description"></label>
+                            </div>
+                            <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
+
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="DateLearned"></label>
+                            </div>
+                            <input type="datetime-local" asp-for="DateLearned" class="form-control">
+
+                        </div>
+
+
+                        @if (Model.RepeatDates.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                            {
+                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
+                                    </div>
+                                    <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+
+                                    <div class="input-group-append delete-date-button">
+                                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                                    </div>
+                                </div>
+
+
+                                @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
+                            }
+                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+                        }
+                        else
+                        {
+                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
+                        }
+
+
+
+
                     </div>
+                    <button class="btn-primary" type="submit">Save changes</button>
+                    <button class="btn-danger" type="submit">Back</button>
                 </div>
-
-
             </div>
-        </form>
 
-    </div>
+
+        </div>
+    </form>
+
+</div>
 
 @section Scripts
 {
@@ -88,111 +89,60 @@
 @section HeadScripts
 {
     <script src="https://cdn.tiny.cloud/1/1sb38u376a8ulm88ac0aab6gulkw3lx4avevpvcg3dglkqn0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script>
-
-    function renumerateForm() {
-        var newId=0;
-        $(".repeat-date").each(function () {
-            var oldId = Number($(this).attr("id"));
-            $(this).attr("id", newId);
-            var oldData = $("label", this).attr("for");
-            $("label", this).attr("for", oldData.replace(oldId, newId));
-            oldData = $("label", this).html();
-            $("label", this).html(oldData.replace(oldId, newId));
-            oldData = $("input", this).attr("name");
-            $("input", this).attr("name", oldData.replace(oldId, newId));
-            oldData = $("input", this).attr("id");
-            $("input", this).attr("id", oldData.replace(oldId, newId));
-            newId++;
-        });
-    }
-
-    function addDeleteEvent(elem) {
-        $(".delete-date-button", elem).click(function () {
-            $(elem).remove();
-            renumerateForm();
-        });
-        $(elem).hover(function () {
-            $(".delete-date-button", elem).show();
-        }, function () {
-            $(".delete-date-button", elem).hide();
-        });
-    }
-
-    $("document").ready(function () {
-        $(".add-repeat-date").click(function () {
-            var elem = $(".repeat-date").last().clone();
-            addDeleteEvent(elem);
-            $(this).before(elem);
-            renumerateForm();
-        });
-
-        $(".delete-date-button").hide();
-
-        $(".repeat-date").each(function () {
-            addDeleteEvent(this);
-        })
-
-
-
-            
-     });
-   
-
-    </script>
-
+    <script src="~/js/tinymce.js"></script>
 
     <script>
-        tinymce.init({
-            selector: '#mytextarea',
-            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-            imagetools_cors_hosts: ['picsum.photos'],
-            //menubar: 'file edit view insert format tools table help',
-            menubar: false,
-            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-            toolbar_sticky: true,
-            autosave_ask_before_unload: true,
-            autosave_interval: "30s",
-            autosave_prefix: "{path}{query}-{id}-",
-            autosave_restore_when_empty: false,
-            autosave_retention: "2m",
-            image_advtab: true,
-            content_css: '//www.tiny.cloud/css/codepen.min.css',
-            importcss_append: true,
-            height: 100,
-            file_picker_callback: function (callback, value, meta) {
-                /* Provide file and text for the link dialog */
-                if (meta.filetype === 'file') {
-                    callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
-                }
 
-                /* Provide image and alt text for the image dialog */
-                if (meta.filetype === 'image') {
-                    callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
-                }
+        function renumerateForm() {
+            var newId = 0;
+            $(".repeat-date").each(function () {
+                var oldId = Number($(this).attr("id"));
+                $(this).attr("id", newId);
+                var oldData = $("label", this).attr("for");
+                $("label", this).attr("for", oldData.replace(oldId, newId));
+                oldData = $("label", this).html();
+                $("label", this).html(oldData.replace(oldId, newId));
+                oldData = $("input", this).attr("name");
+                $("input", this).attr("name", oldData.replace(oldId, newId));
+                oldData = $("input", this).attr("id");
+                $("input", this).attr("id", oldData.replace(oldId, newId));
+                newId++;
+            });
+        }
 
-                /* Provide alternative source and posted for the media dialog */
-                if (meta.filetype === 'media') {
-                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
-                }
-            },
-            templates: [
-                { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
-                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
-                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
-            ],
-            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
-            height: 600,
-            image_caption: true,
-            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-            noneditable_noneditable_class: "mceNonEditable",
-            toolbar_mode: 'sliding',
-            contextmenu: "link image imagetools table",
+        function addDeleteEvent(elem) {
+            $(".delete-date-button", elem).click(function () {
+                $(elem).remove();
+                renumerateForm();
+            });
+            $(elem).hover(function () {
+                $(".delete-date-button", elem).show();
+            }, function () {
+                $(".delete-date-button", elem).hide();
+            });
+        }
+
+        $("document").ready(function () {
+            $(".add-repeat-date").click(function () {
+                var elem = $(".repeat-date").last().clone();
+                addDeleteEvent(elem);
+                $(this).before(elem);
+                renumerateForm();
+            });
+
+            $(".delete-date-button").hide();
+
+            $(".repeat-date").each(function () {
+                addDeleteEvent(this);
+            })
         });
+
     </script>
+
+
+
 }
 
