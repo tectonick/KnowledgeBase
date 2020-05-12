@@ -8,6 +8,7 @@
         <hr />
         <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
             <div class="validation" asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
             <div class="input-group mb-3">
                 <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
                 <div class="input-group-append">
@@ -36,8 +37,8 @@
                             {
                                 <b>Description: </b>@theme.Description<br />
                             }
-                            <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Theme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Detail</a>
-                            <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-subjectId="@Model.Id" asp-route-themeId="@theme.Id">Delete</a>
+                            <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Theme" asp-route-themeId="@theme.Id">Detail</a>
+                            <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-themeId="@theme.Id">Delete</a>
 
 
                         </div>

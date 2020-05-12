@@ -13,13 +13,14 @@ namespace KnowledgeBase.Controllers
 {
     public class SubjectsController : Controller
     {
-
+        private readonly IThemeRepository _themeRepository;
         private readonly ISubjectRepository _subjectRepository;
         private readonly IScheduler _scheduler;
 
-        public SubjectsController(ISubjectRepository subjectRepository, IScheduler scheduler)
+        public SubjectsController(ISubjectRepository subjectRepository, IThemeRepository themeRepository, IScheduler scheduler)
         {
             _subjectRepository = subjectRepository;
+            _themeRepository = themeRepository;
             _scheduler = scheduler;
         }
 
@@ -28,17 +29,14 @@ namespace KnowledgeBase.Controllers
         [Route("/api/GetThemes")]
         public ActionResult GetThemes()
         {
-            List<ThemeLight> themes = new List<ThemeLight>();
-            var subjects = _subjectRepository.GetAll();
-            foreach (var subject in subjects)
+            List<ThemeLight> lightThemes = new List<ThemeLight>();
+            var allThemes = _themeRepository.GetAll();
+            foreach (var theme in allThemes)
             {
-                foreach (var theme in subject.Themes)
-                {
-                    var themeLight = new ThemeLight(theme);
-                    themes.Add(themeLight);
-                }
+                var themeLight = new ThemeLight(theme);
+                lightThemes.Add(themeLight);
             }
-            return Json(themes);
+            return Json(lightThemes);
         }
 
 
@@ -51,36 +49,34 @@ namespace KnowledgeBase.Controllers
 
 
         [HttpGet]
-        [Route("{controller}/Subject/{subjectId}/{themeId}")]
-        public ActionResult Theme(int subjectId, int themeId)
+        //[Route("{controller}/Subject/{subjectId}/{themeId}")]
+        public ActionResult Theme(int themeId)
         {
-            var subject = _subjectRepository.GetById(subjectId);
-            var theme = subject.Themes.Find(t => t.Id == themeId);
+            var theme = _themeRepository.GetById(themeId);
             return View(theme);
         }
 
-        public  ActionResult AddRepeat(int subjectId, int themeId)
+        public  ActionResult AddRepeat(int themeId)
         {
-            var subject = _subjectRepository.GetById(subjectId);
-            var theme=subject.Themes.Find(th => th.Id == themeId);
+            var theme = _themeRepository.GetById(themeId);
 
             _scheduler.AddRepeat(theme, DateTime.Now.AddDays(1));
-            _subjectRepository.Update(subject);
-            return RedirectToAction(nameof(Theme), new { themeId = themeId, subjectId= subjectId });
+            _themeRepository.Update(theme);
+            return RedirectToAction(nameof(Theme), new { themeId = themeId });
         }
 
 
         [HttpPost]
-        [Route("{controller}/Subject/{subjectId}/{themeId}")]
-        public ActionResult Theme(int subjectId, int themeId,Theme newTheme)
+        //[Route("{controller}/Subject/{subjectId}/{themeId}")]
+        public ActionResult Theme(int themeId,Theme newTheme)
         {
-            var editedSubject = _subjectRepository.GetById(subjectId);
-            var theme = editedSubject.Themes.Find(t => t.Id == themeId);
+            var theme = _themeRepository.GetById(themeId);
+
             if (ModelState.IsValid)
             {
-                theme.CopyFrom(newTheme);           
-                _subjectRepository.Update(editedSubject);
-                return RedirectToAction(nameof(Subject), new { subjectId = subjectId });
+                theme.CopyFrom(newTheme);
+                _themeRepository.Update(theme);
+                return RedirectToAction(nameof(Subject), new { subjectId = theme.SubjectId });
             }
             return View(theme);
         }
@@ -106,13 +102,10 @@ namespace KnowledgeBase.Controllers
             Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId };
             newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
             newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
-
-
-            var editedSubject=_subjectRepository.GetById(subjectId);
             _scheduler.Schedule(newTheme);
-            editedSubject.AddTheme(newTheme);            
-            _subjectRepository.Update(editedSubject);
-            return RedirectToAction(nameof(Theme), new { subjectId= subjectId, themeId= newTheme.Id });
+
+            _themeRepository.Add(newTheme);
+            return RedirectToAction(nameof(Theme), new { themeId= newTheme.Id });
         }
 
         // POST: Subjects/Edit/5
@@ -139,14 +132,11 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult DeleteTheme(int subjectId, int themeId)
+        public ActionResult DeleteTheme(int themeId)
         {
-           
-            var editedSubject = _subjectRepository.GetById(subjectId);
-            editedSubject.DeleteTheme(themeId);
-            _subjectRepository.Update(editedSubject);
-
-            return RedirectToAction(nameof(Subject), new { subjectId = subjectId }); 
+            var toDelete = _themeRepository.GetById(themeId);
+            _themeRepository.Delete(toDelete); //!!!!!!!
+            return RedirectToAction(nameof(Subject), new { subjectId = toDelete.SubjectId });
         }
     }
 }

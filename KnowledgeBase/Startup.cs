@@ -30,9 +30,14 @@ namespace KnowledgeBase
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+
             //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
+            //services.AddSingleton<IThemeRepository, MemoryThemeRepository>();
+
             services.AddSingleton<IScheduler, Scheduler>();
+
             services.AddScoped<ISubjectRepository, DbSubjectRepository>();
+            services.AddScoped<IThemeRepository, DbThemeRepository>();
 
 
         }
@@ -70,11 +75,6 @@ namespace KnowledgeBase
             {
                 app.UseStaticFiles();
             }
-
-
-
-
-
 
             app.UseRouting();
             

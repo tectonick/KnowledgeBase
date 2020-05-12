@@ -17,7 +17,8 @@
                     <h6 class="card-title">Properties</h6>
                     <div class="card-body">
                         <div class="validation" asp-validation-summary="All"></div>
-                        <input type="hidden" asp-for="Id" class="form-control" placeholder="Theme name">
+                        <input type="hidden" asp-for="Id">
+                        <input type="hidden" asp-for="SubjectId">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" asp-for="Name"></label>
@@ -71,7 +72,7 @@
 
                     </div>
                     <button class="btn-primary" type="submit">Save changes</button>
-                    <button class="btn-danger" type="submit">Back</button>
+                    <button class="btn-danger" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
                 </div>
             </div>
 

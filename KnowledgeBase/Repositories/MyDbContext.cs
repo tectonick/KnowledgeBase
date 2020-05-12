@@ -15,6 +15,8 @@ namespace KnowledgeBase.Repositories
         }
         public DbSet<Subject> Subjects { get; set; }
 
-        
+        public DbSet<Theme> Themes { get; set; }
+
+
     }
 }

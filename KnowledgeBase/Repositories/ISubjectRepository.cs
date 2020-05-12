@@ -14,5 +14,4 @@ namespace KnowledgeBase.Repositories
         Subject Update(Subject updatedSubject);
         Subject Delete(Subject subject);
     }
-
 }

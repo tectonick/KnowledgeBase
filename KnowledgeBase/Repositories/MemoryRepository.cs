@@ -74,4 +74,79 @@ namespace KnowledgeBase.Repositories
             return updatedSubject;
         }
     }
+
+    public class MemoryThemeRepository : IThemeRepository
+    {
+        ISubjectRepository _subjectRepository;
+        public MemoryThemeRepository(ISubjectRepository subjectRepository)
+        {
+            _subjectRepository = subjectRepository;
+        }
+        public Theme Add(Theme newTheme)
+        {
+            var subject = _subjectRepository.GetById(newTheme.SubjectId);
+            if (subject.Themes==null)
+            {
+                subject.Themes = new List<Theme>();
+            }
+            subject.Themes.Add(newTheme);
+            _subjectRepository.Update(subject);
+            return newTheme;
+        }
+
+        public Theme Delete(Theme theme)
+        {
+            var subject = _subjectRepository.GetById(theme.SubjectId);
+            subject.Themes.Remove(theme);
+            return theme;
+        }
+
+        public List<Theme> GetAll()
+        {
+            var allSubjects= _subjectRepository.GetAll();
+            List<Theme> allThemes = new List<Theme>();
+            foreach (var subject in allSubjects)
+            {
+                allThemes.AddRange(subject.Themes);
+            }
+            return allThemes;
+        }
+
+        public Theme GetById(int id)
+        {
+            var allSubjects = _subjectRepository.GetAll();
+            foreach (var subject in allSubjects)
+            {
+                var found = subject.Themes.Find(th => th.Id == id);
+                if (found!=null)
+                {
+                    return found;
+                }                
+            }
+            return null;            
+        }
+
+        public Theme GetByName(string name)
+        {
+            var allSubjects = _subjectRepository.GetAll();
+            foreach (var subject in allSubjects)
+            {
+                var found = subject.Themes.Find(th => th.Name == name);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+            return null;
+        }
+
+        public Theme Update(Theme updatedTheme)
+        {
+            var subject = _subjectRepository.GetById(updatedTheme.SubjectId);
+            var theme = subject.Themes.Find(th => th.Id == updatedTheme.Id);
+            theme = updatedTheme;
+            return updatedTheme;
+        }
+    }
+
 }
