@@ -6,22 +6,27 @@ using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
 using KnowledgeBase.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KnowledgeBase.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly IThemeRepository _themeRepository;
         private readonly ISubjectRepository _subjectRepository;
         private readonly IScheduler _scheduler;
+        private readonly UserManager<User> _userManager;
 
-        public SubjectsController(ISubjectRepository subjectRepository, IThemeRepository themeRepository, IScheduler scheduler)
+        public SubjectsController(ISubjectRepository subjectRepository, IThemeRepository themeRepository, IScheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
             _themeRepository = themeRepository;
             _scheduler = scheduler;
+            _userManager = userManager;
         }
 
 
@@ -30,7 +35,7 @@ namespace KnowledgeBase.Controllers
         public ActionResult GetThemes()
         {
             List<ThemeLight> lightThemes = new List<ThemeLight>();
-            var allThemes = _themeRepository.GetAll();
+            var allThemes = _themeRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
             foreach (var theme in allThemes)
             {
                 var themeLight = new ThemeLight(theme);
@@ -43,7 +48,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects
         public ActionResult Index()
         {
-            List<Subject> subjects = _subjectRepository.GetAll();
+            List<Subject> subjects = _subjectRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
             return View(subjects);
         }
 
@@ -93,7 +98,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Create
         public ActionResult CreateSubject()
         {
-            Subject newSubject = new Subject() { Name = "NewSubject" };
+            Subject newSubject = new Subject() { Name = "NewSubject", UserId=_userManager.GetUserId(HttpContext.User) };
             _subjectRepository.Add(newSubject);
             return RedirectToAction(nameof(Subject), new { subjectId = newSubject.Id });
         }
@@ -101,7 +106,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Create
         public ActionResult CreateTheme(int subjectId)
         {
-            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId };
+            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
             newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
             newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
             _scheduler.Schedule(newTheme);
@@ -122,7 +127,7 @@ namespace KnowledgeBase.Controllers
                 _subjectRepository.Update(editedSubject);
                 
             }
-              return RedirectToAction(nameof(Index));  
+              return RedirectToAction(nameof(Subject), new { subjectId = subjectId });  
         }
 
         // GET: Subjects/Delete/5

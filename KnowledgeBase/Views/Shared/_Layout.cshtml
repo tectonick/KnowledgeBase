@@ -11,11 +11,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 justify-content-between">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/LogoBrain.png" alt="KnowlegeBase" /></a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fas fa-bars" style="color:#FFFFFF;"></span>
                 </button>
@@ -28,11 +27,42 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Subjects" asp-action="Index">Subjects</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mr-auto">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">@User.Identity.Name</a>
+                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
+
+
+                @*<div class="">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        </ul>
+                </div>*@
+
+              
+                    
+
+
             </div>
         </nav>
     </header>

@@ -59,6 +59,7 @@
                     <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
                         <div class="validation" asp-validation-summary="All"></div>
                         <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
+                        <input type="hidden" asp-for="UserId">
                         <div class="input-group mb-3">
                             <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
                             <div class="input-group-append">

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KnowledgeBase.Logic;
+using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +40,16 @@ namespace KnowledgeBase
 
             services.AddScoped<ISubjectRepository, DbSubjectRepository>();
             services.AddScoped<IThemeRepository, DbThemeRepository>();
+
+            services.AddIdentity<User, IdentityRole>(opts => {
+                opts.Password.RequiredLength = 5;   
+                opts.Password.RequireNonAlphanumeric = false;  
+                opts.Password.RequireLowercase = false; 
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+                opts.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<MyDbContext>();
 
 
         }
@@ -77,8 +89,8 @@ namespace KnowledgeBase
             }
 
             app.UseRouting();
-            
 
+            app.UseAuthentication(); 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

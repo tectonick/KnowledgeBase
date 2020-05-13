@@ -7,7 +7,7 @@ namespace KnowledgeBase.Repositories
 {
     public interface ISubjectRepository
     {
-        List<Subject> GetAll();
+        List<Subject> GetAllForUser(string userId);
         Subject GetByName(string name);
         Subject GetById(int id);
         Subject Add(Subject newSubject);

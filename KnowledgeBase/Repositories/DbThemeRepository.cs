@@ -28,9 +28,9 @@ namespace KnowledgeBase.Repositories
             return theme;
         }
 
-        public List<Theme> GetAll()
+        public List<Theme> GetAllForUser(string userId)
         {
-            return _dbContext.Themes.Include(th => th.RepeatDates).ToList();
+            return _dbContext.Themes.Where(th => th.UserId == userId).Include(th => th.RepeatDates).ToList();
         }
 
         public Theme GetById(int id)

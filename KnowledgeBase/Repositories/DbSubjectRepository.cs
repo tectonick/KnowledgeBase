@@ -27,9 +27,9 @@ namespace KnowledgeBase.Repositories
             return subject;
         }
 
-        public List<Subject> GetAll()
+        public List<Subject> GetAllForUser(string userId)
         {
-            return _dbContext.Subjects.Include(x => x.Themes).ThenInclude(th=>th.RepeatDates).ToList();
+            return _dbContext.Subjects.Where(sub=>sub.UserId==userId).Include(x => x.Themes).ThenInclude(th=>th.RepeatDates).ToList();
         }
 
         public Subject GetById(int id)

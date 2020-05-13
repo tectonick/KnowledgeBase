@@ -8,16 +8,19 @@ using Microsoft.Extensions.Logging;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 
 namespace KnowledgeBase.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()

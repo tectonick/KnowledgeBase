@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 
 namespace KnowledgeBase.Models
 {
+
     public class Theme
     {
         //Sorted list
@@ -36,6 +37,7 @@ namespace KnowledgeBase.Models
         [Key]
         public int Id { get; set; }
         public int SubjectId { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "Name cannot be empty")]
         [StringLength(100, ErrorMessage ="Name is too big")]

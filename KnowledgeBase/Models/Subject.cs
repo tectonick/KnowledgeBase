@@ -7,6 +7,8 @@ namespace KnowledgeBase.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public string UserId { get; set; }
         [Required(ErrorMessage ="Name cannot be empty")]
         [StringLength(100, ErrorMessage = "Name is too big")]
         public string Name { get; set; }
