@@ -3,82 +3,86 @@
     ViewData["Title"] = "Theme";
 }
 <div class="text-center">
-    <h1 class="display-4">Theme @Model.Name</h1>
-    <hr />
+    @*<h1 class="display-4">Theme @Model.Name</h1>
+        <hr />*@
     <form method="post">
         <div class="row">
             <div class="col-sm-8">
-                @*<label asp-for="Description"> </label>*@
-                @*<input type="text" asp-for="Description" />*@
-                <textarea id="mytextarea" asp-for="Notes">Here you can type some notes</textarea>
-            </div>
-            <div class="col-sm-4">
-                <div class="card p-3  bg-light">
-                    <h6 class="card-title">Properties</h6>
-                    <div class="card-body">
-                        <div class="validation" asp-validation-summary="All"></div>
-                        <input type="hidden" asp-for="Id">
-                        <input type="hidden" asp-for="SubjectId">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" asp-for="Name"></label>
-                            </div>
-                            <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
-
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" asp-for="Description"></label>
-                            </div>
-                            <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
-
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" asp-for="DateLearned"></label>
-                            </div>
-                            <input type="datetime-local" asp-for="DateLearned" class="form-control">
-
-                        </div>
-
-
-                        @if (Model.RepeatDates.Count > 0)
-                        {
-                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
-                            {
-                    <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
-                        </div>
-                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
-                        <input type="hidden" asp-for="RepeatDates[i].Id">
-
-                        <div class="input-group-append delete-date-button">
-                            <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                        </div>
-                    </div>
-
-
-                                @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
-                            }
-                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
-                        }
-                        else
-                        {
-                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
-                        }
-
-
-
-
-                    </div>
-                    <button class="btn-primary" type="submit">Save changes</button>
-                    <button class="btn-danger" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
+                <div class="card bg-light border">
+                    @*<label asp-for="Description"> </label>*@
+                    @*<input type="text" asp-for="Description" />*@
+                    <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
                 </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card p-3 bg-light">
+                        <h3 class="card-title">@Model.Name</h3>
+                        <div class="card-body">
+                            <div class="validation" asp-validation-summary="All"></div>
+                            <input type="hidden" asp-for="Id">
+                            <input type="hidden" asp-for="SubjectId">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" asp-for="Name"></label>
+                                </div>
+                                <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" asp-for="Description"></label>
+                                </div>
+                                <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" asp-for="DateLearned"></label>
+                                </div>
+                                <input type="datetime-local" asp-for="DateLearned" class="form-control">
+
+                            </div>
+
+
+                            @if (Model.RepeatDates.Count > 0)
+                            {
+                                @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                                {
+                                    <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
+                                        </div>
+                                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                                        <input type="hidden" asp-for="RepeatDates[i].Id">
+
+                                        <div class="input-group-append delete-date-button">
+                                            <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
+                                }
+                                <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+                            }
+                            else
+                            {
+                                <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
+                            }
+
+
+
+
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" type="submit">Save changes</button>
+                            <button class="btn btn-danger" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
-
-
-        </div>
     </form>
 
 </div>
@@ -139,7 +143,7 @@
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
                 var elem = $(".repeat-date").last().clone();
-                $("input[type='hidden']", elem).attr("value","0");
+                $("input[type='hidden']", elem).attr("value", "0");
                 addDeleteEvent(elem);
                 $(this).before(elem);
                 renumerateForm();

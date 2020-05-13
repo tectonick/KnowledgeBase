@@ -75,19 +75,29 @@ body {
   margin-top:500px;
 }
 
-header , footer, main {
-    background-color:rgba(255, 255, 255, 0.5);
+header, footer {
+    background-color: #4f5d75;
 }
 
-.nav-link, .navbar-brand {
-    color: black;
+main {
+    /*background-color: white;*/
+    /*background-color: #eeeeee;*/
+}
+
+/*body {
+    background-color: #eeeeee;
+}*/
+
+.nav-link, .navbar-brand, footer {
+    color: white;
+    font-size:larger;
 }
 .nav-link:hover, .navbar-brand:hover {
     color: orange;
 }
 
 body{
-    background-image:url(/images/apple-blank-business-computer-442574.jpg);
+    background-image:url(/images/Background.png);
     background-size:cover;
 }
 
@@ -96,8 +106,8 @@ body{
 }
 
 .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited, .btn-danger:focus {
-    background-color: brown !important;
-    border-color: brown !important;
+    background-color: indianred !important;
+    border-color: indianred !important;
     box-shadow: none !important;
 }
 
@@ -105,4 +115,15 @@ body{
     background-color: orange !important;
     border-color: orange !important;
     box-shadow: none !important;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited, .btn-secondary:focus {
+    background-color: #4f5d75 !important;
+    border-color: #4f5d75 !important;
+    box-shadow: none !important;
+}
+
+.card-header {
+    background-color: #4f5d75;
+    color:white;
 }

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         plugins: ['list'],
         timeZone: 'UTC',
         defaultView: 'listMonth',
+        eventColor: 'orange',
 
         // customize the button names,
         // otherwise they'd all just say "list"
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         title: themes[i].name,
                         start: themes[i].repeatDates[j],
                         url: './Subjects/Theme?themeId=' + themes[i].id
+                        
                     });
                 }
 

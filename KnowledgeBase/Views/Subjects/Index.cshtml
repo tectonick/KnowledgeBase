@@ -4,35 +4,53 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Subjects</h1>
-    <hr />
-    <div class="card-columns">
-        @foreach (var subject in Model)
-        {
+    <div class="row">
+        <div class="col-sm-8 bg-light border">
+            <div class="card-columns p-3">
+                @foreach (var subject in Model)
+                {
 
-            <div class="card bg-light">
-                <div class="card-body">
-                    <h6 class="card-title">Subject @subject.Name</h6>
-                    <b>Themes :</b>
-                    @if (subject.Themes == null)
-                    {
-                        <i>No themes</i>
-                    }
-                    else
-                    {
-                        @foreach (var theme in subject.Themes)
-                        {
-                            <i>'@theme.Name' </i>
-                        }
-                    }
-                    <br />  
-                    <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@subject.Id">Details</a>
-                    <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@subject.Id">Delete subject</a>
+                    <div class="card bg-light" style="max-width: 22rem;">
+                        <div class="card-header">Subject</div>
+                        <div class="card-body">
+                            <h5 class="card-title">@subject.Name</h5>
+                            <b>Themes :</b>
+                            @if (subject.Themes == null)
+                            {
+                                <i>No themes</i>
+                            }
+                            else
+                            {
+                                @foreach (var theme in subject.Themes)
+                                {
+                                    <i>'@theme.Name' </i>
+                                }
+                            }
+                            <br />
+                        </div>
+                        <div class="btn-group mb-3">
 
-                </div>
+                            <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@subject.Id">Details</a>
+                            <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@subject.Id">Delete subject</a>
+
+                        </div>
+                    </div>
+                }
             </div>
-        }
-    </div>    
-    <a class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+        </div>
 
+        <div class="col-sm-4">
+
+            <div class="card p-3 bg-light">
+                <h3 class="card-title">Subjects</h3>
+                <div class="card-body">
+                    <p>Lorem ipsum</p>
+                </div>
+                <a class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+
