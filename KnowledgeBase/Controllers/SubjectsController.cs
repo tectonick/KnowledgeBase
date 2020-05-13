@@ -70,15 +70,17 @@ namespace KnowledgeBase.Controllers
         //[Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int themeId,Theme newTheme)
         {
-            var theme = _themeRepository.GetById(themeId);
+            //var theme = _themeRepository.GetById(themeId);
 
             if (ModelState.IsValid)
             {
-                theme.CopyFrom(newTheme);
-                _themeRepository.Update(theme);
-                return RedirectToAction(nameof(Subject), new { subjectId = theme.SubjectId });
+                //theme.CopyFrom(newTheme);
+                //theme.CopyFrom(newTheme);
+                //_themeRepository.Update(newTheme);
+                _themeRepository.Update(newTheme);
+                return RedirectToAction(nameof(Subject), new { subjectId = newTheme.SubjectId });
             }
-            return View(theme);
+            return View(newTheme);//??????????????
         }
 
         // GET: Subjects/Details/5
@@ -135,7 +137,7 @@ namespace KnowledgeBase.Controllers
         public ActionResult DeleteTheme(int themeId)
         {
             var toDelete = _themeRepository.GetById(themeId);
-            _themeRepository.Delete(toDelete); //!!!!!!!
+            _themeRepository.Delete(toDelete);
             return RedirectToAction(nameof(Subject), new { subjectId = toDelete.SubjectId });
         }
     }

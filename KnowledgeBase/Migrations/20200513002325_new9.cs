@@ -2,7 +2,7 @@
 
 namespace KnowledgeBase.Migrations
 {
-    public partial class Initial : Migration
+    public partial class new9 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

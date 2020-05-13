@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnowledgeBase.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200512110357_DateToDatemodel")]
-    partial class DateToDatemodel
+    [Migration("20200513001920_new3")]
+    partial class new3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,14 +31,14 @@ namespace KnowledgeBase.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ThemeId")
+                    b.Property<int>("ThemeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("DateModel");
+                    b.ToTable("DateModels");
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Subject", b =>
@@ -87,14 +87,16 @@ namespace KnowledgeBase.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Theme");
+                    b.ToTable("Themes");
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
                 {
                     b.HasOne("KnowledgeBase.Models.Theme", null)
                         .WithMany("RepeatDates")
-                        .HasForeignKey("ThemeId");
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>

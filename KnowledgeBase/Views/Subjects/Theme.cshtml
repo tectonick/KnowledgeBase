@@ -46,16 +46,17 @@
                         {
                             @for (int i = 0; i < Model.RepeatDates.Count; i++)
                             {
-                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
-                                    </div>
-                                    <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                    <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
+                        </div>
+                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                        <input type="hidden" asp-for="RepeatDates[i].Id">
 
-                                    <div class="input-group-append delete-date-button">
-                                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                                    </div>
-                                </div>
+                        <div class="input-group-append delete-date-button">
+                            <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                        </div>
+                    </div>
 
 
                                 @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
@@ -106,10 +107,19 @@
                 $("label", this).attr("for", oldData.replace(oldId, newId));
                 oldData = $("label", this).html();
                 $("label", this).html(oldData.replace(oldId, newId));
-                oldData = $("input", this).attr("name");
-                $("input", this).attr("name", oldData.replace(oldId, newId));
-                oldData = $("input", this).attr("id");
-                $("input", this).attr("id", oldData.replace(oldId, newId));
+
+
+                oldData = $("input[type='datetime-local']", this).attr("name");
+                $("input[type='datetime-local']", this).attr("name", oldData.replace(oldId, newId));
+
+                oldData = $("input[type='hidden']", this).attr("name");
+                $("input[type='hidden']", this).attr("name", oldData.replace(oldId, newId));
+
+                oldData = $("input[type='datetime-local']", this).attr("id");
+                $("input[type='datetime-local']", this).attr("id", oldData.replace(oldId, newId));
+
+                oldData = $("input[type='hidden']", this).attr("id");
+                $("input[type='hidden']", this).attr("id", oldData.replace(oldId, newId));
                 newId++;
             });
         }
@@ -129,6 +139,7 @@
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
                 var elem = $(".repeat-date").last().clone();
+                $("input[type='hidden']", elem).attr("value","0");
                 addDeleteEvent(elem);
                 $(this).before(elem);
                 renumerateForm();

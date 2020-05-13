@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnowledgeBase.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200501195051_Intal3")]
-    partial class Intal3
+    [Migration("20200513002325_new9")]
+    partial class new9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,26 @@ namespace KnowledgeBase.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ThemeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ThemeId");
+
+                    b.ToTable("DateModels");
+                });
 
             modelBuilder.Entity("KnowledgeBase.Models.Subject", b =>
                 {
@@ -57,27 +77,35 @@ namespace KnowledgeBase.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<DateTime>("NextRepeat")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TimesRepeated")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Theme");
+                    b.ToTable("Themes");
+                });
+
+            modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
+                {
+                    b.HasOne("KnowledgeBase.Models.Theme", "Theme")
+                        .WithMany("RepeatDates")
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>
                 {
                     b.HasOne("KnowledgeBase.Models.Subject", null)
                         .WithMany("Themes")
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

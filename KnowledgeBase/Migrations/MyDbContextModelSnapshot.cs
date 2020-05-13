@@ -29,14 +29,14 @@ namespace KnowledgeBase.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ThemeId")
+                    b.Property<int>("ThemeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ThemeId");
 
-                    b.ToTable("DateModel");
+                    b.ToTable("DateModels");
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Subject", b =>
@@ -90,9 +90,11 @@ namespace KnowledgeBase.Migrations
 
             modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
                 {
-                    b.HasOne("KnowledgeBase.Models.Theme", null)
+                    b.HasOne("KnowledgeBase.Models.Theme", "Theme")
                         .WithMany("RepeatDates")
-                        .HasForeignKey("ThemeId");
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>
