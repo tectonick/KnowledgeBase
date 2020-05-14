@@ -5,14 +5,18 @@
 
 <div class="text-center">
     <div class="row">
-        <div class="col-sm-8 bg-light border">
-            <div class="card-columns p-3">
-                
+        <div class="col-sm-8 ">
+            <div class="card bg-light">
+                <div class="card-header">@Model.Name Topics</div>
+                <div class="card-columns p-3">
+
+
+
 
                     @if ((Model.Themes == null) || (Model.Themes.Count == 0))
                     {
                         <br />
-                        <i>Your themes will be here</i>
+                        <i>You haven`t added any topics</i>
                     }
                     else
                     {
@@ -20,19 +24,18 @@
                         @foreach (var theme in Model.Themes)
                         {
                             <div class="card bg-light" style="max-width: 22rem;">
-                                <div class="card-header">Theme</div>
+                                <div class="card-header bg-light text-dark">@theme.Name</div>
                                 <div class="card-body">
-                                    <h5 class="card-title"> @theme.Name</h5>
 
-                                    <p><b>DateLearned: </b>@theme.DateLearned </p>
+                                    <p>DateLearned: @theme.DateLearned </p>
                                     @if (theme.NextRepeat != DateTime.MinValue)
                                     {
-                                        <p><b>NextRepeat: </b>@theme.NextRepeat</p>
+                                        <p>NextRepeat: @theme.NextRepeat</p>
                                     }
-                                    <p><b>TimesRepeated: </b>@theme.TimesRepeated</p>
+                                    <p>TimesRepeated: @theme.TimesRepeated</p>
                                     @if (@theme.Description != null)
                                     {
-                                        <p><b>Description: </b>@theme.Description</p>
+                                        <p>Description: @theme.Description</p>
                                     }
                                 </div>
 
@@ -40,7 +43,7 @@
 
 
                                     <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Theme" asp-route-themeId="@theme.Id">Detail</a>
-                                    <a class="btn btn-danger btn-sm" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-themeId="@theme.Id">Delete</a>
+                                    <a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-themeId="@theme.Id">Delete</a>
 
                                 </div>
 
@@ -49,43 +52,70 @@
 
                     }
                 </div>
-
+                </div>
             </div>
-        <div class="col-sm-4">
+            <div class="col-sm-4">
 
-            <div class="card p-3 bg-light">
-                <h3 class="card-title">@Model.Name</h3>
-                <div class="card-body">
+                <div class="card bg-light">
+                    @*<h3 class="card-title">@Model.Name</h3>*@
+                    <div class="card-header detail">Subject properties</div>
                     <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
-                        <div class="validation" asp-validation-summary="All"></div>
-                        <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
-                        <input type="hidden" asp-for="UserId">
-                        <div class="input-group mb-3">
-                            <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Change name</button>
+                        <div class="card-body">
+
+                            <div class="validation" asp-validation-summary="All"></div>
+                            <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
+                            <input type="hidden" asp-for="UserId">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    @*<button class="btn btn-primary" type="submit">Save name</button>*@
+                                    <label class="input-group-text" asp-for="Name"></label>
+                                </div>
+                                <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
                             </div>
+                            <p>Lorem ipsum</p>
+                            <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTheme" asp-route-subjectId="@Model.Id">Create theme</a>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-secondary" type="submit" asp-controller="Subjects" asp-action="Index">Back</button>
+                            <a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
                         </div>
                     </form>
 
-                    <p>Lorem ipsum</p>
-
-
                 </div>
-                <div class="btn-group">
-                <a class="btn btn-primary" asp-controller="Subjects" asp-action="CreateTheme" asp-route-subjectId="@Model.Id">Create theme</a>
-                <a class="btn btn-secondary" asp-controller="Subjects" asp-action="Index">Back</a>
-                <a class="btn btn-danger" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
-                </div>
-                
+
             </div>
-
         </div>
-    </div>
 </div>
 
 
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/DeleteCardConfirm.js"></script>
+
+    <script>
+        $("document").ready(function () {
+          
+            $(".delete-detail-button").click(function (e) {
+                e.preventDefault();
+                this.innerHTML = "Confirm delete";
+                $(this).removeClass("btn-danger");
+                $(this).css("background-color", "#ff0000");
+                $(this).css("color", "#ffffff");
+                $(".detail").css("background-color", "#ff0000");
+
+                $(this).unbind('click');
+
+            })
+
+
+
+        });
+
+
+    </script>
+
 }

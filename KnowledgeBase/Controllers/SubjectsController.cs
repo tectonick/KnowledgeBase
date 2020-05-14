@@ -58,6 +58,10 @@ namespace KnowledgeBase.Controllers
         public ActionResult Theme(int themeId)
         {
             var theme = _themeRepository.GetById(themeId);
+            if (theme.UserId!= _userManager.GetUserId(HttpContext.User))
+            {
+                return View("Error", new ErrorViewModel { RequestId = "" });
+            }
             return View(theme);
         }
 
@@ -92,13 +96,17 @@ namespace KnowledgeBase.Controllers
         public ActionResult Subject(int subjectId)
         {
             var subject = _subjectRepository.GetById(subjectId);
+            if (subject.UserId != _userManager.GetUserId(HttpContext.User))
+            {
+                return View("Error", new ErrorViewModel { RequestId = "" });
+            }
             return View(subject);
         }
 
         // GET: Subjects/Create
         public ActionResult CreateSubject()
         {
-            Subject newSubject = new Subject() { Name = "NewSubject", UserId=_userManager.GetUserId(HttpContext.User) };
+            Subject newSubject = new Subject() { Name = "", UserId=_userManager.GetUserId(HttpContext.User) };
             _subjectRepository.Add(newSubject);
             return RedirectToAction(nameof(Subject), new { subjectId = newSubject.Id });
         }
@@ -106,7 +114,7 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Create
         public ActionResult CreateTheme(int subjectId)
         {
-            Theme newTheme = new Theme() { Name = "NewTheme", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
+            Theme newTheme = new Theme() { Name = "", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
             newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
             newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
             _scheduler.Schedule(newTheme);
@@ -127,7 +135,7 @@ namespace KnowledgeBase.Controllers
                 _subjectRepository.Update(editedSubject);
                 
             }
-              return RedirectToAction(nameof(Subject), new { subjectId = subjectId });  
+              return RedirectToAction(nameof(Index));  
         }
 
         // GET: Subjects/Delete/5

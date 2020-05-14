@@ -5,26 +5,39 @@
 
 @model KnowledgeBase.ViewModels.LoginViewModel
 
-<h2>Login</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Log in" />
-    </div>
-</form>
+<div class="card bg-light border mx-auto text-center"  style="max-width: 22rem;">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+
+            <form method="post" asp-controller="Account" asp-action="Login"
+                  asp-route-returnUrl="@Model.ReturnUrl">
+                <div asp-validation-summary="All"></div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" asp-for="Email"></label>
+                    </div>
+                    <input type="text" asp-for="Email" class="form-control" placeholder="">
+
+                </div>
+                @*<span asp-validation-for="Email"></span>*@
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" asp-for="Password"></label>
+                    </div>
+                    <input type="text" asp-for="Password" class="form-control" placeholder="">
+
+                </div>
+                @*<span asp-validation-for="Password"></span>*@
+            <div>
+                <label asp-for="RememberMe "></label>
+                <input asp-for="RememberMe" />
+                <button class="btn btn-primary float-right" type="submit">Log in</button>
+            </div>
+            </form>
+
+        </div>
+        
+</div>
+
 

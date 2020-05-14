@@ -9,81 +9,85 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="card bg-light border">
+                    <div class="card-header">Notes</div>
                     @*<label asp-for="Description"> </label>*@
                     @*<input type="text" asp-for="Description" />*@
                     <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
                 </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card p-3 bg-light">
-                        <h3 class="card-title">@Model.Name</h3>
-                        <div class="card-body">
-                            <div class="validation" asp-validation-summary="All"></div>
-                            <input type="hidden" asp-for="Id">
-                            <input type="hidden" asp-for="SubjectId">
-                            <input type="hidden" asp-for="UserId">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="Name"></label>
-                                </div>
-                                <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
-
+            </div>
+            <div class="col-sm-4">
+                <div class="card bg-light">
+                    @*<h3 class="card-title">@Model.Name</h3>*@
+                    <div class="card-header detail">Theme</div>
+                    <div class="card-body">
+                        <div class="validation" asp-validation-summary="All"></div>
+                        <input type="hidden" asp-for="Id">
+                        <input type="hidden" asp-for="SubjectId">
+                        <input type="hidden" asp-for="UserId">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="Name"></label>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="Description"></label>
-                                </div>
-                                <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
-
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" asp-for="DateLearned"></label>
-                                </div>
-                                <input type="datetime-local" asp-for="DateLearned" class="form-control">
-
-                            </div>
-
-
-                            @if (Model.RepeatDates.Count > 0)
-                            {
-                                @for (int i = 0; i < Model.RepeatDates.Count; i++)
-                                {
-                                    <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
-                                        </div>
-                                        <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
-                                        <input type="hidden" asp-for="RepeatDates[i].Id">
-
-                                        <div class="input-group-append delete-date-button">
-                                            <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                                        </div>
-                                    </div>
-
-
-                                    @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
-                                }
-                                <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
-                            }
-                            else
-                            {
-                                <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
-                            }
-
-
-
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
 
                         </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="Description"></label>
+                            </div>
+                            <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
+
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" asp-for="DateLearned"></label>
+                            </div>
+                            <input type="datetime-local" asp-for="DateLearned" class="form-control">
+
+                        </div>
+
+
+                        @if (Model.RepeatDates.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                            {
+                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
+                                    </div>
+                                    <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                                    <input type="hidden" asp-for="RepeatDates[i].Id">
+
+                                    <div class="input-group-append delete-date-button">
+                                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                                    </div>
+                                </div>
+
+
+                                @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
+                            }
+                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+
+                        }
+                        else
+                        {
+                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
+                        }
+                        <br /><br />
+
                         <div class="btn-group">
                             <button class="btn btn-primary" type="submit">Save changes</button>
-                            <button class="btn btn-danger" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
+                            <button class="btn btn-secondary" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
+                            <a class="btn btn-danger delete-detail-button" asp-action="DeleteTheme" asp-route-themeId="@Model.Id">Delete theme</a>
                         </div>
+
                     </div>
+                    
                 </div>
-
-
             </div>
+
+
+        </div>
     </form>
 
 </div>
@@ -155,6 +159,21 @@
             $(".repeat-date").each(function () {
                 addDeleteEvent(this);
             })
+
+            $(".delete-detail-button").click(function (e) {
+                e.preventDefault();
+                this.innerHTML = "Confirm delete";
+                $(this).removeClass("btn-danger");
+                $(this).css("background-color", "#ff0000");
+                $(this).css("color", "#ffffff");
+                $(".detail").css("background-color", "#ff0000");   
+                
+                $(this).unbind('click');    
+                
+            })
+
+
+
         });
 
     </script>

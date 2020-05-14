@@ -79,6 +79,10 @@ header, footer {
     background-color: #4f5d75;
 }
 
+.logo {
+    width:200px;
+}
+
 main {
     /*background-color: white;*/
     /*background-color: #eeeeee;*/
