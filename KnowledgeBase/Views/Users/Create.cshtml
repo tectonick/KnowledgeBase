@@ -1,15 +1,16 @@
 ﻿
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Create";
 }
 
-@model KnowledgeBase.ViewModels.RegisterViewModel
+@model KnowledgeBase.ViewModels.CreateUserViewModel
+
 
 <div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
-    <div class="card-header">Register new user</div>
+    <div class="card-header">Create user</div>
     <div class="card-body">
 
-        <form method="post" asp-controller="Account" asp-action="Register">
+        <form asp-action="Create" asp-controller="Users">
             <div asp-validation-summary="All"></div>
 
             <div class="input-group mb-3">
@@ -19,7 +20,6 @@
                 <input type="text" asp-for="Email" class="form-control" placeholder="">
 
             </div>
-            @*<span asp-validation-for="Email"></span>*@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" asp-for="Password"></label>
@@ -27,20 +27,12 @@
                 <input type="password" asp-for="Password" class="form-control" placeholder="">
 
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" asp-for="PasswordConfirm"></label>
-                </div>
-                <input type="text" asp-for="PasswordConfirm" class="form-control" placeholder="">
 
-            </div>
-            @*<span asp-validation-for="Password"></span>*@
             <div>
-                <button class="btn btn-primary mx-auto" type="submit">Register</button>
+                <button class="btn btn-primary mx-auto" type="submit">Create</button>
             </div>
         </form>
 
     </div>
 
 </div>
-

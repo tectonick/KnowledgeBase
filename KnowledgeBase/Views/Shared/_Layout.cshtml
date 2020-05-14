@@ -32,35 +32,50 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @if (User.IsInRole("admin"))
+                            { 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">@User.Identity.Name</a>
-                    </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </li>
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
+                                <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                            </div>
+                        </div>
+                    </li>    
+                            }
 
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                        }
-                    </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">@User.Identity.Name</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </li>
+
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                            }
+                        </ul>
                 </div>
 
 
                 @*<div class="">
-                    <ul class="navbar-nav flex-grow-1">
-                        
-                        </ul>
-                </div>*@
+                        <ul class="navbar-nav flex-grow-1">
 
-              
-                    
+                            </ul>
+                    </div>*@
+
+
+
 
 
             </div>

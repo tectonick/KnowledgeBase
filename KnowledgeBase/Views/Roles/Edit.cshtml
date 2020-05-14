@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@using Microsoft.AspNetCore.Identity
+@model KnowledgeBase.ViewModels.ChangeRoleViewModel
+
+<div class="card bg-light border mx-auto " style="max-width: 22rem;">
+    <div class="card-header text-center">User roles</div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <div class="form-group">
+                @foreach (IdentityRole role in Model.AllRoles)
+                {
+                    <input type="checkbox" name="roles" value="@role.Name"
+                           @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
+                    }
+            </div>
+
+
+            <div>
+                <button class="btn btn-primary mx-auto" type="submit">Save</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

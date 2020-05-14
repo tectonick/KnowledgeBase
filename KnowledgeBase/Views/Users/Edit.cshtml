@@ -1,0 +1,31 @@
+﻿@model KnowledgeBase.ViewModels.EditUserViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">Edit user</div>
+    <div class="card-body">
+
+        <form asp-action="Edit" asp-controller="Users">
+            <div asp-validation-summary="All"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" />
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" asp-for="Email"></label>
+                </div>
+                <input type="text" asp-for="Email" class="form-control" placeholder="">
+
+            </div>
+
+            <div>
+                <button class="btn btn-primary mx-auto" type="submit">Save</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,31 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
+<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">Create role</div>
+    <div class="card-body">
+
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All"></div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="name">Role name</label>
+                </div>
+                <input type="text" class="form-control" placeholder="">
+
+            </div>
+            
+            <div>
+                <button class="btn btn-primary mx-auto" type="submit">Create</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
