@@ -1,0 +1,28 @@
+﻿@model KnowledgeBase.ViewModels.ProfileUserViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">Profile</div>
+    <div class="card-body">
+
+        <form asp-action="Profile" asp-controller="Account" method="post">
+            <div asp-validation-summary="All"></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" asp-for="Email"></label>
+                </div>
+                <input type="text" asp-for="Email" class="form-control" placeholder="">
+            </div>
+            <div>
+                <button class="btn btn-primary mx-auto" type="submit">Save</button>
+                <a class="btn btn-danger mx-auto" asp-action="ChangePassword">Change password</a>
+            </div>
+        </form>
+
+        
+
+    </div>
+
+</div>

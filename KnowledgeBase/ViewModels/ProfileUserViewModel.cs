@@ -1,8 +1,7 @@
 ﻿namespace KnowledgeBase.ViewModels
 {
-    public class EditUserViewModel
+    public class ProfileUserViewModel
     {
-        public string Id { get; set; }
         public string Email { get; set; }
     }
 
