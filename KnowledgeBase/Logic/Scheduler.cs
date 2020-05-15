@@ -36,14 +36,13 @@ namespace KnowledgeBase.Logic
 
         public void AddRepeat(Theme theme, DateTime dateToRepeat)
         {
-            //inserting date in sorted list
-            int indexToInsert = theme.RepeatDates.FindIndex(date => DateTime.Compare(date.Date, dateToRepeat) >= 0);
-            if (indexToInsert==-1)
+            
+            if (theme.RepeatDates==null)
             {
                 theme.RepeatDates = new List<DateModel>();
-                indexToInsert = 0;
+                
             }
-            theme.RepeatDates.Insert(indexToInsert, new DateModel() { Date = dateToRepeat });
+            theme.RepeatDates.Add(new DateModel() { Date = dateToRepeat });
         }
 
     }

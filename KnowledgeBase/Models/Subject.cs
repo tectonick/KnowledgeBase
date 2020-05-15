@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KnowledgeBase.Models
 {
-    public class Subject
+    public class Subject:IUserObject
     {
         [Key]
         public int Id { get; set; }

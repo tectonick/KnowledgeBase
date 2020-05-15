@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace KnowledgeBase.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -183,13 +184,11 @@ namespace KnowledgeBase.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {

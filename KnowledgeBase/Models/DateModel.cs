@@ -19,12 +19,5 @@ namespace KnowledgeBase.Models
         {
             return DateTime.Compare(this.Date, other.Date);
         }
-
-
-
-        //public static implicit operator DateTime(DateModel dm)
-        //{
-        //    return dm.Date;
-        //}
     }
 }

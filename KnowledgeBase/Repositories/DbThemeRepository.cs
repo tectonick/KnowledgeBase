@@ -45,29 +45,15 @@ namespace KnowledgeBase.Repositories
 
         public Theme Update(Theme updatedTheme)
         {
-            //var theme = _dbContext.Themes.Include(th => th.RepeatDates).First(th => th.Id == updatedTheme.Id);
-            //theme.RepeatDates = updatedTheme.RepeatDates.Select(t => t).ToList();
-
-            //  _dbContext.Themes.Update(updatedTheme);
+            
             var oldTheme = _dbContext.Themes.Include(th => th.RepeatDates).ToList().Find(a => a.Id == updatedTheme.Id);
             var datesToDelete = oldTheme.RepeatDates.Select(rd => rd).Except(updatedTheme.RepeatDates);
             foreach (var date in datesToDelete)
             {
                 _dbContext.DateModels.Remove(date);
             }
-            //oldTheme.RepeatDates.AddRange(updatedTheme.RepeatDates);
+            
             oldTheme.CopyFrom(updatedTheme);
-
-
-            //_dbContext.Themes.Update(updatedTheme);
-            //_dbContext.SaveChanges();
-            //return updatedTheme;
-
-            //var theme = _dbContext.Themes.Include(th => th.RepeatDates).First(th => th.Id == updatedTheme.Id);
-            //theme.CopyFrom(updatedTheme);
-
-            //_dbContext.Themes.Update(theme);            
-            //_dbContext.Entry(theme).CurrentValues.SetValues(updatedTheme);
             _dbContext.SaveChanges();
             return updatedTheme;
         }

@@ -54,20 +54,18 @@ namespace KnowledgeBase.Controllers
 
 
         [HttpGet]
-        //[Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int themeId)
         {
             var theme = _themeRepository.GetById(themeId);
-            if (theme.UserId!= _userManager.GetUserId(HttpContext.User))
-            {
-                return View("Error", new ErrorViewModel { RequestId = "" });
-            }
+            theme.RepeatDates.Sort();
+            if (!ExistsAndAllowedToUse(theme)) return NotFound();
             return View(theme);
         }
 
         public  ActionResult AddRepeat(int themeId)
         {
             var theme = _themeRepository.GetById(themeId);
+            if (!ExistsAndAllowedToUse(theme)) return NotFound();
 
             _scheduler.AddRepeat(theme, DateTime.Now.AddDays(1));
             _themeRepository.Update(theme);
@@ -76,34 +74,29 @@ namespace KnowledgeBase.Controllers
 
 
         [HttpPost]
-        //[Route("{controller}/Subject/{subjectId}/{themeId}")]
         public ActionResult Theme(int themeId,Theme newTheme)
         {
-            //var theme = _themeRepository.GetById(themeId);
-
             if (ModelState.IsValid)
             {
-                //theme.CopyFrom(newTheme);
-                //theme.CopyFrom(newTheme);
-                //_themeRepository.Update(newTheme);
                 _themeRepository.Update(newTheme);
                 return RedirectToAction(nameof(Subject), new { subjectId = newTheme.SubjectId });
             }
-            return View(newTheme);//??????????????
+            else
+            {
+                return View(themeId);
+            }
+            
         }
 
-        // GET: Subjects/Details/5
         public ActionResult Subject(int subjectId)
         {
             var subject = _subjectRepository.GetById(subjectId);
-            if (subject.UserId != _userManager.GetUserId(HttpContext.User))
-            {
-                return View("Error", new ErrorViewModel { RequestId = "" });
-            }
+            
+            if (!ExistsAndAllowedToUse(subject)) return NotFound();
+
             return View(subject);
         }
 
-        // GET: Subjects/Create
         public ActionResult CreateSubject()
         {
             Subject newSubject = new Subject() { Name = "", UserId=_userManager.GetUserId(HttpContext.User) };
@@ -111,9 +104,11 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Subject), new { subjectId = newSubject.Id });
         }
 
-        // GET: Subjects/Create
         public ActionResult CreateTheme(int subjectId)
         {
+            var subject = _subjectRepository.GetById(subjectId);
+            if (!ExistsAndAllowedToUse(subject)) return NotFound();
+
             Theme newTheme = new Theme() { Name = "", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
             newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
             newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
@@ -141,7 +136,9 @@ namespace KnowledgeBase.Controllers
         // GET: Subjects/Delete/5
         public ActionResult DeleteSubject(int subjectId)
         {
+
             var toDelete = _subjectRepository.GetById(subjectId);
+            if (!ExistsAndAllowedToUse(toDelete)) return NotFound();
             _subjectRepository.Delete(toDelete);
 
             return RedirectToAction(nameof(Index));
@@ -150,8 +147,17 @@ namespace KnowledgeBase.Controllers
         public ActionResult DeleteTheme(int themeId)
         {
             var toDelete = _themeRepository.GetById(themeId);
+            if (!ExistsAndAllowedToUse(toDelete)) return NotFound();
+            
+            
             _themeRepository.Delete(toDelete);
             return RedirectToAction(nameof(Subject), new { subjectId = toDelete.SubjectId });
+        }
+
+
+        private bool ExistsAndAllowedToUse(IUserObject userobject)
+        {
+            return (userobject != null) && (userobject.UserId == _userManager.GetUserId(HttpContext.User));
         }
     }
 }

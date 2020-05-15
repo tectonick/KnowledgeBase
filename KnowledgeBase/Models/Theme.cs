@@ -8,12 +8,12 @@ using System.Security.Cryptography;
 namespace KnowledgeBase.Models
 {
 
-    public class Theme
+    public class Theme : IUserObject
     {
-        //Sorted list
+
         [Required(AllowEmptyStrings = true)]
 
-        public List<DateModel> RepeatDates { get; set; }
+        public List<DateModel> RepeatDates { get; set; }         //Should be always sorted
 
         public Theme()
         {
@@ -57,7 +57,7 @@ namespace KnowledgeBase.Models
         public DateTime NextRepeat
         {
             get{
-                var dm = RepeatDates.Find(date => DateTime.Compare(date.Date, DateTime.Now) >= 0);
+                var dm = RepeatDates.Where(dt=>dt.Date>DateTime.Now).Min<DateModel>();
                 if (dm!=null)
                 {
                     return dm.Date;
@@ -72,8 +72,16 @@ namespace KnowledgeBase.Models
         public int TimesRepeated {
             get
             {
-                var lastIndex=RepeatDates.FindLastIndex(date => DateTime.Compare(date.Date, DateTime.Now) < 0);
-                return (lastIndex == -1) ? 0 : (lastIndex+1);
+                int count = 0;
+                foreach (var date in RepeatDates)
+                {
+                    if (DateTime.Compare(date.Date, DateTime.Now) < 0)
+                    {
+                        count++;
+                    }
+                }
+                
+                return count;
             }
         }
 
