@@ -8,6 +8,7 @@ using KnowledgeBase.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace KnowledgeBase.Controllers
 {
@@ -15,11 +16,13 @@ namespace KnowledgeBase.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _logger = logger;
 
         }
 
@@ -75,6 +78,7 @@ namespace KnowledgeBase.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    _logger.LogWarning($"New user {model.Email}");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -107,7 +111,7 @@ namespace KnowledgeBase.Controllers
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-
+                    _logger.LogWarning($"{model.Email} logged in");
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -116,9 +120,11 @@ namespace KnowledgeBase.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                    
                 }
                 else
                 {
+                    _logger.LogWarning($"Failed login for {model.Email}");
                     ModelState.AddModelError("", "Incorrect login or (and) password");
                 }
             }
@@ -129,6 +135,7 @@ namespace KnowledgeBase.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -186,6 +193,7 @@ namespace KnowledgeBase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            _logger.LogWarning($"Someone requested password reset for {model.Email}");
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
@@ -201,8 +209,11 @@ namespace KnowledgeBase.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                 EmailService emailService = new EmailService();
+
+
                 await emailService.SendEmailAsync(model.Email, "Reset Password",
                     $"Please, follow the link to reset your password: <a href='{callbackUrl}'>link</a>");
+
                 return View("ForgotPasswordConfirmation");
             }
             return View(model);
@@ -232,6 +243,7 @@ namespace KnowledgeBase.Controllers
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
+                _logger.LogWarning($"{model.Email} reset his password");
                 return View("ResetPasswordConfirmation");
             }
             foreach (var error in result.Errors)

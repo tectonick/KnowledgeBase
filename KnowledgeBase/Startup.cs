@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace KnowledgeBase
@@ -37,7 +38,7 @@ namespace KnowledgeBase
             //services.AddSingleton<IThemeRepository, MemoryThemeRepository>();
 
             services.AddSingleton<IScheduler, Scheduler>();
-
+            
             services.AddScoped<ISubjectRepository, DbSubjectRepository>();
             services.AddScoped<IThemeRepository, DbThemeRepository>();
 
@@ -55,8 +56,9 @@ namespace KnowledgeBase
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            //loggerFactory.AddFile("Logs/myapp-{Date}.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -68,6 +70,7 @@ namespace KnowledgeBase
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
 
             //No cache for development

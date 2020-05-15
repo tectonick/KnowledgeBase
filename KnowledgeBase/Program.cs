@@ -21,6 +21,11 @@ namespace KnowledgeBase
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureLogging((hostingContext, builder) =>
+                {
+                    builder.AddFile("Logs/myapp-{Date}.log");
+                    builder.AddDebug();
+                    builder.AddConsole();
                 });
     }
 }

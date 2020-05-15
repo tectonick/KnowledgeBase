@@ -23,6 +23,7 @@ namespace KnowledgeBase.Logic
 
             using (var client = new SmtpClient())
             {
+
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true; //Temporary, should be fixed
                 await client.ConnectAsync("smtp.mail.ru", 25, false);
                 await client.AuthenticateAsync("knowledgebase@inbox.ru", "IpgYUOayl21^");
