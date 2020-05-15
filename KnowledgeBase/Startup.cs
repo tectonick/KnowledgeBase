@@ -49,7 +49,7 @@ namespace KnowledgeBase
                 opts.Password.RequireDigit = false;
                 opts.User.RequireUniqueEmail = true;
 
-            }).AddEntityFrameworkStores<MyDbContext>();
+            }).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders(); ;
 
 
         }
