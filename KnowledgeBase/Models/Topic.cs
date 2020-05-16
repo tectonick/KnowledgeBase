@@ -57,7 +57,7 @@ namespace KnowledgeBase.Models
         public DateTime NextRepeat
         {
             get{
-                var dm = RepeatDates.Where(dt=>dt.Date>DateTime.Now).Min<DateModel>();
+                var dm = RepeatDates.Where(dt=>!dt.Repeated).Min<DateModel>();
                 if (dm!=null)
                 {
                     return dm.Date;
@@ -75,7 +75,7 @@ namespace KnowledgeBase.Models
                 int count = 0;
                 foreach (var date in RepeatDates)
                 {
-                    if (DateTime.Compare(date.Date, DateTime.Now) < 0)
+                    if (date.Repeated)
                     {
                         count++;
                     }

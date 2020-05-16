@@ -46,11 +46,15 @@
                             {
                                 <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" asp-for="RepeatDates[i].Date"></label>
+                                        @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
+                                        <div class="input-group-text">
+                                            <input type="checkbox" asp-for="RepeatDates[i].Repeated" />
+                                        </div>
+                                        
                                     </div>
                                     <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
                                     <input type="hidden" asp-for="RepeatDates[i].Id">
-
+                                    
                                     <div class="input-group-append delete-date-button">
                                         <span class="input-group-text"><i class="fas fa-trash"></i></span>
                                     </div>
@@ -60,7 +64,7 @@
                         }
                         else
                         {
-                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
+                            <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
                         }
                         <br /><br />
                         <div class="btn-group">

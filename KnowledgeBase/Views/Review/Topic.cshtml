@@ -1,0 +1,32 @@
+﻿@model Topic
+@{
+    ViewData["Title"] = "Topic";
+}
+
+<div class="">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-light border">
+                <div class="card-header text-center">Review notes for @Model.Name</div>
+                <div class="card-body bg-white review-wrapper">
+                    @Html.Raw(Model.Notes)
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group mb-3">
+                        <a class="btn btn-primary btn" asp-controller="Review" asp-action="DoneRepeat" asp-route-topicId="@Model.Id">Done</a>
+                        <a class="btn btn-secondary btn" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">Edit</a>
+                        <a class="btn btn-danger btn" asp-controller="Review" asp-action="Index">Back</a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 text-center">
+            
+        </div>
+    </div>
+
+</div>

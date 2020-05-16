@@ -27,44 +27,50 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Subjects" asp-action="Index">Subjects</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated){
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
+                            </li>  
+                        }
                         <li class="nav-item mr-auto">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            @if (User.IsInRole("admin"))
-                            { 
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
-                                <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                        @if (User.IsInRole("admin"))
+                            {
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
+                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                                </div>
                             </div>
-                        </div>
-                    </li>    
+                        </li>
+
                             }
 
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Profile">@User.Identity.Name</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Profile">@User.Identity.Name</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                        </li>
 
                             }
                             else
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
-                                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
                             }
-                        </ul>
+                    </ul>
                 </div>
 
 

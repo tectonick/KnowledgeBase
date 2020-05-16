@@ -14,6 +14,7 @@ namespace KnowledgeBase.Models
         public int Id { get; set; }
         public int TopicId { get; set; }
         public DateTime Date { get; set; }
+        public bool Repeated { get; set; } = false;
 
         public int CompareTo([AllowNull] DateModel other)
         {

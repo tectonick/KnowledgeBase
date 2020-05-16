@@ -1,0 +1,71 @@
+﻿@model List<Topic>
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="text-center">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card bg-light">
+                    <div class="card-header">Help</div>
+
+                    <div class="card-body">
+                        <p>Lorem ipsum</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="card bg-light">
+                    <div class="card-header">Topics to review today</div>
+                    <div class="card-columns p-3">
+                        @if ((Model == null) || (Model.Count == 0))
+                        {
+                            <br />
+                            <i>You don`t have topics to review today</i>
+                        }
+                        else
+                        {
+                            @foreach (var topic in Model)
+                            {
+                                <div class="card bg-light" style="max-width: 22rem;">
+                                    <div class="card-header bg-light text-dark">@topic.Name</div>
+                                    <div class="card-body">
+
+                                        <p>DateLearned: @topic.DateLearned </p>
+                                        @if (topic.NextRepeat != DateTime.MinValue)
+                                        {
+                                            <p>NextRepeat: @topic.NextRepeat</p>
+                                        }
+                                        <p>TimesRepeated: @topic.TimesRepeated</p>
+                                        @if (@topic.Description != null)
+                                        {
+                                            <p>Description: @topic.Description</p>
+                                        }
+                                    </div>
+
+                                    <div class="btn-group mb-3">
+
+                                        <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Topic" asp-route-topicId="@topic.Id">Review</a>
+                                        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Edit</a>
+
+
+                                    </div>
+
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
+
+
+
+
+
+                
+
+            </div>
+        </div>
+    </div>
