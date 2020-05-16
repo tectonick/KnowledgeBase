@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KnowledgeBase.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles = "admin")]
     public class UsersController : Controller
     {
         UserManager<User> _userManager;

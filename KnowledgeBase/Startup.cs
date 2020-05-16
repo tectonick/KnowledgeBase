@@ -35,12 +35,12 @@ namespace KnowledgeBase
             services.AddControllersWithViews();
 
             //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
-            //services.AddSingleton<IThemeRepository, MemoryThemeRepository>();
+            //services.AddSingleton<ITopicRepository, MemoryTopicRepository>();
 
             services.AddSingleton<IScheduler, Scheduler>();
             
             services.AddScoped<ISubjectRepository, DbSubjectRepository>();
-            services.AddScoped<IThemeRepository, DbThemeRepository>();
+            services.AddScoped<ITopicRepository, DbTopicRepository>();
 
             services.AddIdentity<User, IdentityRole>(opts => {
                 opts.Password.RequiredLength = 5;   

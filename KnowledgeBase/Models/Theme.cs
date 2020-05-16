@@ -8,28 +8,28 @@ using System.Security.Cryptography;
 namespace KnowledgeBase.Models
 {
 
-    public class Theme : IUserObject
+    public class Topic : IUserObject
     {
 
         [Required(AllowEmptyStrings = true)]
 
         public List<DateModel> RepeatDates { get; set; }         //Should be always sorted
 
-        public Theme()
+        public Topic()
         {
             RepeatDates = new List<DateModel>();
         }
 
-        public void CopyFrom(Theme theme)
+        public void CopyFrom(Topic topic)
         {
-            if (theme!=null)
+            if (topic!=null)
             {
-                this.Id = theme.Id;
-                this.Name = theme.Name;
-                this.Description = theme.Description;
-                this.Notes = theme.Notes;
-                this.DateLearned = theme.DateLearned;
-                this.RepeatDates = theme.RepeatDates;
+                this.Id = topic.Id;
+                this.Name = topic.Name;
+                this.Description = topic.Description;
+                this.Notes = topic.Notes;
+                this.DateLearned = topic.DateLearned;
+                this.RepeatDates = topic.RepeatDates;
                 this.RepeatDates.Sort();
             }            
         }

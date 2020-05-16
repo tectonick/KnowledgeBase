@@ -1,6 +1,6 @@
-﻿@model Theme
+﻿@model Topic
 @{
-    ViewData["Title"] = "Theme";
+    ViewData["Title"] = "Topic";
 }
 <div class="text-center">
     <form method="post">
@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="card bg-light">
-                    <div class="card-header detail">Theme</div>
+                    <div class="card-header detail">Topic</div>
                     <div class="card-body">
                         <div class="validation" asp-validation-summary="All"></div>
                         <input type="hidden" asp-for="Id">
@@ -23,7 +23,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" asp-for="Name"></label>
                             </div>
-                            <input type="text" asp-for="Name" class="form-control" placeholder="Theme name">
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Topic name">
 
                         </div>
                         <div class="input-group mb-3">
@@ -60,13 +60,13 @@
                         }
                         else
                         {
-                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
+                            <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
                         }
                         <br /><br />
                         <div class="btn-group">
                             <button class="btn btn-primary" type="submit">Save changes</button>
                             <button class="btn btn-secondary" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
-                            <a class="btn btn-danger delete-detail-button" asp-action="DeleteTheme" asp-route-themeId="@Model.Id">Delete theme</a>
+                            <a class="btn btn-danger delete-detail-button" asp-action="DeleteTopic" asp-route-topicId="@Model.Id">Delete topic</a>
                         </div>
 
                     </div>

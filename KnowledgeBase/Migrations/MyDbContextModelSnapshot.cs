@@ -29,12 +29,12 @@ namespace KnowledgeBase.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ThemeId")
+                    b.Property<int>("TopicId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ThemeId");
+                    b.HasIndex("TopicId");
 
                     b.ToTable("DateModels");
                 });
@@ -59,7 +59,7 @@ namespace KnowledgeBase.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>
+            modelBuilder.Entity("KnowledgeBase.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace KnowledgeBase.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Themes");
+                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("KnowledgeBase.Models.User", b =>
@@ -292,17 +292,17 @@ namespace KnowledgeBase.Migrations
 
             modelBuilder.Entity("KnowledgeBase.Models.DateModel", b =>
                 {
-                    b.HasOne("KnowledgeBase.Models.Theme", null)
+                    b.HasOne("KnowledgeBase.Models.Topic", null)
                         .WithMany("RepeatDates")
-                        .HasForeignKey("ThemeId")
+                        .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("KnowledgeBase.Models.Theme", b =>
+            modelBuilder.Entity("KnowledgeBase.Models.Topic", b =>
                 {
                     b.HasOne("KnowledgeBase.Models.Subject", null)
-                        .WithMany("Themes")
+                        .WithMany("Topics")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

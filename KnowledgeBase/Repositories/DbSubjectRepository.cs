@@ -29,13 +29,13 @@ namespace KnowledgeBase.Repositories
 
         public List<Subject> GetAllForUser(string userId)
         {
-            return _dbContext.Subjects.Where(sub=>sub.UserId==userId).Include(x => x.Themes).ThenInclude(th=>th.RepeatDates).ToList();
+            return _dbContext.Subjects.Where(sub=>sub.UserId==userId).Include(x => x.Topics).ThenInclude(th=>th.RepeatDates).ToList();
         }
 
         public Subject GetById(int id)
         {
             //return _dbContext.Subjects.Find(id)
-            return _dbContext.Subjects.Include(x => x.Themes).ThenInclude(th => th.RepeatDates).ToList().Find(a => a.Id == id);
+            return _dbContext.Subjects.Include(x => x.Topics).ThenInclude(th => th.RepeatDates).ToList().Find(a => a.Id == id);
         }
 
         public Subject GetByName(string name)

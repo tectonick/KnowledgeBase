@@ -13,20 +13,20 @@ namespace KnowledgeBase.Models
         [StringLength(100, ErrorMessage = "Name is too big")]
         public string Name { get; set; }
 
-        public void AddTheme(Theme newTheme)
+        public void AddTopic(Topic newTopic)
         {
-            if (Themes==null)
+            if (Topics==null)
             {
-                Themes = new List<Theme>();
+                Topics = new List<Topic>();
             }
-            newTheme.Id = 0;
-            Themes.Add(newTheme);
+            newTopic.Id = 0;
+            Topics.Add(newTopic);
         }
 
-        public void DeleteTheme(int themeId)
+        public void DeleteTopic(int topicId)
         {
-            Themes.Remove(Themes.Find(th=> th.Id==themeId));
+            Topics.Remove(Topics.Find(th=> th.Id==topicId));
         }
-        public List<Theme> Themes { get; set; }
+        public List<Topic> Topics { get; set; }
     }
 }

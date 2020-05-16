@@ -16,32 +16,32 @@ namespace KnowledgeBase.Controllers
     [Authorize]
     public class SubjectsController : Controller
     {
-        private readonly IThemeRepository _themeRepository;
+        private readonly ITopicRepository _topicRepository;
         private readonly ISubjectRepository _subjectRepository;
         private readonly IScheduler _scheduler;
         private readonly UserManager<User> _userManager;
 
-        public SubjectsController(ISubjectRepository subjectRepository, IThemeRepository themeRepository, IScheduler scheduler, UserManager<User> userManager)
+        public SubjectsController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, IScheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
-            _themeRepository = themeRepository;
+            _topicRepository = topicRepository;
             _scheduler = scheduler;
             _userManager = userManager;
         }
 
 
         [HttpGet]
-        [Route("/api/GetThemes")]
-        public ActionResult GetThemes()
+        [Route("/api/GetTopics")]
+        public ActionResult GetTopics()
         {
-            List<ThemeLight> lightThemes = new List<ThemeLight>();
-            var allThemes = _themeRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
-            foreach (var theme in allThemes)
+            List<TopicLight> lightTopics = new List<TopicLight>();
+            var allTopics = _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
+            foreach (var topic in allTopics)
             {
-                var themeLight = new ThemeLight(theme);
-                lightThemes.Add(themeLight);
+                var topicLight = new TopicLight(topic);
+                lightTopics.Add(topicLight);
             }
-            return Json(lightThemes);
+            return Json(lightTopics);
         }
 
 
@@ -54,36 +54,36 @@ namespace KnowledgeBase.Controllers
 
 
         [HttpGet]
-        public ActionResult Theme(int themeId)
+        public ActionResult Topic(int topicId)
         {
-            var theme = _themeRepository.GetById(themeId);
-            theme.RepeatDates.Sort();
-            if (!ExistsAndAllowedToUse(theme)) return NotFound();
-            return View(theme);
+            var topic = _topicRepository.GetById(topicId);
+            topic.RepeatDates.Sort();
+            if (!ExistsAndAllowedToUse(topic)) return NotFound();
+            return View(topic);
         }
 
-        public  ActionResult AddRepeat(int themeId)
+        public  ActionResult AddRepeat(int topicId)
         {
-            var theme = _themeRepository.GetById(themeId);
-            if (!ExistsAndAllowedToUse(theme)) return NotFound();
+            var topic = _topicRepository.GetById(topicId);
+            if (!ExistsAndAllowedToUse(topic)) return NotFound();
 
-            _scheduler.AddRepeat(theme, DateTime.Now.AddDays(1));
-            _themeRepository.Update(theme);
-            return RedirectToAction(nameof(Theme), new { themeId = themeId });
+            _scheduler.AddRepeat(topic, DateTime.Now.AddDays(1));
+            _topicRepository.Update(topic);
+            return RedirectToAction(nameof(Topic), new { topicId = topicId });
         }
 
 
         [HttpPost]
-        public ActionResult Theme(int themeId,Theme newTheme)
+        public ActionResult Topic(int topicId,Topic newTopic)
         {
             if (ModelState.IsValid)
             {
-                _themeRepository.Update(newTheme);
-                return RedirectToAction(nameof(Subject), new { subjectId = newTheme.SubjectId });
+                _topicRepository.Update(newTopic);
+                return RedirectToAction(nameof(Subject), new { subjectId = newTopic.SubjectId });
             }
             else
             {
-                return View(themeId);
+                return View(topicId);
             }
             
         }
@@ -104,18 +104,18 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Subject), new { subjectId = newSubject.Id });
         }
 
-        public ActionResult CreateTheme(int subjectId)
+        public ActionResult CreateTopic(int subjectId)
         {
             var subject = _subjectRepository.GetById(subjectId);
             if (!ExistsAndAllowedToUse(subject)) return NotFound();
 
-            Theme newTheme = new Theme() { Name = "", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
-            newTheme.DateLearned=newTheme.DateLearned.AddMilliseconds(-newTheme.DateLearned.Millisecond);
-            newTheme.DateLearned = newTheme.DateLearned.AddSeconds(-newTheme.DateLearned.Second);
-            _scheduler.Schedule(newTheme);
+            Topic newTopic = new Topic() { Name = "", DateLearned=DateTime.Now, SubjectId=subjectId, UserId= _userManager.GetUserId(HttpContext.User) };
+            newTopic.DateLearned=newTopic.DateLearned.AddMilliseconds(-newTopic.DateLearned.Millisecond);
+            newTopic.DateLearned = newTopic.DateLearned.AddSeconds(-newTopic.DateLearned.Second);
+            _scheduler.Schedule(newTopic);
 
-            _themeRepository.Add(newTheme);
-            return RedirectToAction(nameof(Theme), new { themeId= newTheme.Id });
+            _topicRepository.Add(newTopic);
+            return RedirectToAction(nameof(Topic), new { topicId= newTopic.Id });
         }
 
         // POST: Subjects/Edit/5
@@ -144,13 +144,13 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public ActionResult DeleteTheme(int themeId)
+        public ActionResult DeleteTopic(int topicId)
         {
-            var toDelete = _themeRepository.GetById(themeId);
+            var toDelete = _topicRepository.GetById(topicId);
             if (!ExistsAndAllowedToUse(toDelete)) return NotFound();
             
             
-            _themeRepository.Delete(toDelete);
+            _topicRepository.Delete(toDelete);
             return RedirectToAction(nameof(Subject), new { subjectId = toDelete.SubjectId });
         }
 

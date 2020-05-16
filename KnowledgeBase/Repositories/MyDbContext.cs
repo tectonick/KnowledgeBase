@@ -19,7 +19,7 @@ namespace KnowledgeBase.Repositories
 
         public DbSet<Subject> Subjects { get; set; }
 
-        public DbSet<Theme> Themes { get; set; }
+        public DbSet<Topic> Topics { get; set; }
 
         public DbSet<DateModel> DateModels { get; set; }
 

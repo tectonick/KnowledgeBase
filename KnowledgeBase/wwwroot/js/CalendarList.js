@@ -33,15 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             
-            var themes = JSON.parse(this.responseText);
+            var topics = JSON.parse(this.responseText);
 
-            for (var i = 0; i < themes.length; i++) {
-                console.log(themes[i]);
-                for (var j = 0; j < themes[i].repeatDates.length; j++) {
+            for (var i = 0; i < topics.length; i++) {
+                console.log(topics[i]);
+                for (var j = 0; j < topics[i].repeatDates.length; j++) {
                     calendar.addEvent({
-                        title: themes[i].name,
-                        start: themes[i].repeatDates[j],
-                        url: './Subjects/Theme?themeId=' + themes[i].id
+                        title: topics[i].name,
+                        start: topics[i].repeatDates[j],
+                        url: './Subjects/Topic?topicId=' + topics[i].id
                         
                     });
                 }
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    request.open('GET', '/api/GetThemes', true);
+    request.open('GET', '/api/GetTopics', true);
     request.send(null);
     
 });

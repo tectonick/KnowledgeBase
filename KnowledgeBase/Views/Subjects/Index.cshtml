@@ -17,16 +17,16 @@
                             <div class="card-header bg-light text-dark">@subject.Name</div>
                             <div class="card-body">
                                 
-                                Themes :
-                                @if (subject.Themes == null)
+                                Topics :
+                                @if (subject.Topics == null)
                                 {
-                                    <i>No themes</i>
+                                    <i>No topics</i>
                                 }
                                 else
                                 {
-                                    @foreach (var theme in subject.Themes)
+                                    @foreach (var topic in subject.Topics)
                                     {
-                                        <i>'@theme.Name' </i>
+                                        <i>'@topic.Name' </i>
                                     }
                                 }
                                 <br />

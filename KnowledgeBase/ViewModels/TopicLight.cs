@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace KnowledgeBase.ViewModels
 {
-    public class ThemeLight
+    public class TopicLight
     {
         public List<DateTime> RepeatDates { get; set; }
 
-        public ThemeLight()
+        public TopicLight()
         {
             RepeatDates = new List<DateTime>();
         }
 
-        public ThemeLight(Theme theme)
+        public TopicLight(Topic topic)
         {
-            this.Name = theme.Name;
-            this.Id = theme.Id;
-            this.SubjectId = theme.SubjectId;
-            this.Description = theme.Description;
-            this.RepeatDates = theme.RepeatDates.Select(el => el.Date).ToList();
+            this.Name = topic.Name;
+            this.Id = topic.Id;
+            this.SubjectId = topic.SubjectId;
+            this.Description = topic.Description;
+            this.RepeatDates = topic.RepeatDates.Select(el => el.Date).ToList();
         }
 
         public int Id { get; set; }

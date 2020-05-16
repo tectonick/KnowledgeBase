@@ -5,8 +5,8 @@ namespace KnowledgeBase.Logic
 {
     public interface IScheduler
     {
-        void AddRepeat(Theme theme, DateTime dateToRepeat);
-        void Relearn(Theme theme);
-        void Schedule(Theme theme);
+        void AddRepeat(Topic topic, DateTime dateToRepeat);
+        void Relearn(Topic topic);
+        void Schedule(Topic topic);
     }
 }

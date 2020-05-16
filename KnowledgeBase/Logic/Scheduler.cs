@@ -17,32 +17,32 @@ namespace KnowledgeBase.Logic
         {
             dayIntervals = intervals;
         }
-        public void Schedule(Theme theme)
+        public void Schedule(Topic topic)
         {
-            DateTime learned = theme.DateLearned;
+            DateTime learned = topic.DateLearned;
             foreach (var dayInterval in dayIntervals)
             {
-                theme.RepeatDates.Add(new DateModel() { Date = learned.AddDays(dayInterval) });
+                topic.RepeatDates.Add(new DateModel() { Date = learned.AddDays(dayInterval) });
             }
         }
-        public void Relearn(Theme theme)
+        public void Relearn(Topic topic)
         {
             DateTime learned = DateTime.Now;
             learned=learned.AddMilliseconds(-learned.Millisecond);
             learned = learned.AddSeconds(-learned.Second);
-            theme.RepeatDates.Clear();
-            Schedule(theme);
+            topic.RepeatDates.Clear();
+            Schedule(topic);
         }
 
-        public void AddRepeat(Theme theme, DateTime dateToRepeat)
+        public void AddRepeat(Topic topic, DateTime dateToRepeat)
         {
             
-            if (theme.RepeatDates==null)
+            if (topic.RepeatDates==null)
             {
-                theme.RepeatDates = new List<DateModel>();
+                topic.RepeatDates = new List<DateModel>();
                 
             }
-            theme.RepeatDates.Add(new DateModel() { Date = dateToRepeat });
+            topic.RepeatDates.Add(new DateModel() { Date = dateToRepeat });
         }
 
     }

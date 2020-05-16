@@ -7,7 +7,7 @@ namespace KnowledgeBase.Models
     public class User : IdentityUser
     {
         public List<Subject> Subjects;
-        public List<Theme> Themes;
+        public List<Topic> Topics;
 
     }
 }

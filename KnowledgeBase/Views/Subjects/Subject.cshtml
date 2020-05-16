@@ -9,36 +9,36 @@
             <div class="card bg-light">
                 <div class="card-header">@Model.Name Topics</div>
                 <div class="card-columns p-3">
-                    @if ((Model.Themes == null) || (Model.Themes.Count == 0))
+                    @if ((Model.Topics == null) || (Model.Topics.Count == 0))
                     {
                         <br />
                         <i>You haven`t added any topics</i>
                     }
                     else
                     {
-                        @foreach (var theme in Model.Themes)
+                        @foreach (var topic in Model.Topics)
                         {
                             <div class="card bg-light" style="max-width: 22rem;">
-                                <div class="card-header bg-light text-dark">@theme.Name</div>
+                                <div class="card-header bg-light text-dark">@topic.Name</div>
                                 <div class="card-body">
 
-                                    <p>DateLearned: @theme.DateLearned </p>
-                                    @if (theme.NextRepeat != DateTime.MinValue)
+                                    <p>DateLearned: @topic.DateLearned </p>
+                                    @if (topic.NextRepeat != DateTime.MinValue)
                                     {
-                                        <p>NextRepeat: @theme.NextRepeat</p>
+                                        <p>NextRepeat: @topic.NextRepeat</p>
                                     }
-                                    <p>TimesRepeated: @theme.TimesRepeated</p>
-                                    @if (@theme.Description != null)
+                                    <p>TimesRepeated: @topic.TimesRepeated</p>
+                                    @if (@topic.Description != null)
                                     {
-                                        <p>Description: @theme.Description</p>
+                                        <p>Description: @topic.Description</p>
                                     }
                                 </div>
 
                                 <div class="btn-group mb-3">
 
 
-                                    <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Theme" asp-route-themeId="@theme.Id">Detail</a>
-                                    <a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTheme" asp-route-themeId="@theme.Id">Delete</a>
+                                    <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Detail</a>
+                                    <a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@topic.Id">Delete</a>
 
                                 </div>
 
@@ -67,7 +67,7 @@
                                 <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
                             </div>
                             <p>Lorem ipsum</p>
-                            <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTheme" asp-route-subjectId="@Model.Id">Create theme</a>
+                            <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>
                         </div>
 
                         <div class="btn-group">

@@ -12,7 +12,7 @@ namespace KnowledgeBase.Models
     {
         [Key]
         public int Id { get; set; }
-        public int ThemeId { get; set; }
+        public int TopicId { get; set; }
         public DateTime Date { get; set; }
 
         public int CompareTo([AllowNull] DateModel other)
