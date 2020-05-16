@@ -3,21 +3,16 @@
     ViewData["Title"] = "Theme";
 }
 <div class="text-center">
-    @*<h1 class="display-4">Theme @Model.Name</h1>
-        <hr />*@
     <form method="post">
         <div class="row">
             <div class="col-sm-8">
                 <div class="card bg-light border">
                     <div class="card-header">Notes</div>
-                    @*<label asp-for="Description"> </label>*@
-                    @*<input type="text" asp-for="Description" />*@
                     <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="card bg-light">
-                    @*<h3 class="card-title">@Model.Name</h3>*@
                     <div class="card-header detail">Theme</div>
                     <div class="card-body">
                         <div class="validation" asp-validation-summary="All"></div>
@@ -45,8 +40,6 @@
                             <input type="datetime-local" asp-for="DateLearned" class="form-control">
 
                         </div>
-
-
                         @if (Model.RepeatDates.Count > 0)
                         {
                             @for (int i = 0; i < Model.RepeatDates.Count; i++)
@@ -62,19 +55,14 @@
                                         <span class="input-group-text"><i class="fas fa-trash"></i></span>
                                     </div>
                                 </div>
-
-
-                                @*<a asp-controller="Subjects" asp-action="DeleteRepeatTime" asp-route-mytheme="@Model" asp-route-timeIndex="@i">Delete</a>*@
                             }
                             <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
-
                         }
                         else
                         {
                             <a class="btn btn-info" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-themeId="@Model.Id">Add repeat dates</a>
                         }
                         <br /><br />
-
                         <div class="btn-group">
                             <button class="btn btn-primary" type="submit">Save changes</button>
                             <button class="btn btn-secondary" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
