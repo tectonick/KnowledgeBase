@@ -5,6 +5,20 @@
 
 <div class="text-center">
     <div class="row">
+
+        <div class="col-sm-4 mb-3 mb-sm-0">
+
+            <div class="card bg-light">
+                <div class="card-header">Help</div>
+
+                <div class="card-body">
+                    <p>Lorem ipsum</p>
+                </div>
+                <a class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+            </div>
+
+        </div>
+
         <div class="col-sm-8">
             <div class="card bg-light">
                 <div class="card-header">Your subjects</div>
@@ -16,7 +30,7 @@
                         <div class="card bg-light" style="max-width: 22rem;">
                             <div class="card-header bg-light text-dark">@subject.Name</div>
                             <div class="card-body">
-                                
+
                                 Topics :
                                 @if (subject.Topics == null)
                                 {
@@ -43,19 +57,13 @@
             </div>
         </div>
 
-    <div class="col-sm-4">
 
-        <div class="card bg-light">
-            <div class="card-header">Help</div>
-            
-            <div class="card-body">
-                <p>Lorem ipsum</p>
-            </div>
-            <a class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
-        </div>
+
+
+
+
 
     </div>
-</div>
 </div>
 
 

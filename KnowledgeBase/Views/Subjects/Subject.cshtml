@@ -5,6 +5,46 @@
 
 <div class="text-center">
     <div class="row">
+
+        <div class="col-sm-4 mb-3 mb-sm-0">
+            <div class="card bg-light">
+                @*<h3 class="card-title">@Model.Name</h3>*@
+                <div class="card-header detail">Subject properties</div>
+                <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
+                    <div class="card-body">
+
+                        <div class="validation" asp-validation-summary="All"></div>
+                        <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
+                        <input type="hidden" asp-for="UserId">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                @*<button class="btn btn-primary" type="submit">Save name</button>*@
+                                <label class="input-group-text" asp-for="Name"></label>
+                            </div>
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
+                        </div>
+                        <p>Lorem ipsum</p>
+                        <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <button class="btn btn-secondary" type="submit" asp-controller="Subjects" asp-action="Index">Back</button>
+                        <a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+
         <div class="col-sm-8 ">
             <div class="card bg-light">
                 <div class="card-header">@Model.Name Topics</div>
@@ -47,40 +87,9 @@
 
                     }
                 </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card bg-light">
-                    @*<h3 class="card-title">@Model.Name</h3>*@
-                    <div class="card-header detail">Subject properties</div>
-                    <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
-                        <div class="card-body">
-
-                            <div class="validation" asp-validation-summary="All"></div>
-                            <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
-                            <input type="hidden" asp-for="UserId">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    @*<button class="btn btn-primary" type="submit">Save name</button>*@
-                                    <label class="input-group-text" asp-for="Name"></label>
-                                </div>
-                                <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
-                            </div>
-                            <p>Lorem ipsum</p>
-                            <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>
-                        </div>
-
-                        <div class="btn-group">
-                            <button class="btn btn-primary" type="submit">Save</button>
-                            <button class="btn btn-secondary" type="submit" asp-controller="Subjects" asp-action="Index">Back</button>
-                            <a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
-                        </div>
-                    </form>
-
-                </div>
-
             </div>
         </div>
+    </div>
 </div>
 
 
@@ -92,7 +101,7 @@
 
     <script>
         $("document").ready(function () {
-          
+
             $(".delete-detail-button").click(function (e) {
                 e.preventDefault();
                 this.innerHTML = "Confirm delete";

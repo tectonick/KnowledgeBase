@@ -31,7 +31,7 @@ namespace KnowledgeBase.Controllers
         {
             List<Topic> todayTopics = new List<Topic>();
             var allTopics = _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
-            todayTopics = allTopics.Where(t => t.NextRepeat.Date == DateTime.Now.Date).ToList();
+            todayTopics = allTopics.Where(t => t.NextRepeat.Date <= DateTime.Now.Date).ToList();
             return View(todayTopics);
         }
 

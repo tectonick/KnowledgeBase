@@ -5,13 +5,8 @@
 <div class="text-center">
     <form method="post">
         <div class="row">
-            <div class="col-sm-8">
-                <div class="card bg-light border">
-                    <div class="card-header">Notes</div>
-                    <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
-                </div>
-            </div>
-            <div class="col-sm-4">
+
+            <div class="col-sm-4 mb-3 mb-sm-0">
                 <div class="card bg-light">
                     <div class="card-header detail">Topic</div>
                     <div class="card-body">
@@ -42,29 +37,29 @@
                         </div>
                         @if (Model.RepeatDates.Count > 0)
                         {
-                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                        @for (int i = 0; i < Model.RepeatDates.Count; i++)
                             {
-                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                                    <div class="input-group-prepend">
-                                        @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
-                                        <div class="input-group-text">
-                                            <input type="checkbox" asp-for="RepeatDates[i].Repeated" />
-                                        </div>
-                                        
-                                    </div>
-                                    <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
-                                    <input type="hidden" asp-for="RepeatDates[i].Id">
-                                    
-                                    <div class="input-group-append delete-date-button">
-                                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                                    </div>
+                        <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                            <div class="input-group-prepend">
+                                @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
+                                <div class="input-group-text">
+                                    <input type="checkbox" asp-for="RepeatDates[i].Repeated" />
                                 </div>
+
+                            </div>
+                            <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                            <input type="hidden" asp-for="RepeatDates[i].Id">
+
+                            <div class="input-group-append delete-date-button">
+                                <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                            </div>
+                        </div>
                             }
-                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+                        <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
                         }
                         else
                         {
-                            <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
+                        <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
                         }
                         <br /><br />
                         <div class="btn-group">
@@ -74,7 +69,14 @@
                         </div>
 
                     </div>
-                    
+
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="card bg-light border">
+                    <div class="card-header">Notes</div>
+                    <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
                 </div>
             </div>
 
@@ -130,11 +132,11 @@
                 $(elem).remove();
                 renumerateForm();
             });
-            $(elem).hover(function () {
-                $(".delete-date-button", elem).show();
-            }, function () {
-                $(".delete-date-button", elem).hide();
-            });
+            //$(elem).hover(function () {
+            //    $(".delete-date-button", elem).show();
+            //}, function () {
+            //    $(".delete-date-button", elem).hide();
+            //});
         }
 
         $("document").ready(function () {
@@ -146,7 +148,7 @@
                 renumerateForm();
             });
 
-            $(".delete-date-button").hide();
+            //$(".delete-date-button").hide();
 
             $(".repeat-date").each(function () {
                 addDeleteEvent(this);
@@ -158,10 +160,10 @@
                 $(this).removeClass("btn-danger");
                 $(this).css("background-color", "#ff0000");
                 $(this).css("color", "#ffffff");
-                $(".detail").css("background-color", "#ff0000");   
-                
-                $(this).unbind('click');    
-                
+                $(".detail").css("background-color", "#ff0000");
+
+                $(this).unbind('click');
+
             })
 
 
