@@ -4,6 +4,36 @@
 }
 <div class="text-center">
     <form method="post" id="save-theme">
+
+
+
+
+
+        <!-- Delete topic confirmation -->
+        <div class="modal fade" id="deleteTopicConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">Delete confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete @Model.Name? This action cannot be undone!
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@Model.Id">Delete topic</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
         <div class="row">
 
             <div class="col-sm-4 mb-3 mb-sm-0">
@@ -37,35 +67,35 @@
                         </div>
                         @if (Model.RepeatDates.Count > 0)
                         {
-                        @for (int i = 0; i < Model.RepeatDates.Count; i++)
+                            @for (int i = 0; i < Model.RepeatDates.Count; i++)
                             {
-                        <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
-                            <div class="input-group-prepend">
-                                @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
-                                <div class="input-group-text">
-                                    <input type="checkbox" asp-for="RepeatDates[i].Repeated" />
+                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                                    <div class="input-group-prepend">
+                                        @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
+                                        <div class="input-group-text">
+                                            <input type="checkbox" asp-for="RepeatDates[i].Repeated" />
+                                        </div>
+
+                                    </div>
+                                    <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
+                                    <input type="hidden" asp-for="RepeatDates[i].Id">
+
+                                    <div class="input-group-append delete-date-button">
+                                        <span class="input-group-text"><i class="fas fa-trash"></i></span>
+                                    </div>
                                 </div>
-
-                            </div>
-                            <input type="datetime-local" asp-for="RepeatDates[i].Date" class="form-control">
-                            <input type="hidden" asp-for="RepeatDates[i].Id">
-
-                            <div class="input-group-append delete-date-button">
-                                <span class="input-group-text"><i class="fas fa-trash"></i></span>
-                            </div>
-                        </div>
                             }
-                        <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
                         }
                         else
                         {
-                        <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
+                            <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
                         }
                         <br /><br />
                         <div class="btn-group">
                             <button class="btn btn-primary" type="submit">Save changes</button>
                             <a class="btn btn-secondary" href="javascript: history.go(-1)">Back</a>
-                            <a class="btn btn-danger delete-detail-button" asp-action="DeleteTopic" asp-route-topicId="@Model.Id">Delete topic</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTopicConfirmation">Delete topic</button>
                         </div>
 
                     </div>

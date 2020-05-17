@@ -11,6 +11,47 @@
                 @*<h3 class="card-title">@Model.Name</h3>*@
                 <div class="card-header detail">Subject properties</div>
                 <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
+
+
+
+
+
+
+
+                  
+
+                    <!-- Delete subject confirmation -->
+                    <div class="modal fade" id="deleteSubjectConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">Delete confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to delete @Model.Name? All its topics will be deleted!
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-danger" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="card-body">
 
                         <div class="validation" asp-validation-summary="All"></div>
@@ -30,7 +71,10 @@
                     <div class="btn-group">
                         <button class="btn btn-primary" type="submit">Save</button>
                         <a class="btn btn-secondary" type="submit" href="javascript: history.go(-1)">Back</a>
-                        <a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSubjectConfirmation">
+                            Delete subject
+                        </button>
+                        @*<a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>*@
                     </div>
                 </form>
 
@@ -84,9 +128,10 @@
 
                     <div class="btn-group mb-3">
 
+                        <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Topic" asp-route-topicId="@topic.Id">Review</a>
+                        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Edit</a>
 
-                        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Detail</a>
-                        <a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@topic.Id">Delete</a>
+                        @*<a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@topic.Id">Delete</a>*@
 
                     </div>
 
