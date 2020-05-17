@@ -45,9 +45,9 @@ namespace KnowledgeBase
             services.AddIdentity<User, IdentityRole>(opts => {
                 opts.Password.RequiredLength = 5;   
                 opts.Password.RequireNonAlphanumeric = false;  
-                opts.Password.RequireLowercase = false; 
+                opts.Password.RequireLowercase = true; 
                 opts.Password.RequireUppercase = false;
-                opts.Password.RequireDigit = false;
+                opts.Password.RequireDigit = true;
                 opts.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders(); ;

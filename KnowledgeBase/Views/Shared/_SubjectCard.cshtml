@@ -1,0 +1,29 @@
+﻿@model Subject
+
+
+
+<div class="card small-card" style="max-width: 22rem;">
+    <div class="card-header text-dark">@Model.Name</div>
+    <div class="card-body">
+
+        Topics :
+        @if (Model.Topics == null)
+        {
+            <i>No topics</i>
+        }
+        else
+        {
+            @foreach (var topic in Model.Topics)
+            {
+                <i>'@Model.Name' </i>
+            }
+        }
+        <br />
+    </div>
+    <div class="btn-group mb-3">
+
+        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@Model.Id">Details</a>
+
+
+    </div>
+</div>

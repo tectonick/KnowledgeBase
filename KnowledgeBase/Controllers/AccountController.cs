@@ -87,7 +87,19 @@ namespace KnowledgeBase.Controllers
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        if (error.Code.Contains("Password"))
+                        {
+                            ModelState.AddModelError("Password", error.Description);
+                        }
+                        else if (error.Code.Contains("Email"))
+                        {
+                            ModelState.AddModelError("Email", error.Description);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                        
                     }
                 }
             }

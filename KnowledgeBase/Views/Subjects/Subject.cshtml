@@ -53,7 +53,6 @@
 
 
                     <div class="card-body">
-
                         <div class="validation" asp-validation-summary="All"></div>
                         <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
                         <input type="hidden" asp-for="UserId">
@@ -102,40 +101,7 @@
                     {
                         @foreach (var topic in Model.Topics)
                         {
-                <div class="card bg-light" style="max-width: 22rem;">
-                    @if (topic.TimesRepeated>0)
-	                {
-                        <span class="badge badge-success">Reviewed @topic.TimesRepeated</span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-primary">Not reviewed yet</span>
-                    }
-
-                    <div class="card-header bg-light text-dark">@topic.Name</div>
-                    <div class="card-body">
-
-                        <p>DateLearned: @topic.DateLearned </p>
-                        @if (topic.NextRepeat != DateTime.MinValue)
-                        {
-                            <p>NextRepeat: @topic.NextRepeat</p>
-                        }
-                        @if (@topic.Description != null)
-                        {
-                            <p>Description: @topic.Description</p>
-                        }
-                    </div>
-
-                    <div class="btn-group mb-3">
-
-                        <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Topic" asp-route-topicId="@topic.Id">Review</a>
-                        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Edit</a>
-
-                        @*<a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@topic.Id">Delete</a>*@
-
-                    </div>
-
-                </div>
+                            <partial name="_TopicCard" model=topic/>
                         }
 
                     }
@@ -150,24 +116,5 @@
 {
     <partial name="_ValidationScriptsPartial" />
 
-    <script src="~/js/DeleteCardConfirm.js"></script>
-
-    <script>
-        $("document").ready(function () {
-
-            $(".delete-detail-button").click(function (e) {
-                e.preventDefault();
-                this.innerHTML = "Confirm delete";
-                $(this).removeClass("btn-danger");
-                $(this).css("background-color", "#ff0000");
-                $(this).css("color", "#ffffff");
-                $(".detail").css("background-color", "#ff0000");
-
-                $(this).unbind('click');
-
-            })
-        });
-
-    </script>
 
 }

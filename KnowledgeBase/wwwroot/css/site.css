@@ -173,7 +173,47 @@ table.mceLayout, textarea.tinyMCE {
 }
 
 
-    .fc-button-primary:hover {
-        background-color: #3f4d65 !important;
-        border-color: #3f4d65 !important;
-    }
+.fc-button-primary:hover {
+    background-color: #3f4d65 !important;
+    border-color: #3f4d65 !important;
+}
+
+.small-card{
+    background-color:#FFFFFF !important;
+}
+
+.small-card .card-header{
+    background-color:#EEEEEE !important;
+}
+
+
+
+.validation-summary-errors li {
+    list-style-type: none;    
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.validation-summary-errors ul {
+    margin-left: 0;
+    padding: 0;
+    
+}
+.field-validation-error {
+    color: #b94a48;
+}
+.field-validation-valid {
+    display: none;
+}
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+.validation-summary-errors {
+    color: #b94a48;
+}
+.validation-summary-valid {
+    display: none;
+}
