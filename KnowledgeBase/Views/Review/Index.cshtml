@@ -29,31 +29,39 @@
                         {
                             @foreach (var topic in Model)
                             {
-                                <div class="card bg-light" style="max-width: 22rem;">
-                                    <div class="card-header bg-light text-dark">@topic.Name</div>
-                                    <div class="card-body">
+                    <div class="card bg-light" style="max-width: 22rem;">
+                        @if (topic.TimesRepeated > 0)
+                        {
+                            <span class="badge badge-success">Reviewed @topic.TimesRepeated</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-primary">Not reviewed yet</span>
+                        }
+                        <div class="card-header bg-light text-dark">@topic.Name</div>
+                        <div class="card-body">
 
-                                        <p>DateLearned: @topic.DateLearned </p>
-                                        @if (topic.NextRepeat != DateTime.MinValue)
-                                        {
-                                            <p>NextRepeat: @topic.NextRepeat</p>
-                                        }
-                                        <p>TimesRepeated: @topic.TimesRepeated</p>
-                                        @if (@topic.Description != null)
-                                        {
-                                            <p>Description: @topic.Description</p>
-                                        }
-                                    </div>
+                            <p>DateLearned: @topic.DateLearned </p>
+                            @if (topic.NextRepeat != DateTime.MinValue)
+                            {
+                                <p>NextRepeat: @topic.NextRepeat</p>
+                            }
+                            <p>TimesRepeated: @topic.TimesRepeated</p>
+                            @if (@topic.Description != null)
+                            {
+                                <p>Description: @topic.Description</p>
+                            }
+                        </div>
 
-                                    <div class="btn-group mb-3">
+                        <div class="btn-group mb-3">
 
-                                        <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Topic" asp-route-topicId="@topic.Id">Review</a>
-                                        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Edit</a>
+                            <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Topic" asp-route-topicId="@topic.Id">Review</a>
+                            <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@topic.Id">Edit</a>
 
 
-                                    </div>
+                        </div>
 
-                                </div>
+                    </div>
                             }
 
                         }

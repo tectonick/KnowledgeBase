@@ -156,9 +156,12 @@ table.mceLayout, textarea.tinyMCE {
     }
 }
 
+
 .badge {
     float: right;
     margin-bottom: -10px;
+}
+.badge-primary {
     background-color: orange !important;
 }
 

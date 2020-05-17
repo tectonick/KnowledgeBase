@@ -30,7 +30,8 @@
                         </li>
                         @if (User.Identity.IsAuthenticated){
                     <li class="nav-item">
-                        <span class="badge badge-pill badge-primary">@await Component.InvokeAsync("ReviewCounter")</span>
+                        @await Component.InvokeAsync("ReviewCounter")
+                        
                         <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
 
                     </li>  
