@@ -29,7 +29,7 @@
 
                     <div class="btn-group">
                         <button class="btn btn-primary" type="submit">Save</button>
-                        <button class="btn btn-secondary" type="submit" asp-controller="Subjects" asp-action="Index">Back</button>
+                        <a class="btn btn-secondary" type="submit" href="javascript: history.go(-1)">Back</a>
                         <a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>
                     </div>
                 </form>

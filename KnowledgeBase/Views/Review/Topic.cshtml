@@ -16,7 +16,7 @@
                     <div class="btn-group mb-3">
                         <a class="btn btn-primary btn" asp-controller="Review" asp-action="DoneRepeat" asp-route-topicId="@Model.Id">Done</a>
                         <a class="btn btn-secondary btn" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">Edit</a>
-                        <a class="btn btn-danger btn" asp-controller="Review" asp-action="Index">Back</a>
+                        <a class="btn btn-danger btn" href="javascript: history.go(-1)">Back</a>
 
                     </div>
 

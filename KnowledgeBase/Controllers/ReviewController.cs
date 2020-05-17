@@ -18,6 +18,14 @@ namespace KnowledgeBase.Controllers
         private readonly IScheduler _scheduler;
         private readonly UserManager<User> _userManager;
 
+
+        public IActionResult ReviewTodayCounter()
+        {
+
+
+            return Content("123");
+        }
+
         public ReviewController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, IScheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
@@ -31,7 +39,7 @@ namespace KnowledgeBase.Controllers
         {
             List<Topic> todayTopics = new List<Topic>();
             var allTopics = _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
-            todayTopics = allTopics.Where(t => t.NextRepeat.Date <= DateTime.Now.Date).ToList();
+            todayTopics = allTopics.Where(t => (t.NextRepeat > DateTime.MinValue) && (t.NextRepeat.Date <= DateTime.Now.Date)).ToList();
             return View(todayTopics);
         }
 

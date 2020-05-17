@@ -8,11 +8,11 @@ namespace KnowledgeBase.ViewModels
 {
     public class TopicLight
     {
-        public List<DateTime> RepeatDates { get; set; }
+        public List<DateModel> RepeatDates { get; set; }
 
         public TopicLight()
         {
-            RepeatDates = new List<DateTime>();
+            RepeatDates = new List<DateModel>();
         }
 
         public TopicLight(Topic topic)
@@ -20,14 +20,12 @@ namespace KnowledgeBase.ViewModels
             this.Name = topic.Name;
             this.Id = topic.Id;
             this.SubjectId = topic.SubjectId;
-            this.Description = topic.Description;
-            this.RepeatDates = topic.RepeatDates.Select(el => el.Date).ToList();
+            this.RepeatDates = topic.RepeatDates;
         }
 
         public int Id { get; set; }
         public int SubjectId { get; set; }
 
         public string Name { get; set; }
-        public string Description { get; set; }
     }
 }

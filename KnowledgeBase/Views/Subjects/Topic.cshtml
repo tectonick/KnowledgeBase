@@ -3,7 +3,7 @@
     ViewData["Title"] = "Topic";
 }
 <div class="text-center">
-    <form method="post">
+    <form method="post" id="save-theme">
         <div class="row">
 
             <div class="col-sm-4 mb-3 mb-sm-0">
@@ -64,7 +64,7 @@
                         <br /><br />
                         <div class="btn-group">
                             <button class="btn btn-primary" type="submit">Save changes</button>
-                            <button class="btn btn-secondary" asp-action="Subject" asp-route-subjectId="@Model.SubjectId">Back</button>
+                            <a class="btn btn-secondary" href="javascript: history.go(-1)">Back</a>
                             <a class="btn btn-danger delete-detail-button" asp-action="DeleteTopic" asp-route-topicId="@Model.Id">Delete topic</a>
                         </div>
 
@@ -100,6 +100,8 @@
     <script src="~/js/tinymce.js"></script>
 
     <script>
+
+       
 
         function renumerateForm() {
             var newId = 0;
