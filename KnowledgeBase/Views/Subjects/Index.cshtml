@@ -8,22 +8,29 @@
 
         <div class="col-sm-4 mb-3 mb-sm-0">
 
-            <div class="card bg-light">
+            <div class="card bg-light big-card">
                 <div class="card-header">Help</div>
 
                 <div class="card-body">
                     <p>Lorem ipsum</p>
                 </div>
-                <a class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</a>
+                @*<button class="btn btn-primary btn-sm" asp-controller="Subjects" asp-action="CreateSubject">Create subject</button>*@
             </div>
 
         </div>
 
         <div class="col-sm-8">
             <div class="card bg-light">
-                <div class="card-header">Your subjects</div>
+                <div class="card-header"><span class="absolute-center"> Your subjects </span>
+                
+                    <a class="float-right add-button" asp-controller="Subjects" asp-action="CreateSubject">
+                        Add
+                        <i class="fas fa-plus-square fa-lg"></i>
+                    </a>
+                
+                </div>
 
-                <div class="card-columns p-3">
+                <div class="row justify-content-center p-3">
                     @foreach (var subject in Model)
                     {
                         <partial name="_SubjectCard" model=subject />

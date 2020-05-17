@@ -7,10 +7,12 @@
     <div class="row">
 
         <div class="col-sm-4 mb-3 mb-sm-0">
-            <div class="card bg-light">
-                @*<h3 class="card-title">@Model.Name</h3>*@
-                <div class="card-header detail">Subject properties</div>
-                <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
+            <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
+
+                <div class="card bg-light big-card">
+
+                    @*<h3 class="card-title">@Model.Name</h3>*@
+                    <div class="card-header detail">Subject properties</div>
 
 
 
@@ -18,7 +20,8 @@
 
 
 
-                  
+
+
 
                     <!-- Delete subject confirmation -->
                     <div class="modal fade" id="deleteSubjectConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -41,17 +44,6 @@
                         </div>
                     </div>
 
-
-
-
-
-
-
-
-
-
-
-
                     <div class="card-body">
                         <div class="validation" asp-validation-summary="All"></div>
                         <input type="hidden" asp-for="Id" class="form-control" placeholder="Subject name..">
@@ -64,34 +56,37 @@
                             <input type="text" asp-for="Name" class="form-control" placeholder="Subject name..">
                         </div>
                         <p>Lorem ipsum</p>
-                        <a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>
+                        @*<a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>*@
                     </div>
 
                     <div class="btn-group">
                         <button class="btn btn-primary" type="submit">Save</button>
-                        <a class="btn btn-secondary" type="submit" href="javascript: history.go(-1)">Back</a>
+                        <button class="btn btn-secondary" type="submit" href="javascript: history.go(-1)">Back</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSubjectConfirmation">
                             Delete subject
                         </button>
-                        @*<a class="btn btn-danger delete-detail-button" asp-controller="Subjects" asp-action="DeleteSubject" asp-route-subjectId="@Model.Id">Delete subject</a>*@
                     </div>
-                </form>
-
-            </div>
 
 
+                </div>
 
-
-
-
-
+            </form>
         </div>
+
 
 
         <div class="col-sm-8 ">
             <div class="card bg-light">
-                <div class="card-header">@Model.Name Topics</div>
-                <div class="card-columns p-3">
+                <div class="card-header"> <span class="absolute-center">@Model.Name Topics</span>
+
+                    <a class="float-right add-button" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">
+                        Add
+                        <i  class="fas fa-plus-square fa-lg"></i>
+                    </a>
+                
+                </div>
+                @*<a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>*@
+                <div class="row justify-content-center p-3">
                     @if ((Model.Topics == null) || (Model.Topics.Count == 0))
                     {
                         <br />
@@ -101,7 +96,7 @@
                     {
                         @foreach (var topic in Model.Topics)
                         {
-                            <partial name="_TopicCard" model=topic/>
+                            <partial name="_TopicCard" model=topic />
                         }
 
                     }

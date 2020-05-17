@@ -2,7 +2,7 @@
 
 
 
-<div class="card small-card" style="max-width: 22rem;">
+<div class="card small-card m-3">
     <div class="card-header text-dark">@Model.Name</div>
     <div class="card-body">
 
@@ -20,9 +20,9 @@
         }
         <br />
     </div>
-    <div class="btn-group mb-3">
+    <div class="btn-group">
 
-        <a class="btn btn-secondary btn-sm" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@Model.Id">Details</a>
+        <a class="btn btn-light" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@Model.Id">Details</a>
 
 
     </div>
