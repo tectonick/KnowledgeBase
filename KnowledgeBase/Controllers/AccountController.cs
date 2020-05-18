@@ -110,8 +110,15 @@ namespace KnowledgeBase.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(new LoginViewModel { ReturnUrl = returnUrl });
+            }
+            
         }
 
         [HttpPost]

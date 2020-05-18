@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,26 +71,20 @@ namespace KnowledgeBase
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                // app.UseHsts();
             }
-            
+
             //app.UseHttpsRedirection();
 
-            //No cache for development
-            if (env.IsDevelopment())
-            {
-                app.UseStaticFiles(new StaticFileOptions()
-                {
-                    OnPrepareResponse = context =>
-                    {
-                       //context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
-                       //context.Context.Response.Headers.Add("Expires", "-1");
-                    }
-                });
+            FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".webmanifest"] = "application/manifest+json";
 
-            }
-            else
+            app.UseStaticFiles(new StaticFileOptions()
             {
-                app.UseStaticFiles();
-            }
+                ContentTypeProvider = provider
+            });
+            
+
+
+            
 
             app.UseRouting();
 
