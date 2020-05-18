@@ -7,21 +7,12 @@
     <div class="row">
 
         <div class="col-sm-4 mb-3 mb-sm-0">
-            <form class="m-2" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
+            <form class="" asp-controller="Subjects" asp-action="EditSubject" asp-route-subjectId="@Model.Id" method="post">
 
                 <div class="card bg-light big-card">
 
                     @*<h3 class="card-title">@Model.Name</h3>*@
                     <div class="card-header detail">Subject properties</div>
-
-
-
-
-
-
-
-
-
 
                     <!-- Delete subject confirmation -->
                     <div class="modal fade" id="deleteSubjectConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -77,13 +68,14 @@
 
         <div class="col-sm-8 ">
             <div class="card bg-light">
-                <div class="card-header"> <span class="absolute-center">@Model.Name Topics</span>
+                <div class="card-header">
+                    <span class="absolute-center">@Model.Name Topics</span>
 
                     <a class="float-right add-button" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">
                         Add
-                        <i  class="fas fa-plus-square fa-lg"></i>
+                        <i class="fas fa-plus-square fa-lg"></i>
                     </a>
-                
+
                 </div>
                 @*<a class="btn btn-info" type="submit" asp-controller="Subjects" asp-action="CreateTopic" asp-route-subjectId="@Model.Id">Create topic</a>*@
                 <div class="row justify-content-center p-3">
