@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>@ViewData["Title"] - KnowledgeBase</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     @*<link rel="stylesheet" href="~/css/site.css" />*@
     <link rel="stylesheet" href="~/css/global.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     @RenderSection("HeadScripts", required: false)
 </head>
@@ -29,51 +30,54 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Subjects" asp-action="Index">Subjects</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated){
-                    <li class="nav-item">
-                        @await Component.InvokeAsync("ReviewCounter")
-                        
-                        <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
-
-                    </li>  
-                    
-                        }
-                       <li class="mr-auto"></li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                        @if (User.IsInRole("admin"))
+                            <li class="nav-item">
+                                @await Component.InvokeAsync("ReviewCounter")
+
+                                <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
+
+                            </li>
+
+
+
+                        }
+                        <li class="mr-auto"></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("admin"))
                             {
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Admin
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
-                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
-                                </div>
-                            </div>
-                        </li>
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Admin
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
+                                            <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                                        </div>
+                                    </div>
+                                </li>
 
                             }
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
 
-                            }
-                            else
-                            {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
-                            }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
 
@@ -104,8 +108,14 @@
             <small>&copy; 2020 - KnowledgeBase</small>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

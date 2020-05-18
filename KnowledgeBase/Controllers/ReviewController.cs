@@ -16,11 +16,6 @@ namespace KnowledgeBase.Controllers
         private readonly IScheduler _scheduler;
         private readonly UserManager<User> _userManager;
 
-        public IActionResult ReviewTodayCounter()
-        {
-            return Content("123");
-        }
-
         public ReviewController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, IScheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
@@ -49,7 +44,7 @@ namespace KnowledgeBase.Controllers
         {
             var topic = _topicRepository.GetById(topicId);
             if (!ExistsAndAllowedToUse(topic)) return NotFound();
-            var repeateDate = topic.RepeatDates.First(dm => dm.Date == topic.NextRepeat);
+            var repeateDate = topic.RepeatDates.First(dm => !dm.Repeated);
             repeateDate.Repeated = true;
             _topicRepository.Update(topic);
             return RedirectToAction("Index");

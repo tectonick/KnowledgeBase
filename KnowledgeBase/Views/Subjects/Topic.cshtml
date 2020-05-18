@@ -102,13 +102,6 @@
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />
-}
-
-@section HeadScripts
-{
-    <script src="https://cdn.tiny.cloud/1/1sb38u376a8ulm88ac0aab6gulkw3lx4avevpvcg3dglkqn0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="~/js/tinymce.js"></script>
 
@@ -119,10 +112,13 @@
             $(".repeat-date").each(function () {
                 var oldId = Number($(this).attr("id"));
                 $(this).attr("id", newId);
-                var oldData = $("label", this).attr("for");
-                $("label", this).attr("for", oldData.replace(oldId, newId));
-                oldData = $("label", this).html();
-                $("label", this).html(oldData.replace(oldId, newId));
+
+                var oldData = $("input[type='checkbox']", this).attr("id");
+                $("input[type='checkbox']", this).attr("id", oldData.replace(oldId, newId));
+                var oldData = $("input[type='checkbox']", this).attr("name");
+                $("input[type='checkbox']", this).attr("name", oldData.replace(oldId, newId));
+
+                
 
                 oldData = $("input[type='datetime-local']", this).attr("name");
                 $("input[type='datetime-local']", this).attr("name", oldData.replace(oldId, newId));
@@ -144,39 +140,33 @@
                 $(elem).remove();
                 renumerateForm();
             });
-            //$(elem).hover(function () {
-            //    $(".delete-date-button", elem).show();
-            //}, function () {
-            //    $(".delete-date-button", elem).hide();
-            //});
         }
 
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
                 var elem = $(".repeat-date").last().clone();
+                
+
+                $("input[type='checkbox']", elem).removeAttr("checked");
+                $("input[type='checkbox']", elem).attr("data-val", "false");
+                $("input[type='checkbox']", elem).attr("value", "false");
+
                 $("input[type='hidden']", elem).attr("value", "0");
                 addDeleteEvent(elem);
                 $(this).before(elem);
                 renumerateForm();
             });
 
-            //$(".delete-date-button").hide();
-
             $(".repeat-date").each(function () {
                 addDeleteEvent(this);
             })
 
-            $(".delete-detail-button").click(function (e) {
-                e.preventDefault();
-                this.innerHTML = "Confirm delete";
-                $(this).removeClass("btn-danger");
-                $(this).css("background-color", "#ff0000");
-                $(this).css("color", "#ffffff");
-                $(".detail").css("background-color", "#ff0000");
-                $(this).unbind('click');
-            })
-
         });
     </script>
+}
+
+@section HeadScripts
+{
+    <script src="https://cdn.tiny.cloud/1/1sb38u376a8ulm88ac0aab6gulkw3lx4avevpvcg3dglkqn0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 }
