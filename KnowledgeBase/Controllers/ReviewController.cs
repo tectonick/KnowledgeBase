@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using KnowledgeBase.Logic;
+﻿using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KnowledgeBase.Controllers
 {
     public class ReviewController : Controller
     {
-
         private readonly ITopicRepository _topicRepository;
         private readonly ISubjectRepository _subjectRepository;
         private readonly IScheduler _scheduler;
         private readonly UserManager<User> _userManager;
 
-
         public IActionResult ReviewTodayCounter()
         {
-
-
             return Content("123");
         }
 
@@ -33,7 +28,6 @@ namespace KnowledgeBase.Controllers
             _scheduler = scheduler;
             _userManager = userManager;
         }
-
 
         public IActionResult Index()
         {
@@ -60,7 +54,6 @@ namespace KnowledgeBase.Controllers
             _topicRepository.Update(topic);
             return RedirectToAction("Index");
         }
-
 
         private bool ExistsAndAllowedToUse(IUserObject userobject)
         {

@@ -7,26 +7,12 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: black;
-}
-a:hover {
-    text-decoration:none;
-    color: orange;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -57,6 +43,8 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
+
 html {
   position: relative;
   min-height: 100%;
@@ -83,15 +71,6 @@ header, footer {
     width:200px;
 }
 
-main {
-    /*background-color: white;*/
-    /*background-color: #eeeeee;*/
-}
-
-/*body {
-    background-color: #eeeeee;
-}*/
-
 .nav-link, .navbar-brand, footer {
     color: white;
     font-size:larger;
@@ -105,8 +84,25 @@ body{
     background-size:cover;
 }
 
-.card-deck{
-    margin:auto;
+
+
+
+
+
+
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: orange;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited, .btn-danger:focus {
@@ -127,15 +123,20 @@ body{
     box-shadow: none !important;
 }
 
+.btn-light {
+    background-color: #EEEEEE !important;
+}
+
+.btn-light:hover {
+    background-color: #FFFFFF !important;
+}
+
 .card-header {
     background-color: #4f5d75;
     color:white;
 }
 
-.review-wrapper * {
-    
-    /*width: 100% !important;*/
-    
+.review-wrapper * {    
     max-width: 100% !important;
 }
 .review-wrapper img {
@@ -143,44 +144,12 @@ body{
     height: auto;
 }
 
-
-
-
-
-
-
-
-table.mceLayout, textarea.tinyMCE {
-    width: 100% !important;
-}
-
-/* on large screens, I use a different layout, so 600px are sufficient */
-@media only screen and (min-width: 600px) {
-    table.mceLayout, textarea.richEditor {
-        width: 600px !important;
-    }
-}
-
-
 .badge {
     float: right;
     margin-bottom: -10px;
 }
 .badge-primary {
     background-color: orange !important;
-}
-
-
-.fc-button-primary {
-    background-color: #4f5d75 !important;
-    border-color: #4f5d75 !important;
-    box-shadow: none !important;
-}
-
-
-.fc-button-primary:hover {
-    background-color: #3f4d65 !important;
-    border-color: #3f4d65 !important;
 }
 
 .small-card {
@@ -195,11 +164,11 @@ table.mceLayout, textarea.tinyMCE {
     z-index: +1;
     position: relative;
 }
-    .add-button:hover {
-        color: orange;
-        z-index: 1;
-        position: relative;
-    }
+.add-button:hover {
+    color: orange;
+    z-index: 1;
+    position: relative;
+}
 
 .small-card .btn, .big-card .btn{
     border-radius:0px !important;
@@ -215,41 +184,15 @@ table.mceLayout, textarea.tinyMCE {
     right:0px;
 }
 
-.btn-light{
-    background-color:#EEEEEE !important;
-}
-    .btn-light:hover {
-        background-color: #FFFFFF !important;
-    }
 
 
 
-.validation-summary-errors li {
-    list-style-type: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-.validation-summary-errors ul {
-    margin-left: 0;
-    padding: 0;
-    
-}
-.field-validation-error {
-    color: #b94a48;
-}
-.field-validation-valid {
-    display: none;
-}
-input.input-validation-error {
-    border: 1px solid #b94a48;
-}
-input[type="checkbox"].input-validation-error {
-    border: 0 none;
-}
-.validation-summary-errors {
-    color: #b94a48;
-}
-.validation-summary-valid {
-    display: none;
-}
+
+
+
+
+
+
+
+
+

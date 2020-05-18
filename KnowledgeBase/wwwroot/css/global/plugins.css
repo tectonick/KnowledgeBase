@@ -1,0 +1,20 @@
+﻿table.mceLayout, textarea.tinyMCE {
+    width: 100% !important;
+}
+
+@media only screen and (min-width: 600px) {
+    table.mceLayout, textarea.richEditor {
+        width: 600px !important;
+    }
+}
+
+.fc-button-primary {
+    background-color: #4f5d75 !important;
+    border-color: #4f5d75 !important;
+    box-shadow: none !important;
+}
+
+    .fc-button-primary:hover {
+        background-color: #3f4d65 !important;
+        border-color: #3f4d65 !important;
+    }

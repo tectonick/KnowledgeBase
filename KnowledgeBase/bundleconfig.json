@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/css/global.min.css",
+    "inputFiles": [ "wwwroot/css/global/*.css" ],
+    "includeInProject": true
+  }
+
+]
