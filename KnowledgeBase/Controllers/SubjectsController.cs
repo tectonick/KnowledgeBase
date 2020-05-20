@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace KnowledgeBase.Controllers
 {
@@ -27,14 +28,22 @@ namespace KnowledgeBase.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult AddRepeat(int topicId)
+        public ActionResult AddRepeat(int? topicId)
         {
-            var topic = _topicRepository.GetById(topicId);
-            if (!ExistsAndAllowedToUse(topic)) return NotFound();
+            if (topicId.HasValue)
+            {
+                var topic = _topicRepository.GetById(topicId.Value);
+                if (!ExistsAndAllowedToUse(topic)) return NotFound();
 
-            _scheduler.AddRepeat(topic, DateTime.Now.AddDays(1));
-            _topicRepository.Update(topic);
-            return RedirectToAction(nameof(Topic), new { topicId = topicId });
+                _scheduler.AddRepeat(topic, DateTime.Now.AddDays(1));
+                _topicRepository.Update(topic);
+                return RedirectToAction(nameof(Topic), new { topicId = topicId });
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         public ActionResult CreateSubject()
@@ -44,21 +53,29 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Subject), new { subjectId = newSubject.Id });
         }
 
-        public ActionResult CreateTopic(int subjectId)
+        public ActionResult CreateTopic(int? subjectId)
         {
-            var subject = _subjectRepository.GetById(subjectId);
-            if (!ExistsAndAllowedToUse(subject)) return NotFound();
+            if (subjectId.HasValue)
+            {
+                var subject = _subjectRepository.GetById(subjectId.Value);
+                if (!ExistsAndAllowedToUse(subject)) return NotFound();
 
-            Topic newTopic = new Topic() { Name = "", DateLearned = DateTime.Now, SubjectId = subjectId, UserId = _userManager.GetUserId(HttpContext.User) };
-            newTopic.DateLearned = newTopic.DateLearned.AddMilliseconds(-newTopic.DateLearned.Millisecond);
-            newTopic.DateLearned = newTopic.DateLearned.AddSeconds(-newTopic.DateLearned.Second);
-            _scheduler.Schedule(newTopic);
+                Topic newTopic = new Topic() { Name = "", DateLearned = DateTime.Now, SubjectId = subjectId.Value, UserId = _userManager.GetUserId(HttpContext.User) };
+                newTopic.DateLearned = newTopic.DateLearned.AddMilliseconds(-newTopic.DateLearned.Millisecond);
+                newTopic.DateLearned = newTopic.DateLearned.AddSeconds(-newTopic.DateLearned.Second);
+                _scheduler.Schedule(newTopic);
 
-            _topicRepository.Add(newTopic);
-            return RedirectToAction(nameof(Topic), new { topicId = newTopic.Id });
+                _topicRepository.Add(newTopic);
+                return RedirectToAction(nameof(Topic), new { topicId = newTopic.Id });
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
-        // GET: Subjects/Delete/5
+        [HttpPost]
         public ActionResult DeleteSubject(int subjectId)
         {
             var toDelete = _subjectRepository.GetById(subjectId);
@@ -68,6 +85,7 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public ActionResult DeleteTopic(int topicId)
         {
             var toDelete = _topicRepository.GetById(topicId);
@@ -77,7 +95,7 @@ namespace KnowledgeBase.Controllers
             return RedirectToAction(nameof(Subject), new { subjectId = toDelete.SubjectId });
         }
 
-        // POST: Subjects/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditSubject(int subjectId, string name)
@@ -105,34 +123,46 @@ namespace KnowledgeBase.Controllers
             return Json(lightTopics);
         }
 
-        // GET: Subjects
+        
         public ActionResult Index()
         {
             List<Subject> subjects = _subjectRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
             return View(subjects);
         }
 
-        public ActionResult Subject(int subjectId)
+        public ActionResult Subject(int? subjectId)
         {
-            var subject = _subjectRepository.GetById(subjectId);
-
-
-
-            if (!ExistsAndAllowedToUse(subject)) return NotFound();
-
-            return View(subject);
+            if (subjectId.HasValue)
+            {
+                var subject = _subjectRepository.GetById(subjectId.Value);
+                if (!ExistsAndAllowedToUse(subject)) return NotFound();
+                return View(subject);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet]
-        public ActionResult Topic(int topicId)
+        public ActionResult Topic(int? topicId)
         {
-            var topic = _topicRepository.GetById(topicId);
-            topic.RepeatDates.Sort();
-            if (!ExistsAndAllowedToUse(topic)) return NotFound();
-            return View(topic);
+            if (topicId.HasValue)
+            {
+                var topic = _topicRepository.GetById(topicId.Value);
+                topic.RepeatDates.Sort();
+                if (!ExistsAndAllowedToUse(topic)) return NotFound();
+                return View(topic);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
         [HttpPost]
-        public ActionResult Topic(int topicId, Topic newTopic)
+        public ActionResult Topic(Topic newTopic)
         {
             if (ModelState.IsValid)
             {
@@ -141,7 +171,7 @@ namespace KnowledgeBase.Controllers
             }
             else
             {
-                return View(topicId);
+                return View(newTopic);
             }
         }
         private bool ExistsAndAllowedToUse(IUserObject userobject)

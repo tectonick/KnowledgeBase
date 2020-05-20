@@ -1,71 +1,48 @@
 ﻿@model Topic
 
+<div class="card small-card m-3">
 
+    <div class="card-header text-dark">
+        @Model.Name
 
-    <div class="card bg-light small-card m-3">
-
-
-
-        
-
-        <div class="card-header text-dark">
-            @Model.Name
-
-            @if (Model.TimesRepeated > 0)
-            {
-                <span class="badge badge-pill badge-success">Reviewed @Model.TimesRepeated</span>
-            }
-            else
-            {
-                <span class="badge badge-pill badge-primary">Not reviewed yet</span>
-            }
-        </div>
-        <div class="card-body">
-
-            <table class="table mx-auto w-auto">
-                <tbody>
-                    <tr>
-                        <td>Learned: </td>
-                        <td>@Model.DateLearned.ToShortDateString()</td>
-                    </tr>
-                    @if (Model.NextRepeat != DateTime.MinValue)
-                    {
-                        <tr>
-                            <td>Next review: </td>
-                            <td>@Model.NextRepeat.ToShortDateString()</td>
-                        </tr>
-                    }
-                    @if (Model.Description != null)
-                    {
-                        <tr>
-                            <td>Description: </td>
-                            <td>@Model.Description</td>
-                        </tr>
-                    }
-                                       
-                </tbody>
-            </table>
-
-
-
-            @*<p>DateLearned: @Model.DateLearned </p>
-            @if (Model.NextRepeat != DateTime.MinValue)
-            {
-                <p>NextRepeat: @Model.NextRepeat</p>
-            }
-            @if (Model.Description != null)
-            {
-                <p>Description: @Model.Description</p>
-            }*@
-        </div>
-
-        <div class="btn-group">
-
-            <a class="btn btn-light" asp-controller="Review" asp-action="Topic" asp-route-topicId="@Model.Id">Review</a>
-            <a class="btn btn-light" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">Edit</a>
-
-            @*<a class="btn btn-danger btn-sm delete-card-button" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@topic.Id">Delete</a>*@
-
-        </div>
-
+        @if (Model.TimesRepeated > 0)
+        {
+            <span class="badge badge-pill badge-success">Reviewed @Model.TimesRepeated</span>
+        }
+        else
+        {
+            <span class="badge badge-pill badge-primary">Not reviewed yet</span>
+        }
     </div>
+    <div class="card-body">
+
+        <table class="table mx-auto w-auto">
+            <tbody>
+                <tr>
+                    <td>Learned: </td>
+                    <td>@Model.DateLearned.ToShortDateString()</td>
+                </tr>
+                @if (Model.NextRepeat != DateTime.MinValue)
+                {
+                    <tr>
+                        <td>Next review: </td>
+                        <td>@Model.NextRepeat.ToShortDateString()</td>
+                    </tr>
+                }
+                @if (Model.Description != null)
+                {
+                    <tr>
+                        <td>Description: </td>
+                        <td>@Model.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="btn-group">
+
+        <a class="btn btn-light" asp-controller="Review" asp-action="Topic" asp-route-topicId="@Model.Id">Review</a>
+        <a class="btn btn-light" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">Edit</a>
+    </div>
+</div>

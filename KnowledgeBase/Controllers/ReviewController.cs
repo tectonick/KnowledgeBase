@@ -33,21 +33,41 @@ namespace KnowledgeBase.Controllers
         }
 
         [HttpGet]
-        public ActionResult Topic(int topicId)
+        public ActionResult Topic(int? topicId)
         {
-            var topic = _topicRepository.GetById(topicId);
-            if (!ExistsAndAllowedToUse(topic)) return NotFound();
-            return View(topic);
+            if (topicId.HasValue)
+            {
+                var topic = _topicRepository.GetById(topicId.Value);
+                if (!ExistsAndAllowedToUse(topic)) return NotFound();
+                return View(topic);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
-        public ActionResult DoneRepeat(int topicId)
+        public ActionResult DoneRepeat(int? topicId)
         {
-            var topic = _topicRepository.GetById(topicId);
-            if (!ExistsAndAllowedToUse(topic)) return NotFound();
-            var repeateDate = topic.RepeatDates.First(dm => !dm.Repeated);
-            repeateDate.Repeated = true;
-            _topicRepository.Update(topic);
-            return RedirectToAction("Index");
+            if (topicId.HasValue)
+            {
+                var topic = _topicRepository.GetById(topicId.Value);
+                if (!ExistsAndAllowedToUse(topic)) return NotFound();
+                var repeateDate = topic.RepeatDates.FirstOrDefault(dm => !dm.Repeated);
+                if (repeateDate==null)
+                {
+                    repeateDate.Repeated = true;
+                    _topicRepository.Update(topic);
+                }
+                
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
 
         private bool ExistsAndAllowedToUse(IUserObject userobject)

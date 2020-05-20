@@ -2,29 +2,35 @@
 @{
     ViewData["Title"] = "Topic";
 }
+
+<!-- Delete topic confirmation -->
+<div class="modal fade" id="deleteTopicConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">Delete confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete @Model.Name? This action cannot be undone!
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form asp-action="DeleteTopic" method="post" asp-route-topicId="@Model.Id">
+                    <button class="btn btn-danger" type="submit">Delete topic</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="text-center">
     <form method="post" id="save-theme">
 
-        <!-- Delete topic confirmation -->
-        <div class="modal fade" id="deleteTopicConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">Delete confirmation</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Do you want to delete @Model.Name? This action cannot be undone!
-                    </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-danger" asp-controller="Subjects" asp-action="DeleteTopic" asp-route-topicId="@Model.Id">Delete topic</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row">
 
@@ -118,7 +124,7 @@
                 var oldData = $("input[type='checkbox']", this).attr("name");
                 $("input[type='checkbox']", this).attr("name", oldData.replace(oldId, newId));
 
-                
+
 
                 oldData = $("input[type='datetime-local']", this).attr("name");
                 $("input[type='datetime-local']", this).attr("name", oldData.replace(oldId, newId));
@@ -145,7 +151,7 @@
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
                 var elem = $(".repeat-date").last().clone();
-                
+
 
                 $("input[type='checkbox']", elem).removeAttr("checked");
                 $("input[type='checkbox']", elem).attr("data-val", "false");

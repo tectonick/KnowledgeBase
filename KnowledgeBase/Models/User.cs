@@ -6,6 +6,8 @@ namespace KnowledgeBase.Models
 {
     public class User : IdentityUser
     {
+
+        
         public List<Subject> Subjects;
         public List<Topic> Topics;
 

@@ -11,9 +11,7 @@ namespace KnowledgeBase.Models
     public class Topic : IUserObject
     {
 
-        [Required(AllowEmptyStrings = true)]
-
-        public List<DateModel> RepeatDates { get; set; }         //Should be always sorted
+        public List<DateModel> RepeatDates { get; set; }
 
         public Topic()
         {
@@ -36,14 +34,15 @@ namespace KnowledgeBase.Models
 
         [Key]
         public int Id { get; set; }
+        
         public int SubjectId { get; set; }
         public string UserId { get; set; }
 
         [Required(ErrorMessage = "Name cannot be empty")]
-        [StringLength(100, ErrorMessage ="Name is too big")]
+        [StringLength(50, ErrorMessage ="Name is too big")]
         public string Name { get; set; }
 
-        [StringLength(1000, ErrorMessage = "Description is too big")]
+        [StringLength(400, ErrorMessage = "Description is too big")]
         public string Description { get; set; }
 
 
@@ -52,8 +51,10 @@ namespace KnowledgeBase.Models
 
         [Required]
         [Display(Name = "First time learned")]
+        [DataType(DataType.Date)]
         public DateTime DateLearned { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime NextRepeat
         {
             get{
