@@ -5,39 +5,59 @@
 
 @model KnowledgeBase.ViewModels.LoginViewModel
 
-<div class="card bg-light border mx-auto text-center"  style="max-width: 22rem;">
-        <div class="card-header">Login</div>
-        <div class="card-body">
+<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">Login</div>
+    <div class="card-body">
 
-            <form method="post" asp-controller="Account" asp-action="Login"
-                  asp-route-returnUrl="@Model.ReturnUrl">
-                <div asp-validation-summary="All"></div>
+        <form method="post" asp-controller="Account" asp-action="Login"
+              asp-route-returnUrl="@Model.ReturnUrl">
+            <div asp-validation-summary="All"></div>
 
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" asp-for="Email"></label>
-                    </div>
-                    <input type="text" asp-for="Email" class="form-control" placeholder="">
-
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" asp-for="Email"></label>
                 </div>
-                @*<span asp-validation-for="Email"></span>*@
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" asp-for="Password"></label>
-                    </div>
-                    <input type="password" asp-for="Password" class="form-control" placeholder="">
+                <input type="text" asp-for="Email" class="form-control" placeholder="">
 
+            </div>
+            @*<span asp-validation-for="Email"></span>*@
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" asp-for="Password"></label>
                 </div>
-                @*<span asp-validation-for="Password"></span>*@
+                <input type="password" asp-for="Password" class="form-control" placeholder="">
+
+            </div>
+            @*<span asp-validation-for="Password"></span>*@
             <div>
                 <label asp-for="RememberMe "></label>
                 <input asp-for="RememberMe" />
                 <button class="btn btn-primary float-right" type="submit">Log in</button>
             </div>
-            </form>
-            <a asp-action="ForgotPassword" class="">Forgot password</a>
+        </form>
+        <a asp-action="ForgotPassword" class="">Forgot password</a>
+    </div>
+
+</div>
+
+
+@inject IAuthenticationSchemeProvider SchemeProvider
+@using Microsoft.AspNetCore.Authentication
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Login with social providers</h3>
+        <h4>Select from the list of available social providers</h4>
+        <div class="btn-group" role="group">
+            @foreach (var provider in await SchemeProvider.GetRequestHandlerSchemesAsync())
+            {
+                <a class="btn btn-lg btn-default"
+                   asp-route-returnUrl="@Context.Request.Query["returnUrl"]"
+                   asp-route-provider="@provider.Name"
+                   asp-action="SignIn"><i class="fa fa-@provider.Name.ToLower()"></i> @provider.Name</a>
+            }
         </div>
-        
+    </div>
 </div>
 
 

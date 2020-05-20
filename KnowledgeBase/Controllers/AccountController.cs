@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.OAuth;
+
 
 namespace KnowledgeBase.Controllers
 {
@@ -151,6 +155,121 @@ namespace KnowledgeBase.Controllers
             return View(model);
         }
 
+        public IActionResult SignIn(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl=null)
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (signInResult.Succeeded)
+            {
+                var user = await _userManager.FindByLoginAsync(info.LoginProvider, 
+                    info.ProviderKey);
+
+                var props = new AuthenticationProperties();
+                props.StoreTokens(info.AuthenticationTokens);
+
+                await _signInManager.SignInAsync(user, props, info.LoginProvider);
+
+                _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", 
+                    info.Principal.Identity.Name, info.LoginProvider);
+
+                return RedirectToAction("Index", "Home");
+            }
+            if (signInResult.IsLockedOut)
+            {
+                return RedirectToAction(nameof(ForgotPassword));
+            }
+            else
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+                ViewData["Provider"] = info.LoginProvider;
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                return View("ExternalLoginConfirmation", new ExternalLoginModel { Email = email });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginModel model, string returnUrl = null)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+                return StatusCode(500);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            IdentityResult result;
+
+            if (user != null)
+            {
+                result = await _userManager.AddLoginAsync(user, info);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index","Home");
+                }
+            }
+            else
+            {
+                var newUser = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+                result = await _userManager.CreateAsync(newUser);
+
+                if (result.Succeeded)
+                {
+                    result = await _userManager.AddLoginAsync(newUser, info);
+                    if (result.Succeeded)
+                    {
+                        //TODO: Send an emal for the email confirmation and add a default role as in the Register action
+                        await _signInManager.SignInAsync(newUser, isPersistent: false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.TryAddModelError(error.Code, error.Description);
+            }
+
+            return View(nameof(ExternalLoginConfirmation), model);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -182,6 +301,19 @@ namespace KnowledgeBase.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _userManager.FindByIdAsync(userId);
+                if (model.OldPassword=="" || model.OldPassword == null)
+                {
+                    if (user.PasswordHash==null)
+                    {
+                        await _userManager.AddPasswordAsync(user, model.NewPassword);
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("OldPassword", "Old password is required");
+                        return View(model);
+                    }
+                }
 
                 IdentityResult result =
                     await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);

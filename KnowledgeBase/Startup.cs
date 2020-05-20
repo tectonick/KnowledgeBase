@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,6 +54,53 @@ namespace KnowledgeBase
                 opts.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders(); ;
+
+
+
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+
+
+
+                options.ClientId = googleAuthNSection["ClientId"];
+                options.ClientSecret = googleAuthNSection["ClientSecret"];
+
+                options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                options.ClaimActions.Clear();
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                options.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+            }).AddVkontakte(options =>
+            {
+                options.ClientId = "7476337";
+                options.ClientSecret = "WB31Yrq59s4FmIMe04Co";
+
+                // Request for permissions https://vk.com/dev/permissions?f=1.%20Access%20Permissions%20for%20User%20Token
+                options.Scope.Add("email");
+
+                // Add fields https://vk.com/dev/objects/user
+                options.Fields.Add("uid");
+                options.Fields.Add("first_name");
+                options.Fields.Add("last_name");
+
+                // In this case email will return in OAuthTokenResponse, 
+                // but all scope values will be merged with user response
+                // so we can claim it as field
+                options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "uid");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                options.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "first_name");
+                options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
+            }).AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
 
 
         }
