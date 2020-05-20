@@ -7,11 +7,10 @@ namespace KnowledgeBase.Repositories
 {
     public interface ISubjectRepository
     {
-        List<Subject> GetAllForUser(string userId);
-        Subject GetByName(string name);
-        Subject GetById(int id);
-        Subject Add(Subject newSubject);
-        Subject Update(Subject updatedSubject);
-        Subject Delete(Subject subject);
+        Task<List<Subject>> GetAllForUser(string userId);
+        Task<Subject> GetById(int id);
+        Task Add(Subject newSubject);
+        Task Update(Subject updatedSubject);
+        Task Delete(Subject subject);
     }
 }

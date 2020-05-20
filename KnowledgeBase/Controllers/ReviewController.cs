@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KnowledgeBase.Controllers
 {
@@ -24,20 +25,20 @@ namespace KnowledgeBase.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<Topic> todayTopics = new List<Topic>();
-            var allTopics = _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
+            var allTopics = await _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
             todayTopics = allTopics.Where(t => (t.NextRepeat > DateTime.MinValue) && (t.NextRepeat.Date <= DateTime.Now.Date)).ToList();
             return View(todayTopics);
         }
 
         [HttpGet]
-        public ActionResult Topic(int? topicId)
+        public async Task<IActionResult> Topic(int? topicId)
         {
             if (topicId.HasValue)
             {
-                var topic = _topicRepository.GetById(topicId.Value);
+                var topic = await _topicRepository.GetById(topicId.Value);
                 if (!ExistsAndAllowedToUse(topic)) return NotFound();
                 return View(topic);
             }
@@ -48,17 +49,17 @@ namespace KnowledgeBase.Controllers
             
         }
 
-        public ActionResult DoneRepeat(int? topicId)
+        public async Task<IActionResult> DoneRepeat(int? topicId)
         {
             if (topicId.HasValue)
             {
-                var topic = _topicRepository.GetById(topicId.Value);
+                var topic = await _topicRepository.GetById(topicId.Value);
                 if (!ExistsAndAllowedToUse(topic)) return NotFound();
                 var repeateDate = topic.RepeatDates.FirstOrDefault(dm => !dm.Repeated);
-                if (repeateDate==null)
+                if (repeateDate!=null)
                 {
                     repeateDate.Repeated = true;
-                    _topicRepository.Update(topic);
+                    await _topicRepository.Update(topic);
                 }
                 
                 return RedirectToAction("Index");

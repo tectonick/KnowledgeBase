@@ -21,10 +21,10 @@ namespace KnowledgeBase.ViewComponents
             _topicRepository = topicRepository;
             _userManager = userManager;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             
-            var allTopics = _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
+            var allTopics = await _topicRepository.GetAllForUser(_userManager.GetUserId(HttpContext.User));
             var todayTopics= allTopics.Where(t => (t.NextRepeat > DateTime.MinValue) && (t.NextRepeat.Date <= DateTime.Now.Date)).ToList();
             int todayTopicsCount = todayTopics.Count();
             int obsoleteTopicsCount = todayTopics.Where(t => t.NextRepeat < DateTime.Now).Count();

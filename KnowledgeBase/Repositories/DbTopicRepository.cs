@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KnowledgeBase.Repositories
 {
@@ -14,36 +15,30 @@ namespace KnowledgeBase.Repositories
             _dbContext = myDbContext;
         }
 
-        public Topic Add(Topic newTopic)
+        public async Task Add(Topic newTopic)
         {
             _dbContext.Topics.Add(newTopic);
-            _dbContext.SaveChanges();
-            return newTopic;
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Topic Delete(Topic topic)
+        public async Task Delete(Topic topic)
         {
             _dbContext.Topics.Remove(topic);
-            _dbContext.SaveChanges();
-            return topic;
+            await _dbContext.SaveChangesAsync();
         }
 
-        public List<Topic> GetAllForUser(string userId)
+        public async Task<List<Topic>> GetAllForUser(string userId)
         {
-            return _dbContext.Topics.Where(th => th.UserId == userId).Include(th => th.RepeatDates).ToList();
+            return await _dbContext.Topics.Where(th => th.UserId == userId).Include(th => th.RepeatDates).ToListAsync();
         }
 
-        public Topic GetById(int id)
+        public async Task<Topic> GetById(int id)
         {
-            return _dbContext.Topics.Include(th => th.RepeatDates).ToList().Find(a => a.Id == id);
+            return await _dbContext.Topics.Where(a => a.Id == id).Include(th => th.RepeatDates).FirstOrDefaultAsync();
         }
 
-        public Topic GetByName(string name)
-        {
-            return _dbContext.Topics.Include(th => th.RepeatDates).FirstOrDefault(th => th.Name == name);
-        }
 
-        public Topic Update(Topic updatedTopic)
+        public async Task Update(Topic updatedTopic)
         {
             
             var oldTopic = _dbContext.Topics.Include(th => th.RepeatDates).ToList().Find(a => a.Id == updatedTopic.Id);
@@ -54,8 +49,7 @@ namespace KnowledgeBase.Repositories
             }
             
             oldTopic.CopyFrom(updatedTopic);
-            _dbContext.SaveChanges();
-            return updatedTopic;
+            await _dbContext.SaveChangesAsync();
         }
 
     }

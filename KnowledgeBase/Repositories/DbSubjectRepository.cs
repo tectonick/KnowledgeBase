@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KnowledgeBase.Repositories
 {
@@ -13,41 +14,38 @@ namespace KnowledgeBase.Repositories
         {
             _dbContext = myDbContext;
         }
-        public Subject Add(Subject newSubject)
+        public async Task Add(Subject newSubject)
         {
             _dbContext.Subjects.Add(newSubject);
-            _dbContext.SaveChanges();
-            return newSubject;
+            await _dbContext.SaveChangesAsync();
+            
         }
 
-        public Subject Delete(Subject subject)
+        public async Task Delete(Subject subject)
         {
             _dbContext.Subjects.Remove(subject);
-            _dbContext.SaveChanges();
-            return subject;
+            await _dbContext.SaveChangesAsync();
+            
         }
 
-        public List<Subject> GetAllForUser(string userId)
+        public async Task<List<Subject>> GetAllForUser(string userId)
         {
-            return _dbContext.Subjects.Where(sub=>sub.UserId==userId).Include(x => x.Topics).ThenInclude(th=>th.RepeatDates).ToList();
+            return await _dbContext.Subjects.Where(sub => sub.UserId == userId)
+                .Include(x => x.Topics).ThenInclude(th => th.RepeatDates)
+                .ToListAsync<Subject>();
+             
         }
 
-        public Subject GetById(int id)
+        public async Task<Subject> GetById(int id)
         {
-            //return _dbContext.Subjects.Find(id)
-            return _dbContext.Subjects.Include(x => x.Topics).ThenInclude(th => th.RepeatDates).ToList().Find(a => a.Id == id);
+            return await _dbContext.Subjects.Where(a => a.Id == id).Include(x => x.Topics).ThenInclude(th => th.RepeatDates).FirstOrDefaultAsync();
         }
 
-        public Subject GetByName(string name)
-        {
-            return _dbContext.Subjects.FirstOrDefault(sub => sub.Name == name);
-        }
-
-        public Subject Update(Subject updatedSubject)
+        public async Task Update(Subject updatedSubject)
         {
             _dbContext.Subjects.Update(updatedSubject);
-            _dbContext.SaveChanges();
-            return updatedSubject;
+            await _dbContext.SaveChangesAsync();
+           
         }
     }
 

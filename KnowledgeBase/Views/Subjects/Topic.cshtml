@@ -112,18 +112,36 @@
     <script src="~/js/tinymce.js"></script>
 
     <script>
+       //ASP.NET includes hidden input with false value at the end of the form for every checkbox (because browser dont POST unchecked checkboxes).
+        //This function needs to be called before any add date or delete date action to clear hidden inputs.
+        //They will be recreated by renumerateForm()
+        function clearHiddenInputsForCheckboxes() {
+            $(".repeat-date").each(function () {
+                $("input[type='hidden']", "form").last().remove();
+            });
+        }
 
         function renumerateForm() {
             var newId = 0;
+
+            
+
             $(".repeat-date").each(function () {
                 var oldId = Number($(this).attr("id"));
                 $(this).attr("id", newId);
+
 
                 var oldData = $("input[type='checkbox']", this).attr("id");
                 $("input[type='checkbox']", this).attr("id", oldData.replace(oldId, newId));
                 var oldData = $("input[type='checkbox']", this).attr("name");
                 $("input[type='checkbox']", this).attr("name", oldData.replace(oldId, newId));
 
+                
+                $("form").append(`<input type='hidden' name='${oldData.replace(oldId, newId)}' value='false'/>`);
+                //var oldData = $("input[type='hidden']","form").last().attr("id");
+                //$("input[type='hidden']", "form").last().attr("id", oldData.replace(oldId, newId));
+                //var oldData = $("input[type='hidden']").last().attr("name");
+                //$("input[type='hidden']", "form").last().attr("name", oldData.replace(oldId, newId));
 
 
                 oldData = $("input[type='datetime-local']", this).attr("name");
@@ -143,6 +161,7 @@
 
         function addDeleteEvent(elem) {
             $(".delete-date-button", elem).click(function () {
+                clearHiddenInputsForCheckboxes();
                 $(elem).remove();
                 renumerateForm();
             });
@@ -150,8 +169,8 @@
 
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
+                clearHiddenInputsForCheckboxes();
                 var elem = $(".repeat-date").last().clone();
-
 
                 $("input[type='checkbox']", elem).removeAttr("checked");
                 $("input[type='checkbox']", elem).attr("data-val", "false");
