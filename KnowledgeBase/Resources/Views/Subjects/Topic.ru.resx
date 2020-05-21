@@ -133,7 +133,7 @@
     <value>Подтверждение удаления</value>
   </data>
   <data name="DeleteText" xml:space="preserve">
-    <value>Вы точно хотите удалть тему @Model.Name? Все заметки будут утеряны!</value>
+    <value>Вы точно хотите удалить эту тему? Все заметки будут утеряны!</value>
   </data>
   <data name="NotesHeader" xml:space="preserve">
     <value>Заметки</value>
