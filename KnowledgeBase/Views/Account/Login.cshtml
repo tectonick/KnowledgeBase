@@ -4,9 +4,11 @@
 }
 
 @model KnowledgeBase.ViewModels.LoginViewModel
+@inject IViewLocalizer Localizer
+
 
 <div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
-    <div class="card-header">Login</div>
+    <div class="card-header">@Localizer["LoginHeader"]</div>
     <div class="card-body">
 
         <form method="post" asp-controller="Account" asp-action="Login"
@@ -30,34 +32,41 @@
             </div>
             @*<span asp-validation-for="Password"></span>*@
             <div>
-                <label asp-for="RememberMe "></label>
-                <input asp-for="RememberMe" />
-                <button class="btn btn-primary float-right" type="submit">Log in</button>
+                @*<label asp-for="RememberMe "></label>
+                <input asp-for="RememberMe" />*@
+                <button class="btn btn-primary float-right" type="submit">@Localizer["LoginButton"]</button>
             </div>
         </form>
-        <a asp-action="ForgotPassword" class="">Forgot password</a>
+        <a asp-action="ForgotPassword" class="">@Localizer["ForgotPassword"]</a>
     </div>
+    <div class="card-footer">
+        <partial name="_ExternalLogin" />
+
+    </div>
+
 
 </div>
 
 
-@inject IAuthenticationSchemeProvider SchemeProvider
-@using Microsoft.AspNetCore.Authentication
 
-<div class="row">
-    <div class="col-md-12">
-        <h3>Login with social providers</h3>
-        <h4>Select from the list of available social providers</h4>
-        <div class="btn-group" role="group">
-            @foreach (var provider in await SchemeProvider.GetRequestHandlerSchemesAsync())
-            {
-                <a class="btn btn-lg btn-default"
-                   asp-route-returnUrl="@Context.Request.Query["returnUrl"]"
-                   asp-route-provider="@provider.Name"
-                   asp-action="SignIn"><i class="fa fa-@provider.Name.ToLower()"></i> @provider.Name</a>
-            }
+@*<div class="row">
+        <div class="col-md-12">
+            <h3>Login with social providers</h3>
+            <h4>Select from the list of available social providers</h4>
+            <div class="btn-group" role="group">
+                @foreach (var provider in await SchemeProvider.GetRequestHandlerSchemesAsync())
+                {
+
+                    string DisplayName = provider.Name;
+                    DisplayName = DisplayName.Contains("Vkontakte") ? "vk" : DisplayName.ToLower();
+
+                    <a class="btn btn-lg btn-default"
+                       asp-route-returnUrl="@Context.Request.Query["returnUrl"]"
+                       asp-route-provider="@provider.Name"
+                       asp-action="SignIn"><i class="fab fa-@DisplayName"></i> @provider.Name</a>
+                }
+            </div>
         </div>
-    </div>
-</div>
+    </div>*@
 
 

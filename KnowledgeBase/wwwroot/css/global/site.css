@@ -92,9 +92,20 @@ body{
 
 
 
+.fa-facebook{
+    color:dodgerblue;
+}
+.fa-vk {
+    color:cornflowerblue;
+}
 
+.fa-google{
+    color:indianred;
+}
 
-
+.repeat-date-hidden{
+    display:none !important;
+}
 
 
 

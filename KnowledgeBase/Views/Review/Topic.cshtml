@@ -2,21 +2,22 @@
 @{
     ViewData["Title"] = "Topic";
 }
+@inject IViewLocalizer Localizer
 
 <div class="">
 
     <div class="row">
         <div class="col-12">
             <div class="card bg-light border">
-                <div class="card-header text-center">Review notes for @Model.Name</div>
+                <div class="card-header text-center">@Localizer["ReviewNotesForHeader"] @Model.Name</div>
                 <div class="card-body bg-white review-wrapper">
                     @Html.Raw(Model.Notes)
                 </div>
                 <div class="card-footer">
                     <div class="btn-group mb-3">
-                        <a class="btn btn-primary btn" asp-controller="Review" asp-action="DoneRepeat" asp-route-topicId="@Model.Id">Done</a>
-                        <a class="btn btn-secondary btn" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">Edit</a>
-                        <a class="btn btn-danger btn" href="javascript: history.go(-1)">Back</a>
+                        <a class="btn btn-primary btn" asp-controller="Review" asp-action="DoneRepeat" asp-route-topicId="@Model.Id">@Localizer["DoneButton"]</a>
+                        <a class="btn btn-secondary btn" asp-controller="Subjects" asp-action="Topic" asp-route-topicId="@Model.Id">@Localizer["EditButton"]</a>
+                        <a class="btn btn-danger btn" href="javascript: history.go(-1)">@Localizer["BackButton"]</a>
 
                     </div>
 
@@ -25,7 +26,7 @@
 
         </div>
         <div class="col-12 text-center">
-            
+
         </div>
     </div>
 

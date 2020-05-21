@@ -1,18 +1,19 @@
 ﻿@model Subject
 
-
+@inject IViewLocalizer Localizer
 
 <div class="card small-card m-3">
     <div class="card-header text-dark">@Model.Name</div>
     <div class="card-body">
 
-        Topics :
-        @if (Model.Topics == null)
+        
+        @if (Model.Topics == null || Model.Topics.Count==0)
         {
-            <i>Create some topics</i>
+            <i>@Localizer["Null topics"]</i>
         }
         else
         {
+            <span>@Localizer["TopicsRow"]</span>
             @foreach (var topic in Model.Topics)
             {
                 <i>'@Model.Name' </i>
@@ -22,7 +23,7 @@
     </div>
     <div class="btn-group">
 
-        <a class="btn btn-light" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@Model.Id">Details</a>
+        <a class="btn btn-light" asp-controller="Subjects" asp-action="Subject" asp-route-subjectId="@Model.Id">@Localizer["DetailsButton"]</a>
 
 
     </div>

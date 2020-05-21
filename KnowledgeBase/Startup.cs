@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +37,7 @@ namespace KnowledgeBase
         {
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddMvcLocalization();
 
             //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
             //services.AddSingleton<ITopicRepository, MemoryTopicRepository>();
@@ -55,15 +57,13 @@ namespace KnowledgeBase
 
             }).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders(); ;
 
-
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddAuthentication()
             .AddGoogle(options =>
             {
                 IConfigurationSection googleAuthNSection =
                     Configuration.GetSection("Authentication:Google");
-
-
 
                 options.ClientId = googleAuthNSection["ClientId"];
                 options.ClientSecret = googleAuthNSection["ClientSecret"];
@@ -78,8 +78,9 @@ namespace KnowledgeBase
                 options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
             }).AddVkontakte(options =>
             {
-                options.ClientId = "7476337";
-                options.ClientSecret = "WB31Yrq59s4FmIMe04Co";
+                options.ClientId = Configuration["Authentication:Vkontakte:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Vkontakte:ClientSecret"];
+
 
                 // Request for permissions https://vk.com/dev/permissions?f=1.%20Access%20Permissions%20for%20User%20Token
                 options.Scope.Add("email");
@@ -122,6 +123,21 @@ namespace KnowledgeBase
             }
 
             //app.UseHttpsRedirection();
+
+            var supportedCultures = new[]
+            {
+                //new CultureInfo("en-US"),
+                new CultureInfo("en"),
+                //new CultureInfo("ru-RU"),
+                new CultureInfo("ru")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
 
             FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".webmanifest"] = "application/manifest+json";

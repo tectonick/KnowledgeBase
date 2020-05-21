@@ -1,0 +1,14 @@
+﻿@inject IAuthenticationSchemeProvider SchemeProvider
+@using Microsoft.AspNetCore.Authentication
+
+@foreach (var provider in await SchemeProvider.GetRequestHandlerSchemesAsync())
+{
+
+    string DisplayName = provider.Name;
+    DisplayName = DisplayName.Contains("Vkontakte") ? "vk" : DisplayName.ToLower();
+
+    <a class="btn btn-lg btn-default"
+       asp-route-returnUrl="@Context.Request.Query["returnUrl"]"
+       asp-route-provider="@provider.Name"
+       asp-action="SignIn"><i class="fab fa-@DisplayName fa-2x"></i></a>
+}

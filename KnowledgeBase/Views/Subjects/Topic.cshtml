@@ -2,24 +2,25 @@
 @{
     ViewData["Title"] = "Topic";
 }
+@inject IViewLocalizer Localizer
 
 <!-- Delete topic confirmation -->
 <div class="modal fade" id="deleteTopicConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">Delete confirmation</h5>
+                <h5 class="modal-title  ml-auto" id="exampleModalCenterTitle">@Localizer["DeleteConfirmationHeader"]</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Do you want to delete @Model.Name? This action cannot be undone!
+                @Localizer["DeleteText"]
             </div>
             <div class="modal-footer ">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["CancelDeleteButton"]</button>
                 <form asp-action="DeleteTopic" method="post" asp-route-topicId="@Model.Id">
-                    <button class="btn btn-danger" type="submit">Delete topic</button>
+                    <button class="btn btn-danger" type="submit">@Localizer["ConfirmDeleteButton"]</button>
                 </form>
             </div>
         </div>
@@ -36,7 +37,7 @@
 
             <div class="col-sm-4 mb-3 mb-sm-0">
                 <div class="card bg-light big-card">
-                    <div class="card-header detail">Topic</div>
+                    <div class="card-header detail">@Localizer["TopicHeader"]</div>
                     <div class="card-body">
                         <div class="validation" asp-validation-summary="All"></div>
                         <input type="hidden" asp-for="Id">
@@ -46,13 +47,13 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" asp-for="Name"></label>
                             </div>
-                            <input type="text" asp-for="Name" class="form-control" placeholder="Topic name">
+                            <input type="text" asp-for="Name" class="form-control" placeholder="@Localizer["TopicNamePlaceholder"]">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" asp-for="Description"></label>
                             </div>
-                            <input type="text" asp-for="Description" class="form-control" placeholder="Provide some description">
+                            <input type="text" asp-for="Description" class="form-control" placeholder="@Localizer["TopicDescriptionPlaceholder"]">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -60,11 +61,18 @@
                             </div>
                             <input type="datetime-local" asp-for="DateLearned" class="form-control">
                         </div>
+                    </div>
+                    <div class="card-header">
+                        @Localizer["ReviewDatesHeader"]
+                    </div>
+                    <div class="card-body">
                         @if (Model.RepeatDates.Count > 0)
                         {
+
+
                             @for (int i = 0; i < Model.RepeatDates.Count; i++)
                             {
-                                <div class="input-group mb-3 repeat-date repeat-date-deletable" id="@i">
+                                <div class="input-group mb-3 repeat-date" id="@i">
                                     <div class="input-group-prepend">
                                         @*<label class="input-group-text" asp-for="RepeatDates[i].Date"></label>*@
                                         <div class="input-group-text">
@@ -79,25 +87,22 @@
                                     </div>
                                 </div>
                             }
-                            <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
+
                         }
-                        else
-                        {
-                            <a class="btn btn-secondary" asp-action="AddRepeat" asp-route-subjectId="@Model.SubjectId" asp-route-topicId="@Model.Id">Add repeat dates</a>
-                        }
+                        <span class="add-repeat-date"><i class="fas fa-plus"></i></span>
                         <br /><br />
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        <a class="btn btn-secondary" href="javascript: history.go(-1)">Back</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTopicConfirmation">Delete topic</button>
+                        <button class="btn btn-primary" type="submit">@Localizer["SaveButton"]</button>
+                        <a class="btn btn-secondary" href="javascript: history.go(-1)">@Localizer["BackButton"]</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteTopicConfirmation">@Localizer["DeleteButton"]</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-8">
                 <div class="card bg-light border">
-                    <div class="card-header">Notes</div>
+                    <div class="card-header">@Localizer["NotesHeader"]</div>
                     <textarea id="mytextarea" class="bg-light" asp-for="Notes">Here you can type some notes</textarea>
                 </div>
             </div>
@@ -112,7 +117,7 @@
     <script src="~/js/tinymce.js"></script>
 
     <script>
-       //ASP.NET includes hidden input with false value at the end of the form for every checkbox (because browser dont POST unchecked checkboxes).
+        //ASP.NET includes hidden input with false value at the end of the form for every checkbox (because browser dont POST unchecked checkboxes).
         //This function needs to be called before any add date or delete date action to clear hidden inputs.
         //They will be recreated by renumerateForm()
         function clearHiddenInputsForCheckboxes() {
@@ -124,8 +129,6 @@
         function renumerateForm() {
             var newId = 0;
 
-            
-
             $(".repeat-date").each(function () {
                 var oldId = Number($(this).attr("id"));
                 $(this).attr("id", newId);
@@ -136,7 +139,7 @@
                 var oldData = $("input[type='checkbox']", this).attr("name");
                 $("input[type='checkbox']", this).attr("name", oldData.replace(oldId, newId));
 
-                
+
                 $("form").append(`<input type='hidden' name='${oldData.replace(oldId, newId)}' value='false'/>`);
                 //var oldData = $("input[type='hidden']","form").last().attr("id");
                 //$("input[type='hidden']", "form").last().attr("id", oldData.replace(oldId, newId));
@@ -170,13 +173,15 @@
         $("document").ready(function () {
             $(".add-repeat-date").click(function () {
                 clearHiddenInputsForCheckboxes();
-                var elem = $(".repeat-date").last().clone();
+                var elem = $(".repeat-date-hidden").last().clone();
 
-                $("input[type='checkbox']", elem).removeAttr("checked");
-                $("input[type='checkbox']", elem).attr("data-val", "false");
-                $("input[type='checkbox']", elem).attr("value", "false");
+                //$("input[type='checkbox']", elem).removeAttr("checked");
+                //$("input[type='checkbox']", elem).attr("data-val", "false");
+                //$("input[type='checkbox']", elem).attr("value", "false");
 
                 $("input[type='hidden']", elem).attr("value", "0");
+                $(elem).removeClass("repeat-date-hidden");
+                $(elem).addClass("repeat-date");
                 addDeleteEvent(elem);
                 $(this).before(elem);
                 renumerateForm();
@@ -195,3 +200,17 @@
     <script src="https://cdn.tiny.cloud/1/1sb38u376a8ulm88ac0aab6gulkw3lx4avevpvcg3dglkqn0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 }
+
+<div class="input-group mb-3 repeat-date-hidden" id="0">
+    <div class="input-group-prepend">
+        <div class="input-group-text">
+            <input type="checkbox" data-val="true" data-val-required="The Repeated field is required." id="RepeatDates_0__Repeated" name="RepeatDates[0].Repeated" value="true">
+        </div>
+    </div>
+    <input type="datetime-local" class="form-control valid" data-val="true" data-val-required="The Date field is required." id="RepeatDates_0__Date" name="RepeatDates[0].Date" value="2020-05-22T12:00:00.0" aria-describedby="RepeatDates_0__Date-error" aria-invalid="false">
+    <input type="hidden" data-val="true" data-val-required="The Id field is required." id="RepeatDates_0__Id" name="RepeatDates[0].Id" value="172">
+
+    <div class="input-group-append delete-date-button">
+        <span class="input-group-text"><i class="fas fa-trash"></i></span>
+    </div>
+</div>

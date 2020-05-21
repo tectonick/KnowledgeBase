@@ -2,14 +2,14 @@
 @{
     ViewData["Title"] = "Subjects";
 }
-
+@inject IViewLocalizer Localizer
 <div class="text-center">
     <div class="row">
 
         <div class="col-sm-4 mb-3 mb-sm-0">
 
             <div class="card bg-light big-card">
-                <div class="card-header">Help</div>
+                <div class="card-header">@Localizer["HelpHeader"]</div>
 
                 <div class="card-body">
                     <p>Lorem ipsum</p>
@@ -21,13 +21,14 @@
 
         <div class="col-sm-8">
             <div class="card bg-light">
-                <div class="card-header"><span class="absolute-center"> Your subjects </span>
-                
+                <div class="card-header">
+                    <span class="absolute-center">@Localizer["SubjectsHeader"]</span>
+
                     <a class="float-right add-button" asp-controller="Subjects" asp-action="CreateSubject">
-                        Add
+                        @Localizer["AddSubjectButton"]
                         <i class="fas fa-plus-square fa-lg"></i>
                     </a>
-                
+
                 </div>
 
                 <div class="row justify-content-center p-3">

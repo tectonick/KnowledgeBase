@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,6 +14,7 @@
     <link rel="stylesheet" href="~/css/global.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    @*<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">*@
     @RenderSection("HeadScripts", required: false)
 </head>
 <body>
@@ -27,17 +30,17 @@
                 <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Subjects" asp-action="Index">Subjects</a>
+                            <a class="nav-link" asp-area="" asp-controller="Subjects" asp-action="Index">@Localizer["Subjects"]</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 @await Component.InvokeAsync("ReviewCounter")
 
-                                <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
+                                <a class="nav-link" asp-area="" asp-controller="Review" asp-action="Index">@Localizer["Review"]</a>
 
                             </li>
 
@@ -52,11 +55,11 @@
                                 <li class="nav-item">
                                     <div class="dropdown">
                                         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Admin
+                                            @Localizer["Admin"]
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" asp-controller="Users" asp-action="Index">Users</a>
-                                            <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Roles</a>
+                                            <a class="dropdown-item" asp-controller="Users" asp-action="Index">@Localizer["Users"]</a>
+                                            <a class="dropdown-item" asp-controller="Roles" asp-action="Index">@Localizer["Roles"]</a>
                                         </div>
                                     </div>
                                 </li>
@@ -64,20 +67,20 @@
                             }
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Profile">Profile</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Profile">@Localizer["Profile"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">@Localizer["Logout"]</a>
                             </li>
 
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
                             </li>
                         }
                     </ul>
@@ -107,7 +110,20 @@
 
     <footer class="border-top footer">
         <div class="container">
+
+
             <small>&copy; 2020 - KnowledgeBase</small>
+            <a class="btn btn-secondary float-right"
+               asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
+               asp-route-culture="ru"
+               asp-controller="Home"
+               asp-action="SetLanguage">Ru</a>
+            <a class="btn btn-secondary float-right"
+               asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
+               asp-route-culture="en"
+               asp-controller="Home"
+               asp-action="SetLanguage">En</a>
+
         </div>
     </footer>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
