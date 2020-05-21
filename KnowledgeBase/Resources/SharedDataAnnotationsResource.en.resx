@@ -117,10 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WelcomeHeader" xml:space="preserve">
-    <value>Добро пожаловать</value>
+  <data name="BigDescription" xml:space="preserve">
+    <value>Description is too big</value>
   </data>
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>Привет </value>
+  <data name="BigName" xml:space="preserve">
+    <value>Name is too big</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LearnedDate" xml:space="preserve">
+    <value>Date learned</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NextDate" xml:space="preserve">
+    <value>Next review</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="RepeatDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="RequiredEmail" xml:space="preserve">
+    <value>Email cannot be empty</value>
+  </data>
+  <data name="RequiredName" xml:space="preserve">
+    <value>Name cannot be empty</value>
+  </data>
+  <data name="RequiredConfirmPassword" xml:space="preserve">
+    <value>Password cannot be empty</value>
+  </data>
+  <data name="RequiredPassword" xml:space="preserve">
+    <value>Password cannot be empty</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="NotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="MinimumSymbols" xml:space="preserve">
+    <value>Minimum password length if 8 symbols</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
   </data>
 </root>

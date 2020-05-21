@@ -8,19 +8,19 @@ namespace KnowledgeBase.ViewModels
         
 
         [Required]
-        [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
+        [Compare("NewPassword", ErrorMessage = "NotMatch")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "ConfirmPassword")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "NewPassword")]
         public string NewPassword { get; set; }
 
         
         [DataType(DataType.Password)]
-        [Display(Name = "Old password")]
+        [Display(Name = "OldPassword")]
         public string OldPassword { get; set; }
     }
 

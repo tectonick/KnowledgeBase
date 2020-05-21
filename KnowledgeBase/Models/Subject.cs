@@ -9,8 +9,10 @@ namespace KnowledgeBase.Models
         public int Id { get; set; }
 
         public string UserId { get; set; }
-        [Required(ErrorMessage ="Name cannot be empty")]
-        [StringLength(100, ErrorMessage = "Name is too big")]
+
+        [Display(Name = "Name")]
+        [Required(ErrorMessage ="RequiredName")]
+        [StringLength(100, ErrorMessage = "BigName")]
         public string Name { get; set; }
 
         public void AddTopic(Topic newTopic)

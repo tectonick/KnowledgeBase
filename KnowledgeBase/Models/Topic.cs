@@ -10,7 +10,7 @@ namespace KnowledgeBase.Models
 
     public class Topic : IUserObject
     {
-
+        [Display(Name = "RepeatDate")]
         public List<DateModel> RepeatDates { get; set; }
 
         public Topic()
@@ -38,23 +38,27 @@ namespace KnowledgeBase.Models
         public int SubjectId { get; set; }
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Name cannot be empty")]
-        [StringLength(50, ErrorMessage ="Name is too big")]
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "RequiredName")]
+        [StringLength(50, ErrorMessage = "BigName")]
         public string Name { get; set; }
 
-        [StringLength(400, ErrorMessage = "Description is too big")]
+        [StringLength(400, ErrorMessage = "BigDescription")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
 
-       // [StringLength(10000, ErrorMessage = "Notes are too big")]
+        // [StringLength(10000, ErrorMessage = "Notes are too big")]
+        [Display(Name = "Notes")]
         public string Notes { get; set; }
 
         [Required]
-        [Display(Name = "First time learned")]
+        [Display(Name = "LearnedDate")]
         [DataType(DataType.Date)]
         public DateTime DateLearned { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "NextDate")]
         public DateTime NextRepeat
         {
             get{

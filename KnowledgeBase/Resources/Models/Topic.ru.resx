@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WelcomeHeader" xml:space="preserve">
-    <value>Добро пожаловать</value>
+  <data name="BigDescription" xml:space="preserve">
+    <value>Слишком длинное описание</value>
   </data>
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>Привет </value>
+  <data name="BigName" xml:space="preserve">
+    <value>Слишком длинное имя</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="LearnedDate" xml:space="preserve">
+    <value>Изучено</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NextDate" xml:space="preserve">
+    <value>Следующее повторение</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Заметки</value>
+  </data>
+  <data name="RepeatDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="RequiredName" xml:space="preserve">
+    <value>Название не может быть пусто</value>
   </data>
 </root>

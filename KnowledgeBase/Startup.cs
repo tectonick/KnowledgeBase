@@ -37,7 +37,13 @@ namespace KnowledgeBase
         {
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews().AddMvcLocalization();
+            services.AddControllersWithViews().AddViewLocalization().AddDataAnnotationsLocalization(options => {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    factory.Create(typeof(SharedDataAnnotationsResource));
+            });
+
+
+
 
             //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
             //services.AddSingleton<ITopicRepository, MemoryTopicRepository>();

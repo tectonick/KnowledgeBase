@@ -113,16 +113,24 @@
 
 
             <small>&copy; 2020 - KnowledgeBase</small>
-            <a class="btn btn-secondary float-right"
-               asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
-               asp-route-culture="ru"
-               asp-controller="Home"
-               asp-action="SetLanguage">Ru</a>
-            <a class="btn btn-secondary float-right"
-               asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
-               asp-route-culture="en"
-               asp-controller="Home"
-               asp-action="SetLanguage">En</a>
+            <div class="float-right mt-0">
+                <i class="fas fa-globe fa-lg mr-1" style="vertical-align: middle;"></i>
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-light"
+                       asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
+                       asp-route-culture="ru"
+                       asp-controller="Home"
+                       asp-action="SetLanguage">Ru</a>
+                    <a class="btn btn-sm btn-light"
+                       asp-route-returnUrl=@(Context.Request.Path+Context.Request.QueryString)
+                       asp-route-culture="en"
+                       asp-controller="Home"
+                       asp-action="SetLanguage">En</a>
+                </div>
+            </div>
+            
+
+            
 
         </div>
     </footer>
