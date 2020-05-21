@@ -5,6 +5,7 @@
 a:hover {
     text-decoration: none;
     color: orange;
+    transition-duration:0.2s;
 }
 
 .btn-primary {
@@ -31,13 +32,43 @@ a:hover {
     box-shadow: none !important;
 }
 
+
+.btn-danger:hover {
+    background-color: #ed7c7c !important;
+    border-color: #ed7c7c !important;
+    box-shadow: none !important;
+}
+
+.btn-primary:hover {
+    background-color: #ffc520 !important;
+    border-color: #ffc520 !important;
+    box-shadow: none !important;
+}
+
+.btn-secondary:hover {
+    background-color: #6f7d95 !important;
+    border-color: #6f7d95 !important;
+    box-shadow: none !important;
+}
+
+
+
 .btn-light {
     background-color: #EEEEEE !important;
 }
 
-    .btn-light:hover {
-        background-color: #FFFFFF !important;
-    }
+.btn-light:hover {
+    background-color: #FFFFFF !important;
+}
+
+/*Fix for calendar buttons*/
+.fc-list-item-title a[href]:hover {
+    text-decoration: none !important;
+}
+
+
+
+
 
 .card-header {
     background-color: #4f5d75 !important;
@@ -67,6 +98,16 @@ a:hover {
     max-width: 24rem !important;
     min-width: 20rem !important;
     border-radius: 3px 3px 0px 0px !important;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05) !important;
+}
+
+.small-card:hover {
+    box-shadow: 0 0 8px rgba(0,0,0,0.1) !important;
+    transition-duration:0.5s;
+}
+
+.card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .add-button {
@@ -77,8 +118,10 @@ a:hover {
 
 .add-button:hover {
     color: orange;
+    text-decoration:none;
     z-index: 1;
     position: relative;
+    transition-duration:0.2s;
 }
 
 .small-card .btn, .big-card .btn {

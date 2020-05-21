@@ -40,7 +40,10 @@ namespace KnowledgeBase.Controllers
             return View();
         }
 
+
+        
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var userId = _userManager.GetUserId(HttpContext.User);

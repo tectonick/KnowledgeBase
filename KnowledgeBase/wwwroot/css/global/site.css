@@ -43,6 +43,15 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
+header {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+footer {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
 main{
     margin-bottom:60px;
 }
@@ -102,6 +111,26 @@ body{
 .fa-google{
     color:indianred;
 }
+
+.fa-facebook:hover {
+    color: #5ed0ff;
+}
+
+.fa-vk:hover {
+    color: #a4d5fd;
+}
+
+.fa-google:hover {
+    color: #fd9c9c;
+}
+.fa-facebook, .fa-google, .fa-vk {
+    transition-duration:0.2s;
+}
+
+.external-button, .external-button:hover, .external-button:focus, .external-button:active{
+    box-shadow:none !important;
+}
+
 
 .repeat-date-hidden{
     display:none !important;

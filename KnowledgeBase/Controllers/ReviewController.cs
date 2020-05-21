@@ -1,6 +1,7 @@
 ﻿using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace KnowledgeBase.Controllers
 {
+    [Authorize]
     public class ReviewController : Controller
     {
         private readonly ITopicRepository _topicRepository;

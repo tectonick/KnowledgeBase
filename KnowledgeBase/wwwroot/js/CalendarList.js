@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // customize the button names,
         // otherwise they'd all just say "list"
         views: {
-            listMonth: { buttonText: 'list month' },
-            listYear: { buttonText: 'list year' },
+            listMonth: { buttonText: 'Month' },
+            listYear: { buttonText: 'Year' },
         },
 
         header: {
