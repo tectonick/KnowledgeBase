@@ -1,4 +1,5 @@
-﻿using KnowledgeBase.Models;
+﻿using KnowledgeBase.External;
+using KnowledgeBase.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;

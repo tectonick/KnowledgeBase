@@ -114,7 +114,9 @@
 {
     <partial name="_ValidationScriptsPartial" />
 
-    <script src="~/js/tinymce.js"></script>
+    @*<script src="~/js/tinymce.js"></script>*@
+
+    <partial name="_TinymceInitScript"/>
 
     <script>
         //ASP.NET includes hidden input with false value at the end of the form for every checkbox (because browser dont POST unchecked checkboxes).

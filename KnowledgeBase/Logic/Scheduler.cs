@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KnowledgeBase.Logic
 {
-    public class Scheduler : IScheduler
+    public class Scheduler
     {
         List<int> dayIntervals;
         public Scheduler()
@@ -17,8 +17,16 @@ namespace KnowledgeBase.Logic
         {
             dayIntervals = intervals;
         }
-        public void Schedule(Topic topic)
+        public void Schedule(Topic topic, string intervals=null)
         {
+            if (intervals != null)
+            {
+                dayIntervals = new List<int>();
+                foreach (var numstr in intervals.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    dayIntervals.Add(int.Parse(numstr));
+                }
+            }
             DateTime learned = topic.DateLearned;
             foreach (var dayInterval in dayIntervals)
             {

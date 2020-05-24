@@ -63,7 +63,6 @@ namespace KnowledgeBase.Controllers
             else
             {
                 ModelState.AddModelError("Password", "Incorrect Password");
-                ProfileUserViewModel profile = new ProfileUserViewModel() { Email = user.Email };
                 return RedirectToAction("Profile", "Account");
             }
         }
@@ -75,30 +74,29 @@ namespace KnowledgeBase.Controllers
         {
             var userId = _userManager.GetUserId(HttpContext.User);
             User user = await _userManager.FindByIdAsync(userId);
-            ProfileUserViewModel profile = new ProfileUserViewModel() { Email = user.Email };
+            ProfileUserViewModel profile = new ProfileUserViewModel() { Email = user.Email, RepeatIntervals = user.RepeatIntervals };
             return View(profile);
         }
 
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUserViewModel profile)
         {
-
-            var userId = _userManager.GetUserId(HttpContext.User);
-            User user = await _userManager.FindByIdAsync(userId);
-            user.Email = profile.Email;
-            user.UserName = profile.Email;
-            var result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Profile", "Account");
-            }
-            else
-            {
-                foreach (var error in result.Errors)
+                var userId = _userManager.GetUserId(HttpContext.User);
+                User user = await _userManager.FindByIdAsync(userId);
+                user.Email = profile.Email;
+                user.UserName = profile.Email;
+                user.RepeatIntervals = profile.RepeatIntervals;
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-            }
+            }            
             return View(profile);
         }
 

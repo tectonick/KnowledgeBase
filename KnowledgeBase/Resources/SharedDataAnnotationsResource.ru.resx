@@ -126,8 +126,14 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Повторите пароль</value>
   </data>
+  <data name="DefaultIntervals" xml:space="preserve">
+    <value>Дни повторения (по умолчанию)</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
+  </data>
+  <data name="IncorrectIntervals" xml:space="preserve">
+    <value>Некорректный формат дней повторений</value>
   </data>
   <data name="LearnedDate" xml:space="preserve">
     <value>Изучено</value>

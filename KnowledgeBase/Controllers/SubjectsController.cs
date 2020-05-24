@@ -16,12 +16,12 @@ namespace KnowledgeBase.Controllers
     [Authorize]
     public class SubjectsController : Controller
     {
-        private readonly IScheduler _scheduler;
+        private readonly Scheduler _scheduler;
         private readonly ISubjectRepository _subjectRepository;
         private readonly ITopicRepository _topicRepository;
         private readonly UserManager<User> _userManager;
 
-        public SubjectsController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, IScheduler scheduler, UserManager<User> userManager)
+        public SubjectsController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, Scheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
             _topicRepository = topicRepository;
@@ -64,7 +64,12 @@ namespace KnowledgeBase.Controllers
                 Topic newTopic = new Topic() { Name = "", DateLearned = DateTime.Now, SubjectId = subjectId.Value, UserId = _userManager.GetUserId(HttpContext.User) };
                 newTopic.DateLearned = newTopic.DateLearned.AddMilliseconds(-newTopic.DateLearned.Millisecond);
                 newTopic.DateLearned = newTopic.DateLearned.AddSeconds(-newTopic.DateLearned.Second);
-                _scheduler.Schedule(newTopic);
+
+
+
+                var userId = _userManager.GetUserId(HttpContext.User);
+                User user = await _userManager.FindByIdAsync(userId);
+                _scheduler.Schedule(newTopic, user.RepeatIntervals);
 
                 await _topicRepository.Add(newTopic);
                 return RedirectToAction(nameof(Topic), new { topicId = newTopic.Id });

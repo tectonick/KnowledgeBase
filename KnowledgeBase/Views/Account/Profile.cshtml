@@ -3,7 +3,7 @@
     ViewData["Title"] = "Profile";
 }
 @inject IViewLocalizer Localizer
-<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+<div class="card bg-light border mx-auto text-center" style="max-width: 32rem;">
     <div class="card-header">@Localizer["ProfileHeader"]</div>
     <div class="card-body">
 
@@ -15,6 +15,14 @@
                 </div>
                 <input type="text" asp-for="Email" class="form-control" placeholder="">
             </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" asp-for="RepeatIntervals"></label>
+                </div>
+                <input type="text" asp-for="RepeatIntervals" class="form-control" placeholder="1 5 25 120 730">
+            </div>
+
             <div>
                 <button class="btn btn-primary mx-auto" type="submit">@Localizer["SaveButton"]</button>
                 <a class="btn btn-danger mx-auto" asp-action="ChangePassword">@Localizer["ChangePasswordButton"]</a>

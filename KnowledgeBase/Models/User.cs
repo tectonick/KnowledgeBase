@@ -11,5 +11,10 @@ namespace KnowledgeBase.Models
         public List<Subject> Subjects;
         public List<Topic> Topics;
 
+        //"1 5 25 120 730"
+        [Display(Name = "DefaultIntervals")]
+        [DataType(DataType.Text)]
+        public string RepeatIntervals { get; set; }
+
     }
 }

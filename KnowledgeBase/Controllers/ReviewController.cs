@@ -16,10 +16,10 @@ namespace KnowledgeBase.Controllers
     {
         private readonly ITopicRepository _topicRepository;
         private readonly ISubjectRepository _subjectRepository;
-        private readonly IScheduler _scheduler;
+        private readonly Scheduler _scheduler;
         private readonly UserManager<User> _userManager;
 
-        public ReviewController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, IScheduler scheduler, UserManager<User> userManager)
+        public ReviewController(ISubjectRepository subjectRepository, ITopicRepository topicRepository, Scheduler scheduler, UserManager<User> userManager)
         {
             _subjectRepository = subjectRepository;
             _topicRepository = topicRepository;

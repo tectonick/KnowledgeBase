@@ -174,4 +174,10 @@
   <data name="OldPassword" xml:space="preserve">
     <value>Old password</value>
   </data>
+  <data name="DefaultIntervals" xml:space="preserve">
+    <value>Default review days</value>
+  </data>
+  <data name="IncorrectIntervals" xml:space="preserve">
+    <value>Cannot understand your intervals</value>
+  </data>
 </root>

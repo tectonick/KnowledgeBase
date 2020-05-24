@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using KnowledgeBase.External;
 using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
@@ -48,7 +49,7 @@ namespace KnowledgeBase
             //services.AddSingleton<ISubjectRepository, MemorySubjectRepository>();
             //services.AddSingleton<ITopicRepository, MemoryTopicRepository>();
 
-            services.AddSingleton<IScheduler, Scheduler>();
+            services.AddScoped<Scheduler>();
             
             services.AddScoped<ISubjectRepository, DbSubjectRepository>();
             services.AddScoped<ITopicRepository, DbTopicRepository>();
@@ -64,7 +65,7 @@ namespace KnowledgeBase
             }).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders(); ;
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+            //services.AddScoped<GoogleCalendarService>();
             services.AddAuthentication()
             .AddGoogle(options =>
             {
