@@ -41,7 +41,34 @@ namespace KnowledgeBase.Controllers
         }
 
 
-        
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteAccount(string password)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            User user = await _userManager.FindByIdAsync(userId);
+            if ((password != null) && (await _userManager.CheckPasswordAsync(user, password)))
+            {
+                await _signInManager.SignOutAsync();
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return View("Bye");
+                }
+                else
+                {
+                    return StatusCode(500);
+                }                
+            }
+            else
+            {
+                ModelState.AddModelError("Password", "Incorrect Password");
+                ProfileUserViewModel profile = new ProfileUserViewModel() { Email = user.Email };
+                return RedirectToAction("Profile", "Account");
+            }
+        }
+
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()

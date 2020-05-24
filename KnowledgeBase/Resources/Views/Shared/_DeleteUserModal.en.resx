@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangePasswordButton" xml:space="preserve">
-    <value>Сменить пароль</value>
+  <data name="CancelDeleteButton" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="DeleteAccountButton" xml:space="preserve">
-    <value>Удалить аккаунт</value>
+  <data name="ConfirmDeleteButton" xml:space="preserve">
+    <value>Delete account</value>
   </data>
-  <data name="ProfileHeader" xml:space="preserve">
-    <value>Профиль</value>
+  <data name="DeleteText" xml:space="preserve">
+    <value>Do you really want to delete your account? This action cannot be undone! Type your password to confirm.</value>
   </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Сохранить</value>
+  <data name="DeleteUserConfirmationHeader" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>Password</value>
   </data>
 </root>

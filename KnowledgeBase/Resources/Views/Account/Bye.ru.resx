@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangePasswordButton" xml:space="preserve">
-    <value>Сменить пароль</value>
+  <data name="ByeHeader" xml:space="preserve">
+    <value>Прощайте</value>
   </data>
-  <data name="DeleteAccountButton" xml:space="preserve">
-    <value>Удалить аккаунт</value>
-  </data>
-  <data name="ProfileHeader" xml:space="preserve">
-    <value>Профиль</value>
-  </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Сохранить</value>
+  <data name="ByeText" xml:space="preserve">
+    <value>Ваш аккаунт успешно удален. Мы будем скучать.</value>
   </data>
 </root>

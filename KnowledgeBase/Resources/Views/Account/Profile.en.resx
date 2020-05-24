@@ -120,6 +120,9 @@
   <data name="ChangePasswordButton" xml:space="preserve">
     <value>Change password</value>
   </data>
+  <data name="DeleteAccountButton" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
   <data name="ProfileHeader" xml:space="preserve">
     <value>Profile</value>
   </data>

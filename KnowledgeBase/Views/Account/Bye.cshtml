@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Bye";
+}
+
+@inject IViewLocalizer Localizer
+
+<div class="card bg-light border mx-auto text-center" style="max-width: 22rem;">
+    <div class="card-header">@Localizer["ByeHeader"]</div>
+    <div class="card-body">
+        <p>
+            @Localizer["ByeText"]
+        </p>
+    </div>
+</div>
