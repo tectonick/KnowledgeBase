@@ -50,7 +50,6 @@
 
                 },
                 eventMouseLeave: function (info) {
-                    //$(".fc-list-item-title", info.el).remove(".cal-hover-btn");
                     $(".cal-hover-btn", info.el).remove();
                 },
                 // customize the button names,
@@ -70,46 +69,29 @@
             calendar.render();
 
 
-
-            var request = new XMLHttpRequest();
-            request.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-
-                    var topics = JSON.parse(this.responseText);
-
-                    for (var i = 0; i < topics.length; i++) {
-                        for (var j = 0; j < topics[i].repeatDates.length; j++) {
-                            var backColor = (topics[i].repeatDates[j].repeated) ? "green" : "orange";
-                            if ((Date.parse(topics[i].repeatDates[j].date) < Date.now()) && !(topics[i].repeatDates[j].repeated)) {
-                                backColor = "red";
-                            }
-                            calendar.addEvent({
-                                title: topics[i].name,
-                                id: topics[i].id,
-                                start: topics[i].repeatDates[j].date,
-                                //url: './Subjects/Topic?topicId=' + topics[i].id,
-                                isrepeated: (topics[i].repeatDates[j].repeated) ? true : false,
-                                backgroundColor: backColor,
-
-
-                            });
+            $.getJSON('/api/GetTopics', function (topics) {
+                for (var i = 0; i < topics.length; i++) {
+                    for (var j = 0; j < topics[i].repeatDates.length; j++) {
+                        //Setting colors for events: green - reviewed, orange - to review, red - forgoten to review
+                        var backColor = (topics[i].repeatDates[j].repeated) ? "green" : "orange";
+                        if ((Date.parse(topics[i].repeatDates[j].date) < Date.now()) && !(topics[i].repeatDates[j].repeated)) {
+                            backColor = "red";
                         }
-
+                        calendar.addEvent({
+                            title: topics[i].name,
+                            id: topics[i].id,
+                            start: topics[i].repeatDates[j].date,
+                            isrepeated: (topics[i].repeatDates[j].repeated) ? true : false,
+                            backgroundColor: backColor,
+                        });
                     }
-                    calendar.render();
                 }
-            };
-
-            request.open('GET', '/api/GetTopics', true);
-            request.send(null);
+                calendar.render();
+            });
 
         });
 
 
 </script>
 
-
-
-
-    @*<script src="~/js/CalendarList.js"></script>*@
 </div>

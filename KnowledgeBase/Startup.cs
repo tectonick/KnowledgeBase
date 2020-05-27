@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using KnowledgeBase.External;
 using KnowledgeBase.Logic;
 using KnowledgeBase.Models;
 using KnowledgeBase.Repositories;
@@ -36,8 +35,11 @@ namespace KnowledgeBase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<MyDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDbContext<MyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
             services.AddControllersWithViews().AddViewLocalization().AddDataAnnotationsLocalization(options => {
                 options.DataAnnotationLocalizerProvider = (type, factory) =>
                     factory.Create(typeof(SharedDataAnnotationsResource));
@@ -72,8 +74,10 @@ namespace KnowledgeBase
                 IConfigurationSection googleAuthNSection =
                     Configuration.GetSection("Authentication:Google");
 
-                options.ClientId = googleAuthNSection["ClientId"];
-                options.ClientSecret = googleAuthNSection["ClientSecret"];
+                //options.ClientId = googleAuthNSection["ClientId"];
+                //options.ClientSecret = googleAuthNSection["ClientSecret"];
+                options.ClientId = "125239720942-nvrg304ch9tamo53b7dtubc84sqj4nbr.apps.googleusercontent.com";
+                options.ClientSecret = "1SR-US22XtxFEIuJyI2xxGTq";
 
                 options.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
                 options.ClaimActions.Clear();
@@ -85,9 +89,10 @@ namespace KnowledgeBase
                 options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
             }).AddVkontakte(options =>
             {
-                options.ClientId = Configuration["Authentication:Vkontakte:ClientId"];
-                options.ClientSecret = Configuration["Authentication:Vkontakte:ClientSecret"];
-
+                //options.ClientId = Configuration["Authentication:Vkontakte:ClientId"];
+                //options.ClientSecret = Configuration["Authentication:Vkontakte:ClientSecret"];
+                options.ClientId = "7476337";
+                options.ClientSecret = "WB31Yrq59s4FmIMe04Co";
 
                 // Request for permissions https://vk.com/dev/permissions?f=1.%20Access%20Permissions%20for%20User%20Token
                 options.Scope.Add("email");
@@ -106,8 +111,10 @@ namespace KnowledgeBase
                 options.ClaimActions.MapJsonKey(ClaimTypes.Surname, "last_name");
             }).AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                //facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                //facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                facebookOptions.AppId = "276158683513084";
+                facebookOptions.AppSecret = "2b8d0e5604f441f4da5146c54b0834db";
             });
 
 

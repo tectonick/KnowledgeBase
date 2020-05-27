@@ -29,12 +29,8 @@
 
 
 <div class="text-center">
-    <form method="post" id="save-theme">
-
-
-
+    <form method="post" id="edit-topic-form">
         <div class="row">
-
             <div class="col-md-6 col-lg-5 col-xl-4 mb-3">
                 <div class="card bg-light big-card">
                     <div class="card-header detail">@Localizer["TopicHeader"]</div>
@@ -65,7 +61,7 @@
                     <div class="card-header">
                         @Localizer["ReviewDatesHeader"]
                     </div>
-                    <div class="card-body">
+                    <div class="card-body repeat-dates">
                         @if (Model.RepeatDates.Count > 0)
                         {
 
@@ -123,52 +119,38 @@
         //This function needs to be called before any add date or delete date action to clear hidden inputs.
         //They will be recreated by renumerateForm()
         function clearHiddenInputsForCheckboxes() {
-            $(".repeat-date").each(function () {
-                $("input[type='hidden']", "form").last().remove();
-            });
+            var form = $("#edit-topic-form");
+            for (var i = 0; i < $(".repeat-date").length; i++) {
+                $("input[type='hidden']", form).last().remove();
+            }
         }
 
         function renumerateForm() {
             var newId = 0;
 
             $(".repeat-date").each(function () {
-                var oldId = Number($(this).attr("id"));
+                let oldId = Number($(this).attr("id"));
                 $(this).attr("id", newId);
 
+                let checkbox = $("input[type='checkbox']", this);
+                let checkboxId = $(checkbox).attr("id");                
+                let checkboxName = $(checkbox).attr("name");
+                $(checkbox).attr("id", checkboxId.replace(oldId, newId));
+                $(checkbox).attr("name", checkboxName.replace(oldId, newId));
+                $("#edit-topic-form").append(`<input type='hidden' name='${checkboxName.replace(oldId, newId)}' value='false'/>`);
 
-                var oldData = $("input[type='checkbox']", this).attr("id");
-                $("input[type='checkbox']", this).attr("id", oldData.replace(oldId, newId));
-                var oldData = $("input[type='checkbox']", this).attr("name");
-                $("input[type='checkbox']", this).attr("name", oldData.replace(oldId, newId));
+                let dateInput = $("input[type='datetime-local']", this);
+                let dateInputId = $(dateInput).attr("id");
+                let dateInputName = $(dateInput).attr("name");
+                $(dateInput).attr("id", dateInputId.replace(oldId, newId));
+                $(dateInput).attr("name", dateInputName.replace(oldId, newId));
 
-
-                $("form").append(`<input type='hidden' name='${oldData.replace(oldId, newId)}' value='false'/>`);
-                //var oldData = $("input[type='hidden']","form").last().attr("id");
-                //$("input[type='hidden']", "form").last().attr("id", oldData.replace(oldId, newId));
-                //var oldData = $("input[type='hidden']").last().attr("name");
-                //$("input[type='hidden']", "form").last().attr("name", oldData.replace(oldId, newId));
-
-
-                oldData = $("input[type='datetime-local']", this).attr("name");
-                $("input[type='datetime-local']", this).attr("name", oldData.replace(oldId, newId));
-
-                oldData = $("input[type='hidden']", this).attr("name");
-                $("input[type='hidden']", this).attr("name", oldData.replace(oldId, newId));
-
-                oldData = $("input[type='datetime-local']", this).attr("id");
-                $("input[type='datetime-local']", this).attr("id", oldData.replace(oldId, newId));
-
-                oldData = $("input[type='hidden']", this).attr("id");
-                $("input[type='hidden']", this).attr("id", oldData.replace(oldId, newId));
+                let hidden = $("input[type='hidden']", this);
+                let hiddenId = $(hidden).attr("id");
+                let hiddenName = $(hidden).attr("name");
+                $(hidden).attr("id", hiddenId.replace(oldId, newId));
+                $(hidden).attr("name", hiddenName.replace(oldId, newId));
                 newId++;
-            });
-        }
-
-        function addDeleteEvent(elem) {
-            $(".delete-date-button", elem).click(function () {
-                clearHiddenInputsForCheckboxes();
-                $(elem).remove();
-                renumerateForm();
             });
         }
 
@@ -177,21 +159,18 @@
                 clearHiddenInputsForCheckboxes();
                 var elem = $(".repeat-date-hidden").last().clone();
 
-                //$("input[type='checkbox']", elem).removeAttr("checked");
-                //$("input[type='checkbox']", elem).attr("data-val", "false");
-                //$("input[type='checkbox']", elem).attr("value", "false");
-
                 $("input[type='hidden']", elem).attr("value", "0");
                 $(elem).removeClass("repeat-date-hidden");
                 $(elem).addClass("repeat-date");
-                addDeleteEvent(elem);
                 $(this).before(elem);
                 renumerateForm();
             });
 
-            $(".repeat-date").each(function () {
-                addDeleteEvent(this);
-            })
+            $(".repeat-dates").on("click", ".delete-date-button", function () {
+                clearHiddenInputsForCheckboxes();
+                $(this).parent().remove();
+                renumerateForm();
+            });           
 
         });
     </script>
@@ -203,6 +182,7 @@
 
 }
 
+<!--Template for repeatdate to add with js-->
 <div class="input-group mb-3 repeat-date-hidden" id="0">
     <div class="input-group-prepend">
         <div class="input-group-text">
